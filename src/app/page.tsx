@@ -9,53 +9,55 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import NavBar from "@/components/global/NavBar";
+import HeroBackground from "../assets/images/homepage/hero-home-img@2x.jpg";
 
 export default function Home() {
   const theme = useTheme();
   return (
     <main>
-      <Box
-        display={"flex"}
-        width={"100%"}
-        height={"80px"}
-        justifyContent={"center"}
-        alignContent={"center"}
-        padding={2}
-      >
-        <ButtonBase
+      <NavBar />
+      <Box sx={{ position: "relative", width: "100vw", height: "83vh" }}>
+        <Image
+          src={HeroBackground}
+          alt="CapsuleHero"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+        />
+        <Box
+          display={"flex"}
+          height={"100%"}
+          flexDirection={"column"}
+          justifyContent={"end"}
+          width={"50%"}
           sx={{
-            display: "flex",
-            alignItems: "center",
+            position: "absolute",
+            paddingX: 5,
+            paddingBottom: 2,
           }}
         >
-          <Stack flexDirection={"row"} height={"100%"}>
-            <Box
-              width={"20px"}
-              bgcolor={theme.palette.primary.main}
-              sx={{
-                clipPath: "polygon(0 20%, 100% 0, 100% 100%, 0 80%)",
-              }}
-            />
-            <Box
-              display={"flex"}
-              width={"100%"}
-              height={"100%"}
-              bgcolor={theme.palette.primary.main}
-              justifyContent={"center"}
-              alignItems={"center"}
-              paddingX={1}
+          <Stack direction={"row"} spacing={1}>
+            <Typography
+              variant={"h5"}
+              color={theme.palette.CtColorScheme.white}
             >
-              <Typography variant="button">Book Your Stay</Typography>
-            </Box>
-            <Box
-              width={"20px"}
-              bgcolor={theme.palette.primary.main}
-              sx={{
-                clipPath: "polygon(0 0, 100% 20%, 100% 80%, 0 100%)",
-              }}
-            />
+              Airport Hotel
+            </Typography>
+            <Typography variant="h5" color={theme.palette.primary.main}>
+              /
+            </Typography>
+            <Typography
+              variant={"h5"}
+              color={theme.palette.CtColorScheme.white}
+            >
+              A Short Stay at KLIA
+            </Typography>
           </Stack>
-        </ButtonBase>
+          <Typography variant="body1" color={theme.palette.CtColorScheme.white}>
+            Refresh, Recharge, Take Off.
+          </Typography>
+        </Box>
       </Box>
     </main>
   );
