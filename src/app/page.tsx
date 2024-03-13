@@ -12,6 +12,7 @@ import {
 import NavBar from "@/components/global/NavBar";
 import HeroSection from "@/components/Homepage/HeroSection";
 import CTIntroduction from "@/components/Homepage/CTIntroduction";
+import HotelsAndLocation from "@/components/Homepage/HotelsAndLocation";
 
 export default function Home() {
   const theme = useTheme();
@@ -21,6 +22,7 @@ export default function Home() {
         <NavBar />
         <HeroSection />
         <CTIntroduction />
+        <HotelsAndLocation />
       </Box>
     </main>
   );
