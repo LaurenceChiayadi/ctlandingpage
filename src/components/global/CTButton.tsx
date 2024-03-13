@@ -8,7 +8,13 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-const CTButton = () => {
+type ButtonVariant = "primary" | "secondary";
+
+const CTButton = (props: {
+  text: string;
+  onClick: VoidFunction;
+  variant: ButtonVariant;
+}) => {
   const theme = useTheme();
 
   const [hovered, setHovered] = useState(true);
@@ -21,6 +27,7 @@ const CTButton = () => {
     <ButtonBase
       onMouseEnter={handleToggle}
       onMouseLeave={handleToggle}
+      onClick={props.onClick}
       sx={{
         display: "flex",
         alignItems: "center",
@@ -35,14 +42,16 @@ const CTButton = () => {
       >
         <Box
           display="flex"
-          width="10rem"
           height="100%"
           justifyContent="center"
           alignItems="center"
-          paddingX={1}
+          paddingX={3}
           sx={{
             position: "relative",
-            bgcolor: "transparent",
+            bgcolor:
+              props.variant === "primary"
+                ? "transparent"
+                : theme.palette.CtColorScheme.neon200,
             clipPath:
               "polygon(5% 0%, 95% 0%, 100% 15%, 100% 90%, 95% 100%, 5% 100%, 0% 85%, 0% 15%);",
             transition: "clip-path 0.3s ease",
@@ -60,8 +69,12 @@ const CTButton = () => {
             },
           }}
         >
-          <Typography variant="button" color={"white"}>
-            Book Your Stay
+          <Typography
+            variant="button"
+            color={hovered && props.variant === "primary" ? "white" : "black"}
+            noWrap
+          >
+            {props.text}
           </Typography>
         </Box>
       </Collapse>
@@ -73,25 +86,26 @@ const CTButton = () => {
       >
         <Box
           display="flex"
-          width="10rem"
           height="100%"
           justifyContent="center"
           alignItems="center"
-          paddingX={1}
+          paddingX={3}
           border={0}
           sx={{
             position: "relative",
-            bgcolor: theme.palette.CtColorScheme.neon200,
+            bgcolor:
+              props.variant === "primary"
+                ? theme.palette.CtColorScheme.neon200
+                : "transparent",
+            border: "1px solid", // Adjust border as needed
+            borderColor: theme.palette.CtColorScheme.neon200,
             clipPath:
               "polygon(5% 0%, 95% 0%, 100% 15%, 100% 90%, 95% 100%, 5% 100%, 0% 85%, 0% 15%);",
             transition: "clip-path 0.3s ease",
           }}
         >
-          <Typography
-            variant="button"
-            color={hovered ? "black" : "transparent"}
-          >
-            Book Your Stay
+          <Typography variant="button" color={"black"} noWrap>
+            {props.text}
           </Typography>
         </Box>
       </Collapse>

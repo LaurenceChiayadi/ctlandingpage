@@ -38,7 +38,7 @@ const NavBar = () => {
       </Box>
       <Stack direction={"row"} spacing={3} width={"33%"} justifyContent={"end"}>
         <Image src={AccountIcon} alt="Capsule-Account-Icon" />
-        <CTButton />
+        <CTButton onClick={() => {}} text="BOOK YOUR STAY" variant="primary" />
       </Stack>
     </Box>
   );
