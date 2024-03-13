@@ -118,7 +118,15 @@ const theme = createTheme({
       fontSize: "0.875rem",
       color: "#1A1A1A",
     },
-
+    body1: {
+      fontSize: "5.625rem",
+      color: "#1A1A1A",
+      fontWeight: 500,
+    },
+    body2: {
+      fontSize: "4.5rem",
+      color: "#1A1A1A",
+    },
     caption: {
       fontSize: "0.75rem",
       fontWeight: 400,
