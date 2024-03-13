@@ -12,6 +12,12 @@ import {
 import NavBar from "@/components/global/NavBar";
 import HeroBackground from "../assets/images/homepage/hero-home-img@2x.jpg";
 
+const textContents = [
+  { text: "Airport Hotel" },
+  { text: "A Short Stay at KLIA" },
+  { text: "Refresh, Recharge, Take Off." },
+];
+
 export default function Home() {
   const theme = useTheme();
   return (
@@ -42,7 +48,7 @@ export default function Home() {
               variant={"h5"}
               color={theme.palette.CtColorScheme.white}
             >
-              Airport Hotel
+              {textContents[0].text}
             </Typography>
             <Typography variant="h5" color={theme.palette.primary.main}>
               /
@@ -51,11 +57,11 @@ export default function Home() {
               variant={"h5"}
               color={theme.palette.CtColorScheme.white}
             >
-              A Short Stay at KLIA
+              {textContents[1].text}
             </Typography>
           </Stack>
           <Typography variant="body1" color={theme.palette.CtColorScheme.white}>
-            Refresh, Recharge, Take Off.
+            {textContents[2].text}
           </Typography>
         </Box>
       </Box>
