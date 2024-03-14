@@ -17,6 +17,8 @@ import { useState } from "react";
 import EyeIcon from "./images/icon-view-black.svg";
 import LandSideImage from "./images/list-klia2-landside@2x.jpg";
 import MaxImage from "./images/list-klia2-max@2x.jpg";
+import IconArrowLeft from "@/assets/icons/general/btn-icon-arrow-left.svg";
+import LocationIcon from "@/assets/icons/general/icon-location-grey.svg";
 
 import OneHourIcon from "./images/icons/icon-hour-1.svg";
 import ThreeHourIcon from "./images/icons/icon-hour-3.svg";
@@ -263,7 +265,7 @@ const KLIA2Hotels = (props: {
           {props.hovered === data.title ? (
             <Box
               width="100%"
-              height="100%"
+              height="600px"
               display="flex"
               flexDirection={"column"}
               justifyContent="center"
@@ -376,6 +378,35 @@ const KLIA2Hotels = (props: {
               )}
             </Box>
           )}
+          <Stack
+            direction={"row"}
+            width={"100%"}
+            justifyContent={"space-between"}
+            alignItems={"start"}
+            marginTop={3}
+          >
+            <Typography variant="h4" width={"50%"}>
+              {data.title}
+            </Typography>
+            <IconButton sx={{ transform: "scaleX(-1)" }}>
+              <Image
+                src={IconArrowLeft}
+                alt="arrow-left"
+                style={{ transform: "scaleX(-1)" }}
+              />
+            </IconButton>
+          </Stack>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            spacing={1}
+            marginTop={1}
+          >
+            <Image src={LocationIcon} alt="location-grey" />
+            <Typography color={theme.palette.CtColorScheme.grey300}>
+              {data.location}
+            </Typography>
+          </Stack>
         </Grid>
       ))}
     </Grid>
