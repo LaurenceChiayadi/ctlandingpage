@@ -36,6 +36,7 @@ import ShowerIcon from "./images/icons/icon-service-shower.svg";
 import ToileteriesIcon from "./images/icons/icon-service-dentalkit.svg";
 import SlippersIcon from "./images/icons/icon-service-slipper.svg";
 import DrinksIcon from "./images/icons/icon-service-drinks.svg";
+import HeaderTop from "../global/HeaderTop";
 
 enum featuresEnum {
   OneHourStay = "1h",
@@ -226,166 +227,172 @@ const HotelAndLocation = () => {
 
   return (
     <ContentWrapper>
-      <Stack
-        direction={"row"}
-        width={"100%"}
-        justifyContent={"space-between"}
-        alignItems={"end"}
-      >
-        <Typography variant="h2" width={"22%"}>
-          {textContent[0].title}
-        </Typography>
-        <Stack
-          direction={"row"}
-          alignItems={"center"}
-          spacing={2}
-          marginBottom={1}
-        >
-          <Button
-            onClick={() => setKLIA2Selected(false)}
-            sx={{ color: "black" }}
-          >
-            {textContent[1].title}
-            {KLIA2Selected && (
-              <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
-            )}
-          </Button>
-          <Typography variant="h5">/</Typography>
-          <Button onClick={() => setKLIA2Selected(true)} sx={{ color: "" }}>
-            {textContent[2].title}
-            {!KLIA2Selected && (
-              <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
-            )}
-          </Button>
-        </Stack>
-      </Stack>
+      <HeaderTop title={textContent[0].title}>
+        <Button onClick={() => setKLIA2Selected(false)} sx={{ color: "black" }}>
+          {textContent[1].title}
+          {KLIA2Selected && (
+            <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
+          )}
+        </Button>
+        <Typography variant="h5">/</Typography>
+        <Button onClick={() => setKLIA2Selected(true)} sx={{ color: "" }}>
+          {textContent[2].title}
+          {!KLIA2Selected && (
+            <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
+          )}
+        </Button>
+      </HeaderTop>
       {KLIA2Selected ? (
-        <Grid container direction={"row"} columnSpacing={3}>
-          {terminal2Hotels.map((data, index) => (
-            <Grid item key={index} xs={12} sm={12} md={4} lg={4} xl={4}>
-              {hovered === data.title ? (
-                <Box
-                  width="100%"
-                  height="100%"
-                  display="flex"
-                  flexDirection={"column"}
-                  justifyContent="center"
-                  alignItems="center"
-                  bgcolor={theme.palette.CtColorScheme.neon200}
-                  sx={{
-                    background: `linear-gradient(90deg, ${theme.palette.CtColorScheme.neon500} 0%,${theme.palette.CtColorScheme.neon200} 9%,${theme.palette.CtColorScheme.neon200} 91%, ${theme.palette.CtColorScheme.neon500} 100%)`,
-                    clipPath:
-                      "polygon(10% 0, 90% 0, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 10%)",
-                  }}
-                  onMouseOut={() => handleHoverImage("")}
-                >
-                  <Typography variant="h6" width={"60%"} textAlign={"center"}>
-                    {data.description}
-                  </Typography>
-                  <Box
-                    sx={{
-                      marginY: 4,
-                      width: "60%", // Ensures the divider stretches across the full width
-                    }}
-                  >
-                    <Divider
-                      sx={{
-                        color: theme.palette.CtColorScheme.grey400,
-                        borderBottomWidth: 2,
-                      }}
-                    />
-                  </Box>
-                  <Stack direction={"row"} spacing={2} marginBottom={1}>
-                    {data.features.map((feature) => {
-                      return (
-                        DurationIcons.duration(feature) !== "" && (
-                          <Stack direction={"row"} alignItems={"center"}>
-                            <Typography variant="h5" marginRight={"3px"}>
-                              {feature}
-                            </Typography>
-                            <Image
-                              src={DurationIcons.duration(feature)}
-                              alt="feature"
-                              width={20}
-                              height={20}
-                            />
-                          </Stack>
-                        )
-                      );
-                    })}
-                  </Stack>
-                  <Stack direction={"row"} spacing={2} marginBottom={1}>
-                    {data.features.map((feature) => {
-                      return (
-                        RoomsIcons.roomType(feature) !== "" && (
-                          <Image
-                            src={RoomsIcons.roomType(feature)}
-                            alt="feature"
-                            width={30}
-                            height={30}
-                          />
-                        )
-                      );
-                    })}
-                  </Stack>
-                  <Stack direction={"row"} spacing={2} marginBottom={1}>
-                    {data.features.map((feature) => {
-                      return (
-                        FeaturesIcons.features(feature) !== "" && (
-                          <Image
-                            src={FeaturesIcons.features(feature)}
-                            alt="feature"
-                            width={30}
-                            height={30}
-                          />
-                        )
-                      );
-                    })}
-                  </Stack>
-                </Box>
-              ) : (
-                <Box
-                  width={"100%"}
-                  height={"600px"}
-                  onMouseOver={() => handleHoverImage(data.title)}
-                >
-                  {typeof data.backgroundUrl === "string" ? (
-                    <video
-                      autoPlay
-                      loop
-                      muted
-                      style={
-                        {
-                          //   position: "absolute",
-                          // minWidth: "100%",
-                          // minHeight: "100%",
-                        }
-                      }
-                    >
-                      <source src={data.backgroundUrl} type="video/mp4" />
-                    </video>
-                  ) : (
-                    <Image
-                      src={data.backgroundUrl}
-                      alt={data.title}
-                      // width={30}
-                      // height={20}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  )}
-                </Box>
-              )}
-            </Grid>
-          ))}
-        </Grid>
+        <KLIA2Hotels hovered={hovered} handleHoverImage={handleHoverImage} />
       ) : (
-        <></>
+        <KLIA1Hotels hovered={hovered} handleHoverImage={handleHoverImage} />
       )}
     </ContentWrapper>
+  );
+};
+
+const KLIA2Hotels = (props: {
+  hovered: string;
+  handleHoverImage: (data: string) => void;
+}) => {
+  const theme = useTheme();
+  return (
+    <Grid container direction={"row"} columnSpacing={3}>
+      {terminal2Hotels.map((data, index) => (
+        <Grid item key={index} xs={12} sm={12} md={4} lg={4} xl={4}>
+          {props.hovered === data.title ? (
+            <Box
+              width="100%"
+              height="100%"
+              display="flex"
+              flexDirection={"column"}
+              justifyContent="center"
+              alignItems="center"
+              bgcolor={theme.palette.CtColorScheme.neon200}
+              sx={{
+                background: `linear-gradient(90deg, ${theme.palette.CtColorScheme.neon500} 0%,${theme.palette.CtColorScheme.neon200} 9%,${theme.palette.CtColorScheme.neon200} 91%, ${theme.palette.CtColorScheme.neon500} 100%)`,
+                clipPath:
+                  "polygon(10% 0, 90% 0, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 10%)",
+              }}
+              onMouseOut={() => props.handleHoverImage("")}
+            >
+              <Typography variant="h6" width={"60%"} textAlign={"center"}>
+                {data.description}
+              </Typography>
+              <Box
+                sx={{
+                  marginY: 4,
+                  width: "60%", // Ensures the divider stretches across the full width
+                }}
+              >
+                <Divider
+                  sx={{
+                    color: theme.palette.CtColorScheme.grey400,
+                    borderBottomWidth: 2,
+                  }}
+                />
+              </Box>
+              <Stack direction={"row"} spacing={2} marginBottom={1}>
+                {data.features.map((feature) => {
+                  return (
+                    DurationIcons.duration(feature) !== "" && (
+                      <Stack direction={"row"} alignItems={"center"}>
+                        <Typography variant="h5" marginRight={"3px"}>
+                          {feature}
+                        </Typography>
+                        <Image
+                          src={DurationIcons.duration(feature)}
+                          alt="feature"
+                          width={20}
+                          height={20}
+                        />
+                      </Stack>
+                    )
+                  );
+                })}
+              </Stack>
+              <Stack direction={"row"} spacing={2} marginBottom={1}>
+                {data.features.map((feature) => {
+                  return (
+                    RoomsIcons.roomType(feature) !== "" && (
+                      <Image
+                        src={RoomsIcons.roomType(feature)}
+                        alt="feature"
+                        width={30}
+                        height={30}
+                      />
+                    )
+                  );
+                })}
+              </Stack>
+              <Stack direction={"row"} spacing={2} marginBottom={1}>
+                {data.features.map((feature) => {
+                  return (
+                    FeaturesIcons.features(feature) !== "" && (
+                      <Image
+                        src={FeaturesIcons.features(feature)}
+                        alt="feature"
+                        width={30}
+                        height={30}
+                      />
+                    )
+                  );
+                })}
+              </Stack>
+            </Box>
+          ) : (
+            <Box
+              width={"100%"}
+              height={"600px"}
+              onMouseOver={() => props.handleHoverImage(data.title)}
+            >
+              {typeof data.backgroundUrl === "string" ? (
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  style={
+                    {
+                      //   position: "absolute",
+                      // minWidth: "100%",
+                      // minHeight: "100%",
+                    }
+                  }
+                >
+                  <source src={data.backgroundUrl} type="video/mp4" />
+                </video>
+              ) : (
+                <Image
+                  src={data.backgroundUrl}
+                  alt={data.title}
+                  // width={30}
+                  // height={20}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              )}
+            </Box>
+          )}
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
+
+const KLIA1Hotels = (props: {
+  hovered: string;
+  handleHoverImage: (data: string) => void;
+}) => {
+  const theme = useTheme();
+  return (
+    <Grid container direction={"row"} columnSpacing={3}>
+      {terminal1Hotels.map((data, index) => (
+        <Grid item key={index} xs={12} sm={12} md={4} lg={4} xl={4}></Grid>
+      ))}
+    </Grid>
   );
 };
 
