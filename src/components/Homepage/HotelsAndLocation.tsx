@@ -17,6 +17,9 @@ import { useState } from "react";
 import EyeIcon from "./images/icon-view-black.svg";
 import LandSideImage from "./images/list-klia2-landside@2x.jpg";
 import MaxImage from "./images/list-klia2-max@2x.jpg";
+import SleepLoungeRoomImage from "./images/list-klia1-landside@2x.jpg";
+import SleepLoungImage from "./images/list-klia1-landside2@2x.jpg";
+
 import IconArrowLeft from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import LocationIcon from "@/assets/icons/general/icon-location-grey.svg";
 
@@ -75,6 +78,10 @@ class DurationIcons {
         return SixHourIcon;
       case featuresEnum.TwelveHourStay:
         return TwelveHourIcon;
+      case featuresEnum.amMin3Hour:
+        return ThreeHourIcon;
+      case featuresEnum.pmMin6Hour:
+        return SixHourIcon;
       default:
         return "";
     }
@@ -129,24 +136,23 @@ const textContent = [
   { title: "KLIA Terminal 2" },
 ];
 
-const terminal1Hotels = [
-  {
-    title: "Capsule Transit Sleep Lounge",
-    location: "KLIA Terminal 1, Public Area",
-    description:
-      "Lorem ipsum dolor sit amet, consectetuer adipis cing elit, sed diam nonummy nibh euismod tinci dunt ut laoreet dolore.",
-    features: [
-      featuresEnum.amMin3Hour,
-      featuresEnum.pmMin6Hour,
-      featuresEnum.Single,
-      featuresEnum.Concierge,
-      featuresEnum.Wifi,
-      featuresEnum.Toileteries,
-      featuresEnum.Slippers,
-      featuresEnum.Drinks,
-    ],
-  },
-];
+const terminal1Hotels = {
+  title: "Capsule Transit Sleep Lounge",
+  location: "KLIA Terminal 1, Public Area",
+  backgroundUrl: SleepLoungeRoomImage,
+  description:
+    "Lorem ipsum dolor sit amet, consectetuer adipis cing elit, sed diam nonummy nibh euismod tinci dunt ut laoreet dolore.",
+  features: [
+    featuresEnum.amMin3Hour,
+    featuresEnum.pmMin6Hour,
+    featuresEnum.Single,
+    featuresEnum.Concierge,
+    featuresEnum.Wifi,
+    featuresEnum.Toileteries,
+    featuresEnum.Slippers,
+    featuresEnum.Drinks,
+  ],
+};
 
 const terminal2Hotels = [
   {
@@ -420,9 +426,151 @@ const KLIA1Hotels = (props: {
   const theme = useTheme();
   return (
     <Grid container direction={"row"} columnSpacing={3}>
-      {terminal1Hotels.map((data, index) => (
-        <Grid item key={index} xs={12} sm={12} md={4} lg={4} xl={4}></Grid>
-      ))}
+      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+        {props.hovered === terminal1Hotels.title ? (
+          <Box
+            width="100%"
+            height="600px"
+            display="flex"
+            flexDirection={"column"}
+            justifyContent="center"
+            alignItems="center"
+            bgcolor={theme.palette.CtColorScheme.neon200}
+            sx={{
+              background: `linear-gradient(90deg, ${theme.palette.CtColorScheme.neon500} 0%,${theme.palette.CtColorScheme.neon200} 9%,${theme.palette.CtColorScheme.neon200} 91%, ${theme.palette.CtColorScheme.neon500} 100%)`,
+              clipPath:
+                "polygon(10% 0, 90% 0, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 10%)",
+            }}
+            onMouseOut={() => props.handleHoverImage("")}
+          >
+            <Typography variant="h6" width={"60%"} textAlign={"center"}>
+              {terminal1Hotels.description}
+            </Typography>
+            <Box
+              sx={{
+                marginY: 4,
+                width: "60%", // Ensures the divider stretches across the full width
+              }}
+            >
+              <Divider
+                sx={{
+                  color: theme.palette.CtColorScheme.grey400,
+                  borderBottomWidth: 2,
+                }}
+              />
+            </Box>
+            <Stack direction={"row"} spacing={2} marginBottom={1}>
+              {terminal1Hotels.features.map((feature) => {
+                return (
+                  DurationIcons.duration(feature) !== "" && (
+                    <Stack direction={"row"} alignItems={"center"}>
+                      <Typography variant="h5" marginRight={"3px"}>
+                        {feature}
+                      </Typography>
+                      <Image
+                        src={DurationIcons.duration(feature)}
+                        alt="feature"
+                        width={20}
+                        height={20}
+                      />
+                    </Stack>
+                  )
+                );
+              })}
+            </Stack>
+            <Stack direction={"row"} spacing={2} marginBottom={1}>
+              {terminal1Hotels.features.map((feature) => {
+                return (
+                  RoomsIcons.roomType(feature) !== "" && (
+                    <Image
+                      src={RoomsIcons.roomType(feature)}
+                      alt="feature"
+                      width={30}
+                      height={30}
+                    />
+                  )
+                );
+              })}
+            </Stack>
+            <Stack direction={"row"} spacing={2} marginBottom={1}>
+              {terminal1Hotels.features.map((feature) => {
+                return (
+                  FeaturesIcons.features(feature) !== "" && (
+                    <Image
+                      src={FeaturesIcons.features(feature)}
+                      alt="feature"
+                      width={30}
+                      height={30}
+                    />
+                  )
+                );
+              })}
+            </Stack>
+          </Box>
+        ) : (
+          <Box
+            width={"100%"}
+            height={"600px"}
+            onMouseOver={() => props.handleHoverImage(terminal1Hotels.title)}
+          >
+            <Image
+              src={terminal1Hotels.backgroundUrl}
+              alt={terminal1Hotels.title}
+              // width={30}
+              // height={20}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          </Box>
+        )}
+        <Stack
+          direction={"row"}
+          width={"100%"}
+          justifyContent={"space-between"}
+          alignItems={"start"}
+          marginTop={3}
+        >
+          <Typography variant="h4" width={"50%"}>
+            {terminal1Hotels.title}
+          </Typography>
+          <IconButton sx={{ transform: "scaleX(-1)" }}>
+            <Image
+              src={IconArrowLeft}
+              alt="arrow-left"
+              style={{ transform: "scaleX(-1)" }}
+            />
+          </IconButton>
+        </Stack>
+        <Stack
+          direction={"row"}
+          alignItems={"center"}
+          spacing={1}
+          marginTop={1}
+        >
+          <Image src={LocationIcon} alt="location-grey" />
+          <Typography color={theme.palette.CtColorScheme.grey300}>
+            {terminal1Hotels.location}
+          </Typography>
+        </Stack>
+      </Grid>
+      <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+        <Box width={"100%"} height={"600px"}>
+          <Image
+            src={SleepLoungImage}
+            alt={"capsule-transit-sleep-lounge"}
+            // width={30}
+            // height={20}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </Box>
+      </Grid>
     </Grid>
   );
 };
