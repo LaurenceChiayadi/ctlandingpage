@@ -18,6 +18,7 @@ import HotelsAndLocation from "@/components/Homepage/HotelsAndLocation";
 import CTIconBlack from "@/assets/icons/general/icon-logo-ct-black.svg";
 import ContentWrapper from "@/components/global/ContentWrapper";
 import OTADivider from "@/components/Homepage/OTADivider";
+import CTDedication from "@/components/Homepage/CTDedication";
 
 export default function Home() {
   const theme = useTheme();
@@ -29,6 +30,7 @@ export default function Home() {
         <CTIntroduction />
         <HotelsAndLocation />
         <OTADivider />
+        <CTDedication />
       </Box>
     </main>
   );

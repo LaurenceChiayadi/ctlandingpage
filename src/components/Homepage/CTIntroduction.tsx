@@ -53,7 +53,13 @@ const CTIntroduction = () => {
           {textContents[3].text}
         </Typography>
       </Box>
-      <Stack direction={"row"} spacing={2} alignItems={"center"} marginY={10}>
+      <Stack
+        direction={"row"}
+        spacing={2}
+        alignItems={"center"}
+        marginTop={10}
+        marginBottom={"200px"}
+      >
         <CTButton
           onClick={handleKLIA1ButtonPress}
           text={textContents[4].text}
@@ -76,12 +82,12 @@ const CTIntroduction = () => {
           style={{
             position: "absolute",
             right: 100,
-            transform: "scale(1)",
+            // transform: "scale(1)",
             // marginRight: 30,
           }}
         />
       </Box>
-      <Grid container borderTop={1} marginTop={"100px"} direction={"row"}>
+      <Grid container borderTop={1} direction={"row"}>
         {gridContents.map((content, index) => (
           <Grid item key={index} xs={12} sm={12} md={6} lg={6} xl={6}>
             <Box
