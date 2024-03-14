@@ -46,7 +46,11 @@ const HeroSection = () => {
             {textContents[1].text}
           </Typography>
         </Stack>
-        <Typography variant="body1" color={theme.palette.CtColorScheme.white}>
+        <Typography
+          fontSize={"5.625rem"}
+          fontWeight={500}
+          color={theme.palette.CtColorScheme.white}
+        >
           {textContents[2].text}
         </Typography>
       </Box>

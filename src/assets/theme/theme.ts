@@ -122,9 +122,9 @@ const theme = createTheme({
       color: "#1A1A1A",
     },
     body1: {
-      fontSize: "5.625rem",
+      fontSize: "1rem",
       color: "#1A1A1A",
-      fontWeight: 500,
+      // fontWeight: 500,
     },
     body2: {
       fontSize: "4.5rem",
