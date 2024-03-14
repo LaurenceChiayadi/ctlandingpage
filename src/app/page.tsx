@@ -5,57 +5,32 @@ import {
   Box,
   Button,
   ButtonBase,
+  Grid,
   Stack,
   Typography,
   useTheme,
 } from "@mui/material";
+import NavBar from "@/components/global/NavBar";
+import HeroSection from "@/components/Homepage/HeroSection";
+import CTIntroduction from "@/components/Homepage/CTIntroduction";
+import HotelsAndLocation from "@/components/Homepage/HotelsAndLocation";
+
+import CTIconBlack from "@/assets/icons/general/icon-logo-ct-black.svg";
+import ContentWrapper from "@/components/global/ContentWrapper";
+import OTADivider from "@/components/Homepage/OTADivider";
+import CTDedication from "@/components/Homepage/CTDedication";
 
 export default function Home() {
   const theme = useTheme();
   return (
     <main>
-      <Box
-        display={"flex"}
-        width={"100%"}
-        height={"80px"}
-        justifyContent={"center"}
-        alignContent={"center"}
-        padding={2}
-      >
-        <ButtonBase
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Stack flexDirection={"row"} height={"100%"}>
-            <Box
-              width={"20px"}
-              bgcolor={theme.palette.primary.main}
-              sx={{
-                clipPath: "polygon(0 20%, 100% 0, 100% 100%, 0 80%)",
-              }}
-            />
-            <Box
-              display={"flex"}
-              width={"100%"}
-              height={"100%"}
-              bgcolor={theme.palette.primary.main}
-              justifyContent={"center"}
-              alignItems={"center"}
-              paddingX={1}
-            >
-              <Typography variant="button">Book Your Stay</Typography>
-            </Box>
-            <Box
-              width={"20px"}
-              bgcolor={theme.palette.primary.main}
-              sx={{
-                clipPath: "polygon(0 0, 100% 20%, 100% 80%, 0 100%)",
-              }}
-            />
-          </Stack>
-        </ButtonBase>
+      <Box display={"flex"} width={"99vw"} flexDirection={"column"}>
+        <NavBar />
+        <HeroSection />
+        <CTIntroduction />
+        <HotelsAndLocation />
+        <OTADivider />
+        <CTDedication />
       </Box>
     </main>
   );

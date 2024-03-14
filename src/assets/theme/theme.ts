@@ -105,6 +105,9 @@ const theme = createTheme({
     h5: {
       fontSize: "1.25rem",
       color: "#1A1A1A",
+      "@media (max-width: 768px)": {
+        fontSize: "1rem", // Adjust font size for mobile
+      },
     },
     h6: {
       fontSize: "1rem",
@@ -118,7 +121,19 @@ const theme = createTheme({
       fontSize: "0.875rem",
       color: "#1A1A1A",
     },
-
+    body1: {
+      fontSize: "1rem",
+      color: "#1A1A1A",
+      // fontWeight: 500,
+    },
+    body2: {
+      fontSize: "4.5rem",
+      color: "#1A1A1A",
+      fontWeight: 500,
+      "@media (max-width: 768px)": {
+        fontSize: "2rem", // Adjust font size for mobile
+      },
+    },
     caption: {
       fontSize: "0.75rem",
       fontWeight: 400,
