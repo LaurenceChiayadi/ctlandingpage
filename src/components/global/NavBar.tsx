@@ -17,7 +17,7 @@ const NavBar = () => {
       justifyContent={"space-between"}
       alignContent={"center"}
       paddingY={2}
-      paddingX={5}
+      paddingX={7}
       position={"fixed"}
       zIndex={2}
     >
