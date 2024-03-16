@@ -31,7 +31,7 @@ const HeroSection = () => {
         width={"50%"}
         sx={{
           position: "absolute",
-          paddingX: 5,
+          paddingX: 7,
           paddingBottom: 2,
         }}
       >

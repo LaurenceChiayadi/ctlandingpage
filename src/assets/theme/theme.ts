@@ -51,6 +51,7 @@ const theme = createTheme({
         root: {
           borderRadius: 0,
           boxShadow: "none",
+          textTransform: "none",
         },
       },
     },
