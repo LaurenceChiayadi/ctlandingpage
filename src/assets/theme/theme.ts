@@ -123,11 +123,13 @@ const theme = createTheme({
       color: "#1A1A1A",
     },
     body1: {
+      //Paragrapgh
       fontSize: "1rem",
       color: "#1A1A1A",
       // fontWeight: 500,
     },
     body2: {
+      //Display 2
       fontSize: "4.5rem",
       color: "#1A1A1A",
       fontWeight: 500,
