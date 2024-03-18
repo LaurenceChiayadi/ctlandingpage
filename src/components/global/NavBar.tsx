@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Stack } from "@mui/material";
+import { Box, Button, Icon, IconButton, Stack } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
@@ -6,8 +6,13 @@ import OpenDrawerIcon from "../../assets/icons/general/icon-menu.svg";
 import CTLogo from "../../assets/icons/general/Logo-CT.svg";
 import AccountIcon from "../../assets/icons/general/icon-account.svg";
 import CTButton from "./CTButton";
+import { useRouter } from "next/navigation";
 
 const NavBar = () => {
+  const router = useRouter();
+  const handleRouting = () => {
+    router.push("/klia-2");
+  };
   return (
     <Box
       display={"flex"}
@@ -30,11 +35,13 @@ const NavBar = () => {
             height={30}
           />
         </IconButton>
-        <Button>KLIA Terminal 1</Button>
-        <Button>KLIA Terminal 2</Button>
+        <Button onClick={() => router.push("/klia-2")}>KLIA Terminal 1</Button>
+        <Button onClick={() => router.push("/klia-2")}>KLIA Terminal 2</Button>
       </Stack>
       <Box display={"flex"} width={"33%"} justifyContent={"center"}>
-        <Image src={CTLogo} alt="CapsuleTransit-Logo" />
+        <IconButton onClick={() => router.push("/")}>
+          <Image src={CTLogo} alt="CapsuleTransit-Logo" />
+        </IconButton>
       </Box>
       <Stack direction={"row"} spacing={3} width={"33%"} justifyContent={"end"}>
         <Image src={AccountIcon} alt="Capsule-Account-Icon" />

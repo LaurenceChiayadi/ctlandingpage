@@ -26,7 +26,12 @@ export default function Home() {
   const theme = useTheme();
   return (
     <main>
-      <Box display={"flex"} width={"99vw"} flexDirection={"column"}>
+      <Box
+        display={"flex"}
+        width={"99vw"}
+        flexDirection={"column"}
+        sx={{ overflowX: "hidden" }}
+      >
         <NavBar />
         <HeroSection />
         <CTIntroduction />
