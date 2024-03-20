@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import LandsideImage from "./images/klia2-landside@2x.jpg";
 import IconArrowLeft from "@/assets/icons/general/btn-icon-arrow-left.svg";
-import HotelOverview from "../global/HotelOverview";
+import HotelOverview from "../global/hotel/HotelOverview";
 
 const headerContent = ["02", "/03", "Public Area"];
 

@@ -84,34 +84,34 @@ const theme = createTheme({
   typography: {
     fontFamily: `'IBM Plex Sans', sans-serif;`,
     h1: {
-      fontSize: "5rem",
+      fontSize: "5.625rem",
       fontWeight: 500,
       color: "#1A1A1a",
     },
     h2: {
-      fontSize: "3.75rem",
+      fontSize: "5rem",
       fontWeight: 500,
       color: "#1A1A1a",
     },
     h3: {
-      fontSize: "2.25rem",
+      fontSize: "3.75rem",
       fontWeight: 500,
       color: "#1A1A1a",
     },
     h4: {
-      fontSize: "2rem",
+      fontSize: "2.25rem",
       fontWeight: 500,
       color: "#1A1A1a",
     },
     h5: {
-      fontSize: "1.25rem",
+      fontSize: "2rem",
       color: "#1A1A1A",
       "@media (max-width: 768px)": {
         fontSize: "1rem", // Adjust font size for mobile
       },
     },
     h6: {
-      fontSize: "1rem",
+      fontSize: "1.25rem",
       color: "#1A1A1A",
     },
     subtitle1: {

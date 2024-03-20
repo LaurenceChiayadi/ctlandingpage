@@ -15,12 +15,12 @@ const KLIA2Hero = () => {
       justifyContent={"center"}
       alignItems={"center"}
     >
-      <Typography variant="h1">{textContent[0]}</Typography>
-      <Typography variant="h1" color={"primary"}>
+      <Typography variant="h3">{textContent[0]}</Typography>
+      <Typography variant="h3" color={"primary"}>
         {textContent[1]}
       </Typography>
       <Typography
-        variant="h3"
+        variant="h4"
         width={"700px"}
         textAlign={"center"}
         marginTop={5}

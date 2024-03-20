@@ -1,9 +1,10 @@
 import { Box, Grid, IconButton, Typography } from "@mui/material";
-import ContentWrapper from "./ContentWrapper";
-import HeaderBottom from "./HeaderBottom";
+import ContentWrapper from "../ContentWrapper";
+import HeaderBottom from "../HeaderBottom";
 import Image from "next/image";
 
 import IconArrowLeft from "@/assets/icons/general/btn-icon-arrow-left.svg";
+import { useRouter } from "next/navigation";
 
 const HotelOverview = (props: {
   header: string[];
@@ -11,6 +12,7 @@ const HotelOverview = (props: {
   image: any;
   illus?: any;
 }) => {
+  const router = useRouter();
   return (
     <ContentWrapper>
       <HeaderBottom
@@ -49,7 +51,10 @@ const HotelOverview = (props: {
               alignItems={"start"}
               marginTop={4}
             >
-              <IconButton sx={{ transform: "scaleX(-1)" }}>
+              <IconButton
+                onClick={() => router.push(props.content[2])}
+                sx={{ transform: "scaleX(-1)" }}
+              >
                 <Image
                   src={IconArrowLeft}
                   alt="arrow-left"

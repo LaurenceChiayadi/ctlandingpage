@@ -1,6 +1,6 @@
 import MaxImage from "./images/klia2-MAX@2x.jpg";
 import IllusSVG from "./images/icon-standalone-book.svg";
-import HotelOverview from "../global/HotelOverview";
+import HotelOverview from "../global/hotel/HotelOverview";
 
 const headerContent = ["02", "/03", "Public Area"];
 
