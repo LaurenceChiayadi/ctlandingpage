@@ -24,7 +24,7 @@ const HotelOverview = (props: {
         container
         direction={"row-reverse"}
         alignItems={"center"}
-        marginTop={5}
+        marginTop={8}
       >
         <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
           <Image
