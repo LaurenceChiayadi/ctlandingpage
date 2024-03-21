@@ -4,7 +4,7 @@ import AirsideFacilities from "@/components/airside/AirsideFacilities";
 import AirsideHero from "@/components/airside/AirsideHero";
 import AirsideIntro from "@/components/airside/AirsideIntro";
 import NavBar from "@/components/global/NavBar";
-import AirsideRoomTypes from "@/components/global/hotel/AirsideRoomTypes";
+import AirsideRoomTypes from "@/components/airside/AirsideRoomTypes";
 import { Box, Typography } from "@mui/material";
 
 const Airside = () => {
