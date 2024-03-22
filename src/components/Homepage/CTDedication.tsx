@@ -34,7 +34,7 @@ const CTDedication = () => {
   return (
     <ContentWrapper>
       <Box display={"flex"} flexDirection={"column"} marginY={4} width={"50%"}>
-        <Typography variant="h2">{contentTexts[0].text}</Typography>
+        <Typography variant="h3">{contentTexts[0].text}</Typography>
       </Box>
       <Box marginTop={10} marginBottom={"200px"}>
         <CTButton

@@ -10,7 +10,7 @@ const HeaderTop = (props: { title: string; children: React.ReactNode }) => {
       borderBottom={1}
       marginBottom={10}
     >
-      <Typography variant="h2" width={"22%"}>
+      <Typography variant="h3" width={"25%"}>
         {props.title}
       </Typography>
       <Stack

@@ -20,7 +20,6 @@ const HeroSection = () => {
         src={HeroBackground}
         alt="CapsuleHero"
         layout="fill"
-        objectFit="cover"
         objectPosition="center"
       />
       <Box
@@ -36,18 +35,18 @@ const HeroSection = () => {
         }}
       >
         <Stack direction={"row"} spacing={1}>
-          <Typography variant={"h5"} color={theme.palette.CtColorScheme.white}>
+          <Typography variant={"h6"} color={theme.palette.CtColorScheme.white}>
             {textContents[0].text}
           </Typography>
-          <Typography variant="h5" color={theme.palette.primary.main}>
+          <Typography variant="h6" color={theme.palette.primary.main}>
             /
           </Typography>
-          <Typography variant={"h5"} color={theme.palette.CtColorScheme.white}>
+          <Typography variant={"h6"} color={theme.palette.CtColorScheme.white}>
             {textContents[1].text}
           </Typography>
         </Stack>
         <Typography
-          fontSize={"5.625rem"}
+          variant="h1"
           fontWeight={500}
           color={theme.palette.CtColorScheme.white}
         >

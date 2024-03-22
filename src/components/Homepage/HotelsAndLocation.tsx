@@ -14,121 +14,18 @@ import Image from "next/image";
 import { features } from "process";
 import { useState } from "react";
 
-import EyeIcon from "./images/icon-view-black.svg";
-import LandSideImage from "./images/list-klia2-landside@2x.jpg";
-import MaxImage from "./images/list-klia2-max@2x.jpg";
-import SleepLoungeRoomImage from "./images/list-klia1-landside@2x.jpg";
-import SleepLoungImage from "./images/list-klia1-landside2@2x.jpg";
+import EyeIcon from "@/assets/icons/general/icon-view-black.svg";
+import LandSideImage from "@/assets/images/list-klia2-landside@2x.jpg";
+import MaxImage from "@/assets/images/list-klia2-max@2x.jpg";
+import SleepLoungeRoomImage from "@/assets/images/list-klia1-landside@2x.jpg";
+import SleepLoungImage from "@/assets/images/list-klia1-landside2@2x.jpg";
 
 import IconArrowLeft from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import LocationIcon from "@/assets/icons/general/icon-location-grey.svg";
 
-import OneHourIcon from "./images/icons/icon-hour-1.svg";
-import ThreeHourIcon from "./images/icons/icon-hour-3.svg";
-import SixHourIcon from "./images/icons/icon-hour-6.svg";
-import TwelveHourIcon from "./images/icons/icon-hour-12.svg";
-
-import SingleIcon from "./images/icons/icon-room-single.svg";
-import FemaleSingleIcon from "./images/icons/icon-room-single_female.svg";
-import MaleSingleIcon from "./images/icons/icon-room-single_male.svg";
-import QueenIcon from "./images/icons/icon-room-queen.svg";
-import DoubleIcon from "./images/icons/icon-room-double.svg";
-import SuiteIcon from "./images/icons/icon-room-suite.svg";
-
-import ConciergeIcon from "./images/icons/icon-service-locker.svg";
-import WifiIcon from "./images/icons/icon-service-wifi.svg";
-import ShowerIcon from "./images/icons/icon-service-shower.svg";
-import ToileteriesIcon from "./images/icons/icon-service-dentalkit.svg";
-import SlippersIcon from "./images/icons/icon-service-slipper.svg";
-import DrinksIcon from "./images/icons/icon-service-drinks.svg";
 import HeaderTop from "../global/HeaderTop";
-
-enum featuresEnum {
-  OneHourStay = "1h",
-  ThreeHourStay = "3h",
-  SixHourStay = "6h",
-  TwelveHourStay = "12h",
-  ThreeHourLounge = "(Lounge) 3h",
-  amMin3Hour = "(a.m) min. 3h",
-  pmMin6Hour = "(p.m) min. 6h",
-  FemaleSingle = "femaleSingle",
-  MaleSingle = "maleSingle",
-  Single = "single",
-  Queen = "queen",
-  Double = "double",
-  Suite = "suit",
-  Concierge = "concierge",
-  Wifi = "wifi",
-  Shower = "shower",
-  Toileteries = "toileteries",
-  Slippers = "slippers",
-  Drinks = "drinks",
-}
-
-class DurationIcons {
-  static duration(duration: string) {
-    switch (duration) {
-      case featuresEnum.OneHourStay:
-        return OneHourIcon;
-      case featuresEnum.ThreeHourStay:
-        return ThreeHourIcon;
-      case featuresEnum.ThreeHourLounge:
-        return ThreeHourIcon;
-      case featuresEnum.SixHourStay:
-        return SixHourIcon;
-      case featuresEnum.TwelveHourStay:
-        return TwelveHourIcon;
-      case featuresEnum.amMin3Hour:
-        return ThreeHourIcon;
-      case featuresEnum.pmMin6Hour:
-        return SixHourIcon;
-      default:
-        return "";
-    }
-  }
-}
-
-class RoomsIcons {
-  static roomType(roomType: string) {
-    switch (roomType) {
-      case featuresEnum.Single:
-        return SingleIcon;
-      case featuresEnum.FemaleSingle:
-        return FemaleSingleIcon;
-      case featuresEnum.MaleSingle:
-        return MaleSingleIcon;
-      case featuresEnum.Queen:
-        return QueenIcon;
-      case featuresEnum.Double:
-        return DoubleIcon;
-      case featuresEnum.Suite:
-        return SuiteIcon;
-      default:
-        return "";
-    }
-  }
-}
-
-class FeaturesIcons {
-  static features(roomType: string) {
-    switch (roomType) {
-      case featuresEnum.Concierge:
-        return ConciergeIcon;
-      case featuresEnum.Wifi:
-        return WifiIcon;
-      case featuresEnum.Shower:
-        return ShowerIcon;
-      case featuresEnum.Toileteries:
-        return ToileteriesIcon;
-      case featuresEnum.Slippers:
-        return SlippersIcon;
-      case featuresEnum.Drinks:
-        return DrinksIcon;
-      default:
-        return "";
-    }
-  }
-}
+import { featuresEnum } from "@/constant/Enums";
+import { DurationIcons, FeaturesIcons, RoomsIcons } from "@/constant/Icons";
 
 const textContent = [
   { title: "Our Hotels and Locations" },
@@ -236,14 +133,22 @@ const HotelAndLocation = () => {
   return (
     <ContentWrapper>
       <HeaderTop title={textContent[0].title}>
-        <Button onClick={() => setKLIA2Selected(false)} sx={{ color: "black" }}>
+        <Button
+          onClick={() => setKLIA2Selected(false)}
+          sx={{ color: KLIA2Selected ? "black" : "" }}
+        >
           {textContent[1].title}
           {KLIA2Selected && (
             <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
           )}
         </Button>
-        <Typography variant="h5">/</Typography>
-        <Button onClick={() => setKLIA2Selected(true)} sx={{ color: "" }}>
+        <Typography variant="h6" color={"grey"}>
+          /
+        </Typography>
+        <Button
+          onClick={() => setKLIA2Selected(true)}
+          sx={{ color: !KLIA2Selected ? "black" : "" }}
+        >
           {textContent[2].title}
           {!KLIA2Selected && (
             <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
@@ -271,7 +176,7 @@ const KLIA2Hotels = (props: {
           {props.hovered === data.title ? (
             <Box
               width="100%"
-              height="600px"
+              height="700px"
               display="flex"
               flexDirection={"column"}
               justifyContent="center"
@@ -305,7 +210,7 @@ const KLIA2Hotels = (props: {
                   return (
                     DurationIcons.duration(feature) !== "" && (
                       <Stack direction={"row"} alignItems={"center"}>
-                        <Typography variant="h5" marginRight={"3px"}>
+                        <Typography variant="h6" marginRight={"3px"}>
                           {feature}
                         </Typography>
                         <Image
@@ -351,7 +256,7 @@ const KLIA2Hotels = (props: {
           ) : (
             <Box
               width={"100%"}
-              height={"600px"}
+              height={"700px"}
               onMouseOver={() => props.handleHoverImage(data.title)}
             >
               {typeof data.backgroundUrl === "string" ? (
@@ -378,7 +283,6 @@ const KLIA2Hotels = (props: {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover",
                   }}
                 />
               )}
@@ -430,7 +334,7 @@ const KLIA1Hotels = (props: {
         {props.hovered === terminal1Hotels.title ? (
           <Box
             width="100%"
-            height="600px"
+            height="700px"
             display="flex"
             flexDirection={"column"}
             justifyContent="center"
@@ -464,7 +368,7 @@ const KLIA1Hotels = (props: {
                 return (
                   DurationIcons.duration(feature) !== "" && (
                     <Stack direction={"row"} alignItems={"center"}>
-                      <Typography variant="h5" marginRight={"3px"}>
+                      <Typography variant="h6" marginRight={"3px"}>
                         {feature}
                       </Typography>
                       <Image
@@ -510,7 +414,7 @@ const KLIA1Hotels = (props: {
         ) : (
           <Box
             width={"100%"}
-            height={"600px"}
+            height={"700px"}
             onMouseOver={() => props.handleHoverImage(terminal1Hotels.title)}
           >
             <Image
@@ -521,7 +425,6 @@ const KLIA1Hotels = (props: {
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: "cover",
               }}
             />
           </Box>
@@ -557,7 +460,7 @@ const KLIA1Hotels = (props: {
         </Stack>
       </Grid>
       <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-        <Box width={"100%"} height={"600px"}>
+        <Box width={"100%"} height={"700px"}>
           <Image
             src={SleepLoungImage}
             alt={"capsule-transit-sleep-lounge"}
@@ -566,7 +469,6 @@ const KLIA1Hotels = (props: {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover",
             }}
           />
         </Box>
