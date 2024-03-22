@@ -8,6 +8,8 @@ import AirsideRoomTypes from "@/components/airside/AirsideRoomTypes";
 import { Box, Typography } from "@mui/material";
 import AirsideRoomTypesShowcase from "@/components/airside/AirsideRoomTypesShowcase";
 import AirsideBookNow from "@/components/airside/AirsideBookNow";
+import AirsideExploreOther from "@/components/airside/AirsideExploreOther";
+import Footer from "@/components/global/Footer";
 
 const Airside = () => {
   return (
@@ -19,6 +21,8 @@ const Airside = () => {
       <AirsideRoomTypes />
       <AirsideRoomTypesShowcase />
       <AirsideBookNow />
+      <AirsideExploreOther />
+      <Footer />
     </Box>
   );
 };

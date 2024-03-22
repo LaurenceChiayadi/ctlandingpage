@@ -12,6 +12,7 @@ import Image from "next/image";
 //To Change to New Image
 import CTIcon from "@/assets/icons/general/icon-logo-ct-black.svg";
 import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
+import ArrowTopRight from "@/assets/icons/general/icon-arrow-top-right-primary.svg";
 
 const textContent = [
   {
@@ -71,7 +72,7 @@ const Footer = () => {
       paddingX={7}
       paddingY={8}
     >
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
           <ShortcutSection />
         </Grid>
@@ -91,15 +92,23 @@ const Footer = () => {
                 color: "white",
               }}
             >
-              <Typography variant="body2" color={"primary"} marginRight={2}>
-                {textContent[4].title}
-              </Typography>
-              <Image src={CTRight} alt="CT-Right-Up" />
+              <Stack
+                direction={"row"}
+                width={"100%"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+              >
+                <Typography variant="h1" color={"primary"}>
+                  {textContent[4].title}
+                </Typography>
+                <Image src={ArrowTopRight} alt="CT-Right-Up" />
+              </Stack>
             </Button>
             <Stack direction={"column"} spacing={4}>
               <Typography
                 variant="button"
                 color={theme.palette.CtColorScheme.grey100}
+                width={"85%"}
                 fontWeight={400}
               >
                 {textContent[5].title}

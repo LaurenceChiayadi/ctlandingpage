@@ -2,7 +2,7 @@ import { Box, Button, Divider, Typography } from "@mui/material";
 import Image, { StaticImageData } from "next/image";
 
 import CTLogoWhite from "@/assets/icons/general/LogoWhite.svg";
-import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
+import CTRight from "@/assets/icons/general/icon-arrow-top-right-white.svg";
 
 const HotelBookNow = (props: { HeroImage: StaticImageData; title: string }) => {
   return (
@@ -50,7 +50,7 @@ const HotelBookNow = (props: { HeroImage: StaticImageData; title: string }) => {
           <Typography variant="body2" color={"white"} marginRight={2}>
             {"Book Now"}
           </Typography>
-          <Image src={CTRight} alt="CT-Right-Up" />
+          <Image src={CTRight} alt="CT-Right-Up" style={{ color: "white" }} />
         </Button>
       </Box>
     </Box>

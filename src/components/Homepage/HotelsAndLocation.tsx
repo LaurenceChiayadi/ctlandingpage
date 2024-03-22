@@ -15,10 +15,10 @@ import { features } from "process";
 import { useState } from "react";
 
 import EyeIcon from "@/assets/icons/general/icon-view-black.svg";
-import LandSideImage from "./images/list-klia2-landside@2x.jpg";
-import MaxImage from "./images/list-klia2-max@2x.jpg";
-import SleepLoungeRoomImage from "./images/list-klia1-landside@2x.jpg";
-import SleepLoungImage from "./images/list-klia1-landside2@2x.jpg";
+import LandSideImage from "@/assets/images/list-klia2-landside@2x.jpg";
+import MaxImage from "@/assets/images/list-klia2-max@2x.jpg";
+import SleepLoungeRoomImage from "@/assets/images/list-klia1-landside@2x.jpg";
+import SleepLoungImage from "@/assets/images/list-klia1-landside2@2x.jpg";
 
 import IconArrowLeft from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import LocationIcon from "@/assets/icons/general/icon-location-grey.svg";
@@ -176,7 +176,7 @@ const KLIA2Hotels = (props: {
           {props.hovered === data.title ? (
             <Box
               width="100%"
-              height="600px"
+              height="700px"
               display="flex"
               flexDirection={"column"}
               justifyContent="center"
@@ -210,7 +210,7 @@ const KLIA2Hotels = (props: {
                   return (
                     DurationIcons.duration(feature) !== "" && (
                       <Stack direction={"row"} alignItems={"center"}>
-                        <Typography variant="h5" marginRight={"3px"}>
+                        <Typography variant="h6" marginRight={"3px"}>
                           {feature}
                         </Typography>
                         <Image
@@ -256,7 +256,7 @@ const KLIA2Hotels = (props: {
           ) : (
             <Box
               width={"100%"}
-              height={"600px"}
+              height={"700px"}
               onMouseOver={() => props.handleHoverImage(data.title)}
             >
               {typeof data.backgroundUrl === "string" ? (
@@ -335,7 +335,7 @@ const KLIA1Hotels = (props: {
         {props.hovered === terminal1Hotels.title ? (
           <Box
             width="100%"
-            height="600px"
+            height="700px"
             display="flex"
             flexDirection={"column"}
             justifyContent="center"
@@ -369,7 +369,7 @@ const KLIA1Hotels = (props: {
                 return (
                   DurationIcons.duration(feature) !== "" && (
                     <Stack direction={"row"} alignItems={"center"}>
-                      <Typography variant="h5" marginRight={"3px"}>
+                      <Typography variant="h6" marginRight={"3px"}>
                         {feature}
                       </Typography>
                       <Image
@@ -415,7 +415,7 @@ const KLIA1Hotels = (props: {
         ) : (
           <Box
             width={"100%"}
-            height={"600px"}
+            height={"700px"}
             onMouseOver={() => props.handleHoverImage(terminal1Hotels.title)}
           >
             <Image
@@ -462,7 +462,7 @@ const KLIA1Hotels = (props: {
         </Stack>
       </Grid>
       <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-        <Box width={"100%"} height={"600px"}>
+        <Box width={"100%"} height={"700px"}>
           <Image
             src={SleepLoungImage}
             alt={"capsule-transit-sleep-lounge"}
