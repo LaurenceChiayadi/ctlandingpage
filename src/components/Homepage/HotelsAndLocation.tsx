@@ -14,7 +14,7 @@ import Image from "next/image";
 import { features } from "process";
 import { useState } from "react";
 
-import EyeIcon from "./images/icon-view-black.svg";
+import EyeIcon from "@/assets/icons/general/icon-view-black.svg";
 import LandSideImage from "./images/list-klia2-landside@2x.jpg";
 import MaxImage from "./images/list-klia2-max@2x.jpg";
 import SleepLoungeRoomImage from "./images/list-klia1-landside@2x.jpg";
@@ -133,14 +133,22 @@ const HotelAndLocation = () => {
   return (
     <ContentWrapper>
       <HeaderTop title={textContent[0].title}>
-        <Button onClick={() => setKLIA2Selected(false)} sx={{ color: "black" }}>
+        <Button
+          onClick={() => setKLIA2Selected(false)}
+          sx={{ color: KLIA2Selected ? "black" : "" }}
+        >
           {textContent[1].title}
           {KLIA2Selected && (
             <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
           )}
         </Button>
-        <Typography variant="h5">/</Typography>
-        <Button onClick={() => setKLIA2Selected(true)} sx={{ color: "" }}>
+        <Typography variant="h6" color={"grey"}>
+          /
+        </Typography>
+        <Button
+          onClick={() => setKLIA2Selected(true)}
+          sx={{ color: !KLIA2Selected ? "black" : "" }}
+        >
           {textContent[2].title}
           {!KLIA2Selected && (
             <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
