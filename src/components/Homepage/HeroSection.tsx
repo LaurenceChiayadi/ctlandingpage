@@ -20,7 +20,6 @@ const HeroSection = () => {
         src={HeroBackground}
         alt="CapsuleHero"
         layout="fill"
-        objectFit="cover"
         objectPosition="center"
       />
       <Box

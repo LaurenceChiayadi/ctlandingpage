@@ -15,7 +15,6 @@ const HotelHero = (props: {
       <Image
         src={props.image}
         alt="CapsuleHero"
-        objectFit="cover"
         objectPosition="center"
         style={{
           position: "absolute",

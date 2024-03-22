@@ -283,7 +283,6 @@ const KLIA2Hotels = (props: {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover",
                   }}
                 />
               )}
@@ -426,7 +425,6 @@ const KLIA1Hotels = (props: {
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: "cover",
               }}
             />
           </Box>
@@ -471,7 +469,6 @@ const KLIA1Hotels = (props: {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover",
             }}
           />
         </Box>

@@ -86,7 +86,6 @@ const HotelGallery = (props: {
                 src={image}
                 alt={`airside-${index}`}
                 style={{
-                  objectFit: "cover",
                   width: "30vw",
                   height: "100%",
                 }}

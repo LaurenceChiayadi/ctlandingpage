@@ -12,7 +12,7 @@ const headerContent = ["02", "/03", "Public Area"];
 const textContent = [
   "Landside",
   "Situated at the Gateway@klia2 Mall, linked to KLIA Terminal 2's Arrival Hall, CapsuleTransit Landside outlet offers rooms for 1 to 3 guests, available to book for a minimum of 3 hours. Each room includes public bathrooms and locker services.",
-  "/",
+  "/klia-2/landside",
 ];
 
 const LandsideOverviewKLIA2 = () => {
