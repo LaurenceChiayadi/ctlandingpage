@@ -10,7 +10,7 @@ import {
 import Image from "next/image";
 
 //To Change to New Image
-import CTIcon from "@/assets/icons/general/icon-logo-ct-black.svg";
+import CTIcon from "@/assets/icons/general/LogoWhite.svg";
 import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import ArrowTopRight from "@/assets/icons/general/icon-arrow-top-right-primary.svg";
 
