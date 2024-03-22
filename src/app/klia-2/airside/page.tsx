@@ -7,6 +7,7 @@ import NavBar from "@/components/global/NavBar";
 import AirsideRoomTypes from "@/components/airside/AirsideRoomTypes";
 import { Box, Typography } from "@mui/material";
 import AirsideRoomTypesShowcase from "@/components/airside/AirsideRoomTypesShowcase";
+import AirsideBookNow from "@/components/airside/AirsideBookNow";
 
 const Airside = () => {
   return (
@@ -17,6 +18,7 @@ const Airside = () => {
       <AirsideFacilities />
       <AirsideRoomTypes />
       <AirsideRoomTypesShowcase />
+      <AirsideBookNow />
     </Box>
   );
 };
