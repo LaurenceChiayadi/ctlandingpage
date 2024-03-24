@@ -33,15 +33,16 @@ const CTIntroduction = () => {
     <ContentWrapper>
       <Stack
         direction={"row"}
-        padding={1}
+        padding={"5px"}
         bgcolor={theme.palette.CtColorScheme.neon200}
         spacing={1}
         marginY={2}
+        display={"inline-flex"}
       >
-        <Typography variant="h5" fontWeight={500}>
+        <Typography variant="h6" fontWeight={500}>
           {textContents[0].text}
         </Typography>
-        <Typography variant="h5" fontWeight={700}>
+        <Typography variant="h6" fontWeight={700}>
           {textContents[1].text}
         </Typography>
       </Stack>

@@ -15,6 +15,7 @@ import { features } from "process";
 import { useState } from "react";
 
 import EyeIcon from "@/assets/icons/general/icon-view-black.svg";
+import AirsideImage from "@/assets/images/list-klia2-airside.jpg";
 import LandSideImage from "@/assets/images/list-klia2-landside@2x.jpg";
 import MaxImage from "@/assets/images/list-klia2-max@2x.jpg";
 import SleepLoungeRoomImage from "@/assets/images/list-klia1-landside@2x.jpg";
@@ -55,7 +56,7 @@ const terminal2Hotels = [
   {
     title: "Capsule Transit Airside",
     location: "KLIA Terminal 2, Restricted Area",
-    backgroundUrl: "@/components/Homepage/images/list-klia2-airside.mp4",
+    backgroundUrl: AirsideImage,
     description:
       "For early flights, Late arrivals, Missed flights or last minute flight cancellations.",
     features: [

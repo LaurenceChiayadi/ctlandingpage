@@ -1,5 +1,5 @@
 import theme from "@/assets/theme/theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, Drawer, ThemeProvider } from "@mui/material";
 import { ReactNode } from "react";
 
 const ProviderContext = ({ children }: { children: ReactNode }) => {
