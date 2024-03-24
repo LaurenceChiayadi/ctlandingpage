@@ -75,6 +75,7 @@ const CustomDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
         paddingY={2}
         paddingX={7}
         bgcolor={theme.palette.CtColorScheme.blue800}
+        overflow={"hidden"}
       >
         <IconButton onClick={props.handleClose} sx={{ alignSelf: "end" }}>
           <Image src={CloseIcon} alt="close-icon" />
