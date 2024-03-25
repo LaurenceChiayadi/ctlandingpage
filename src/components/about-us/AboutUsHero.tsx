@@ -95,15 +95,15 @@ const WhySoDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
     <Drawer
       open={props.open}
       anchor="right"
-      slotProps={{
-        backdrop: {
-          sx: {
-            backgroundColor: theme.palette.primary.main,
-          },
-        },
-      }}
+      //   slotProps={{
+      //     backdrop: {
+      //       sx: {
+      //         backgroundColor: theme.palette.primary.main,
+      //       },
+      //     },
+      //   }}
       PaperProps={{
-        style: { width: "100vw", backgroundColor: theme.palette.primary.main },
+        style: { width: "100%", backgroundColor: theme.palette.primary.main },
       }} // Use style instead of width
       sx={{ width: "100vw" }} // Ensure Drawer takes 100vw
     >
@@ -132,16 +132,9 @@ const WhySoDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
           paddingBottom={2}
         >
           <Image src={CTIcon} alt="ct-icon" />
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            spacing={2}
-            marginBottom={1}
-          >
-            <Typography color={theme.palette.CtColorScheme.white}>
-              {WhySoDrawerContent[0]}
-            </Typography>
-          </Stack>
+          <Typography color={theme.palette.CtColorScheme.white}>
+            {WhySoDrawerContent[0]}
+          </Typography>
         </Stack>
 
         <Box
@@ -150,10 +143,11 @@ const WhySoDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Grid container>
+          <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Box
                 display={"flex"}
+                width={"100%"}
                 height={"100%"}
                 justifyContent={"center"}
                 alignItems={"end"}
@@ -161,9 +155,11 @@ const WhySoDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
                 <Image
                   src={OurStoryIllustration}
                   alt="our-story-illustration"
-                  style={{
-                    display: "block",
-                  }}
+                  //   style={{
+                  //     width: "100%", // Follow the width of the Box
+                  //     height: "auto", // Maintain aspect ratio
+                  //     display: "block",
+                  //   }}
                 />
               </Box>
             </Grid>
