@@ -127,7 +127,7 @@ const theme = createTheme({
       //Paragrapgh
       fontSize: "1rem",
       color: "#1A1A1A",
-      fontWeight: 600,
+      fontWeight: 500,
       // fontWeight: 600,
     },
     body2: {
