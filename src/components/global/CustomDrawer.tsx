@@ -31,12 +31,12 @@ const hotels = [
 const rightSection = {
   title: "Discover",
   links: [
-    { title: "About Us", url: "/" },
-    { title: "Capsule Highlight", url: "/" },
-    { title: "Out Commitment", url: "/" },
-    { title: "Newsroom", url: "/" },
+    { title: "About Us", url: "/about-us" },
+    { title: "Capsule Highlight", url: "/highlight" },
+    { title: "Out Commitment", url: "/our-commitment" },
+    { title: "Newsroom", url: "/news" },
     { title: "divider", url: "/" },
-    { title: "FAQ", url: "/" },
+    { title: "FAQ", url: "/FAQ" },
     { title: "Best Rate Guarantee", url: "/" },
     { title: "Instagram", url: "/" },
   ],
