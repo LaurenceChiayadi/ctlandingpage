@@ -3,7 +3,7 @@ import { featuresEnum } from "@/constant/Enums";
 import MixedSingle from "./images/room-single-mixed@2x.jpg";
 import HotelRoomType, { IRoomTypes } from "../global/hotel/HotelRoomType";
 
-const header = ["02", "Room Type: ", "1"];
+const header = ["02", "Room Type: "];
 
 const title = "Room Type";
 

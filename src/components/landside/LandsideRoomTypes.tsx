@@ -6,7 +6,7 @@ import Queen from "./images/room-queen@2x.jpg";
 import Suite from "./images/room-suite@2x.jpg";
 import HotelRoomType, { IRoomTypes } from "../global/hotel/HotelRoomType";
 
-const header = ["02", "Room Type: ", "2"];
+const header = ["02", "Room Type: "];
 
 const title = "Room Type";
 

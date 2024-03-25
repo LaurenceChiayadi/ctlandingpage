@@ -16,7 +16,7 @@ import FemaleSingle from "./images/room-single-female@2x.jpg";
 import MixedSingle from "./images/room-single-mixed@2x.jpg";
 import HotelRoomType, { IRoomTypes } from "../global/hotel/HotelRoomType";
 
-const header = ["02", "Room Type: ", "2"];
+const header = ["02", "Room Type: "];
 
 const title = "Room Type";
 

@@ -31,7 +31,11 @@ const HotelRoomType = (props: {
     <ContentWrapper>
       <HeaderBottom
         leftComponent={<Typography>{props.header[0]}</Typography>}
-        middleComponent={<Typography>{props.header[1]}</Typography>}
+        middleComponent={
+          <Typography>
+            {props.header[1]} <b>{props.roomTypes.length}</b>
+          </Typography>
+        }
         rightComponent={
           <Stack direction={"row"} justifyContent={"end"} marginBottom={1}>
             {props.timeIcons.map((duration, index) => {
