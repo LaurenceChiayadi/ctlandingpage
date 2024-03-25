@@ -82,30 +82,31 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: `'IBM Plex Sans', sans-serif;`,
+    fontFamily: "'IBM Plex Sans', sans-serif",
     h1: {
       fontSize: "5.625rem",
-      fontWeight: 500,
+      fontWeight: 600,
       color: "#1A1A1a",
     },
     h2: {
       fontSize: "5rem",
-      fontWeight: 500,
+      fontWeight: 600,
       color: "#1A1A1a",
     },
     h3: {
       fontSize: "3.75rem",
-      fontWeight: 500,
+      fontWeight: 600,
       color: "#1A1A1a",
     },
     h4: {
       fontSize: "2.25rem",
-      fontWeight: 500,
+      fontWeight: 600,
       color: "#1A1A1a",
     },
     h5: {
       fontSize: "2rem",
       color: "#1A1A1A",
+      fontWeight: 600,
       "@media (max-width: 768px)": {
         fontSize: "1rem", // Adjust font size for mobile
       },
@@ -126,13 +127,14 @@ const theme = createTheme({
       //Paragrapgh
       fontSize: "1rem",
       color: "#1A1A1A",
-      // fontWeight: 500,
+      fontWeight: 500,
+      // fontWeight: 600,
     },
     body2: {
       //Display 2
       fontSize: "4.5rem",
       color: "#1A1A1A",
-      fontWeight: 500,
+      fontWeight: 600,
       "@media (max-width: 768px)": {
         fontSize: "2rem", // Adjust font size for mobile
       },

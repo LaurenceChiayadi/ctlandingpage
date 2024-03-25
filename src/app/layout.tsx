@@ -3,9 +3,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@emotion/react";
-import theme from "@/assets/theme/theme";
 import ProviderContext from "@/context/ProviderContexts";
+import "../assets/font/IBM_Plex_Sans.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

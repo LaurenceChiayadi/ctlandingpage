@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 const HeaderBottom = (props: {
   leftComponent: React.ReactNode;
@@ -6,13 +6,7 @@ const HeaderBottom = (props: {
   rightComponent: React.ReactNode;
 }) => {
   return (
-    <Grid
-      container
-      borderTop={1}
-      height={"20px"}
-      paddingY={1}
-      columnSpacing={3}
-    >
+    <Grid container borderTop={1} height={"20px"} paddingY={1}>
       <Grid item xs={4} sm={4} md={4} lg={4} xl={4} height={"20px"}>
         {props.leftComponent}
       </Grid>

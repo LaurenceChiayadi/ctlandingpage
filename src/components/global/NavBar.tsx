@@ -1,6 +1,6 @@
-import { Box, Button, IconButton, Stack } from "@mui/material";
+import { Box, Button, IconButton, Stack, useTheme } from "@mui/material";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import OpenDrawerIcon from "../../assets/icons/general/icon-menu.svg";
 import CTLogo from "../../assets/icons/general/Logo-CT.svg";
@@ -9,8 +9,9 @@ import CTButton from "./CTButton";
 import { useRouter } from "next/navigation";
 import CustomDrawer from "./CustomDrawer";
 
-const NavBar = () => {
+const NavBar = (props: { defaultBlack?: boolean }) => {
   const router = useRouter();
+  const theme = useTheme();
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
@@ -20,6 +21,28 @@ const NavBar = () => {
   const handleCloseDrawer = () => {
     setOpenDrawer(false);
   };
+
+  const [scrollTrigger, setScrollTrigger] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const scrollPercentage = (scrollPosition / viewportHeight) * 100;
+
+      if (scrollPercentage >= 90) {
+        setScrollTrigger(true);
+      } else {
+        setScrollTrigger(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -35,6 +58,11 @@ const NavBar = () => {
         paddingX={7}
         position={"fixed"}
         zIndex={2}
+        bgcolor={
+          props.defaultBlack || scrollTrigger
+            ? theme.palette.CtColorScheme.black900
+            : ""
+        }
       >
         <Stack direction={"row"} spacing={3} width={"33%"}>
           <IconButton onClick={handleOpenDrawer}>
@@ -45,7 +73,7 @@ const NavBar = () => {
               height={30}
             />
           </IconButton>
-          <Button onClick={() => router.push("/klia-2")}>
+          <Button onClick={() => router.push("/klia-1")}>
             KLIA Terminal 1
           </Button>
           <Button onClick={() => router.push("/klia-2")}>

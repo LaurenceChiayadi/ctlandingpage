@@ -21,6 +21,7 @@ const HotelHero = (props: {
           zIndex: -1,
           width: "100%",
           height: "auto",
+
           top: `${props.scrollPosition * 0.5}px`, // Adjust parallax effect by changing multiplier
         }}
       />
