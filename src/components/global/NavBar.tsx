@@ -45,7 +45,7 @@ const NavBar = () => {
               height={30}
             />
           </IconButton>
-          <Button onClick={() => router.push("/klia-2")}>
+          <Button onClick={() => router.push("/klia-1")}>
             KLIA Terminal 1
           </Button>
           <Button onClick={() => router.push("/klia-2")}>
