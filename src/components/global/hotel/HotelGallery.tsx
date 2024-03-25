@@ -76,8 +76,9 @@ const HotelGallery = (props: {
       ) : (
         <Stack
           direction={"row"}
+          alignItems={"center"}
           maxWidth={"100%"}
-          spacing={1}
+          spacing={3}
           sx={{ overflowX: "auto", overflowY: "hidden" }}
         >
           {props.images.map((image, index) => (
@@ -86,8 +87,12 @@ const HotelGallery = (props: {
                 src={image}
                 alt={`airside-${index}`}
                 style={{
-                  width: "30vw",
-                  height: "100%",
+                  maxWidth: "30vw",
+                  maxHeight: "100%",
+                  width: "auto",
+                  height: "auto",
+                  // width: "30vw",
+                  // height: "100%",
                 }}
               />
             </Box>
