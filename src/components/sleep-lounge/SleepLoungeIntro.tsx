@@ -5,8 +5,8 @@ import HotelIntro from "../global/hotel/HotelIntro";
 
 const breadCrumbsContent = [
   { name: "Home", url: "/" },
-  { name: "Location / KLIA Terminal 2", url: "/klia-2" },
-  { name: "Landside", url: "" },
+  { name: "Location / KLIA Terminal 1", url: "/klia-1" },
+  { name: "Sleep Lounge", url: "" },
 ];
 
 const title = "A sleep-only lounge for a nap with a peace of mind.";

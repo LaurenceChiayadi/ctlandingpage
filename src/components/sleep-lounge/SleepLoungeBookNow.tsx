@@ -1,9 +1,9 @@
-import HeroImage from "./images/hero-sleep-lounge.jpg";
+import BookNowImage from "./images/bg-cta-sleeplounge.jpg";
 import HotelBookNow from "../global/hotel/HotelBookNow";
 
-const title = "CapsuleTransit Airside";
+const title = "CapsuleTransit Sleep Lounge";
 
 const SleepLoungeBookNow = () => {
-  return <HotelBookNow HeroImage={HeroImage} title={title} />;
+  return <HotelBookNow HeroImage={BookNowImage} title={title} />;
 };
 export default SleepLoungeBookNow;

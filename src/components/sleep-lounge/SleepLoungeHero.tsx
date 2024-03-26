@@ -1,9 +1,9 @@
-import SleepLoungeHeroImage from "./images/hero-sleep-lounge.jpg";
+import SleepLoungeHeroImage from "./images/hero-sleeplounge.jpg";
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import HotelHero from "../global/hotel/HotelHero";
 
-const textContent = "CapsuleTransit Landside";
+const textContent = "CapsuleTransit Sleep Lounge";
 
 const SleepLoungeHero = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
