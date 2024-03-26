@@ -18,7 +18,7 @@ const recurringTexts = ["/06", "All CT Hotels"];
 const HighlightContent = () => {
   return (
     <>
-      <ContentWrapper>
+      <ContentWrapper noMarginTop>
         <BestLocationSection />
         <FlexibleCheckInSection />
         <BookByHoursSection />
@@ -37,7 +37,9 @@ const BestLocationSection = () => {
       <HeaderBottom
         leftComponent={<Typography>01</Typography>}
         middleComponent={<Typography>{recurringTexts[0]}</Typography>}
-        rightComponent={<Typography>{recurringTexts[1]}</Typography>}
+        rightComponent={
+          <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
+        }
       />
       <Grid
         container
@@ -85,7 +87,9 @@ const FlexibleCheckInSection = () => {
       <HeaderBottom
         leftComponent={<Typography>02</Typography>}
         middleComponent={<Typography>{recurringTexts[0]}</Typography>}
-        rightComponent={<Typography>{recurringTexts[1]}</Typography>}
+        rightComponent={
+          <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
+        }
       />
       <Grid
         container
@@ -124,7 +128,9 @@ const BookByHoursSection = () => {
       <HeaderBottom
         leftComponent={<Typography>03</Typography>}
         middleComponent={<Typography>{recurringTexts[0]}</Typography>}
-        rightComponent={<Typography>{recurringTexts[1]}</Typography>}
+        rightComponent={
+          <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
+        }
       />
       <Grid
         container
@@ -166,7 +172,9 @@ const LuggageLockerSection = () => {
       <HeaderBottom
         leftComponent={<Typography>04</Typography>}
         middleComponent={<Typography>{recurringTexts[0]}</Typography>}
-        rightComponent={<Typography>{recurringTexts[1]}</Typography>}
+        rightComponent={
+          <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
+        }
       />
       <Grid
         container
@@ -212,12 +220,13 @@ const ShowerServiceSection = () => {
       <HeaderBottom
         leftComponent={<Typography>05</Typography>}
         middleComponent={<Typography>{recurringTexts[0]}</Typography>}
-        rightComponent={<Typography>{recurringTexts[1]}</Typography>}
+        rightComponent={
+          <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
+        }
       />
       <Grid
         container
-        marginTop={8}
-        marginBottom={10}
+        marginY={8}
         justifyContent={"center"}
         alignItems={"center"}
       >
@@ -263,7 +272,9 @@ const GenderSpecificSection = () => {
       <HeaderBottom
         leftComponent={<Typography>06</Typography>}
         middleComponent={<Typography>{recurringTexts[0]}</Typography>}
-        rightComponent={<Typography>{recurringTexts[1]}</Typography>}
+        rightComponent={
+          <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
+        }
       />
       <Grid
         container
