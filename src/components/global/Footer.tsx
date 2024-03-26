@@ -13,6 +13,7 @@ import Image from "next/image";
 import CTIcon from "@/assets/icons/general/LogoWhite.svg";
 import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import ArrowTopRight from "@/assets/icons/general/icon-arrow-top-right-primary.svg";
+import { useRouter } from "next/navigation";
 
 const textContent = [
   {
@@ -65,6 +66,7 @@ const textContent = [
 
 const Footer = () => {
   const theme = useTheme();
+  const router = useRouter();
   return (
     <Box
       display={"flex"}
@@ -118,6 +120,7 @@ const Footer = () => {
                   return option.name !== "Divider" ? (
                     <Button
                       key={index}
+                      onClick={() => router.push(option.link)}
                       sx={{ color: "white", paddingX: 0, marginRight: 2 }}
                     >
                       {option.name}
@@ -146,6 +149,7 @@ const Footer = () => {
 
 const ShortcutSection = () => {
   const theme = useTheme();
+  const router = useRouter();
   return (
     <Stack direction={"column"} spacing={15}>
       <Stack
@@ -161,7 +165,11 @@ const ShortcutSection = () => {
           <Stack direction={"row"} width={"100%"}>
             {textContent[0].options.map((option, index) => {
               return option.name !== "Divider" ? (
-                <Button key={index} sx={{ color: "white", paddingX: 0 }}>
+                <Button
+                  key={index}
+                  onClick={() => router.push(option.link)}
+                  sx={{ color: "white", paddingX: 0 }}
+                >
                   {option.name}
                 </Button>
               ) : (
@@ -203,6 +211,7 @@ const ShortcutSection = () => {
 
 const CTNewsSection = () => {
   const theme = useTheme();
+  const router = useRouter();
   return (
     <Stack direction={"row"} width={"100%"} height={"100%"} spacing={5}>
       <Divider
@@ -221,6 +230,7 @@ const CTNewsSection = () => {
           {textContent[2].options.map((option, index) => (
             <Button
               key={index}
+              onClick={() => router.push(option.link)}
               sx={{
                 padding: 0,
                 justifyContent: "flex-start",
