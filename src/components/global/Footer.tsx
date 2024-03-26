@@ -17,25 +17,25 @@ import ArrowTopRight from "@/assets/icons/general/icon-arrow-top-right-primary.s
 const textContent = [
   {
     title: "Stay at KLIA Terminal 1",
-    options: [{ name: "Sleep Lounge", link: "" }],
+    options: [{ name: "Sleep Lounge", link: "/klia-1/sleep-lounge" }],
   },
   {
     title: "Stay at KLIA Terminal 2",
     options: [
-      { name: "Airside", link: "" },
-      { name: "Landside", link: "" },
+      { name: "Airside", link: "/klia-2/airside" },
+      { name: "Landside", link: "/klia-2/landside" },
       { name: "MAX", link: "" },
       { name: "Divider", link: "" },
-      { name: "Overview", link: "" },
+      { name: "Overview", link: "/klia-2" },
     ],
   },
   {
     title: "DISCOVER",
     options: [
-      { name: "About Us", link: "" },
-      { name: "Capsule Highlight", link: "" },
-      { name: "Out Commitment", link: "" },
-      { name: "Newsroom", link: "" },
+      { name: "About Us", link: "/about-us" },
+      { name: "Capsule Highlight", link: "/highlight" },
+      { name: "Out Commitment", link: "/our-commitment" },
+      { name: "Newsroom", link: "/news" },
     ],
   },
   {
