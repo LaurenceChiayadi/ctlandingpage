@@ -189,7 +189,7 @@ const KLIA2Hotels = (props: {
           {props.hovered === data.title && !isHandheldDevice ? (
             <Box
               width="100%"
-              height="700px"
+              height={isHandheldDevice ? "500px" : "700px"}
               display="flex"
               flexDirection={"column"}
               justifyContent="center"
@@ -269,7 +269,7 @@ const KLIA2Hotels = (props: {
           ) : (
             <Box
               width={"100%"}
-              height={"700px"}
+              height={isHandheldDevice ? "500px" : "700px"}
               onMouseOver={() => props.handleHoverImage(data.title)}
             >
               <Image
@@ -353,7 +353,7 @@ const KLIA1Hotels = (props: {
         {props.hovered === terminal1Hotels.title ? (
           <Box
             width="100%"
-            height="700px"
+            height={isHandheldDevice ? "500px" : "700px"}
             display="flex"
             flexDirection={"column"}
             justifyContent="center"
@@ -433,7 +433,7 @@ const KLIA1Hotels = (props: {
         ) : (
           <Box
             width={"100%"}
-            height={"700px"}
+            height={isHandheldDevice ? "500px" : "700px"}
             onMouseOver={() => props.handleHoverImage(terminal1Hotels.title)}
           >
             <Image
