@@ -199,11 +199,7 @@ const ShortcutSection = () => {
   const router = useRouter();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
-    <Stack
-      direction={"column"}
-      spacing={15}
-      marginBottom={isHandheldDevice ? 4 : ""}
-    >
+    <Stack direction={"column"} spacing={6}>
       <Stack
         direction={"column"}
         width={"100%"}
