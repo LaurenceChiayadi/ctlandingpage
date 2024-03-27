@@ -8,6 +8,7 @@ import {
   Slide,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
@@ -37,6 +38,7 @@ const rightSection = {
     { title: "Newsroom", url: "/news" },
     { title: "divider", url: "/" },
     { title: "FAQ", url: "/FAQ" },
+    { title: "Stay Protocol", url: "/" },
     { title: "Best Rate Guarantee", url: "/" },
     { title: "Instagram", url: "/" },
   ],
@@ -52,6 +54,8 @@ const CustomDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
     setHovered(name);
   };
 
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+
   return (
     <Drawer
       open={props.open}
@@ -65,150 +69,306 @@ const CustomDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
       PaperProps={{ style: { width: "100vw" } }} // Use style instead of width
       sx={{ width: "100vw" }} // Ensure Drawer takes 100vw
     >
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        role="presentation"
-        width={"100%"}
-        height={"100%"}
-        paddingY={2}
-        paddingX={7}
-        bgcolor={theme.palette.CtColorScheme.blue800}
-        overflow={"hidden"}
-      >
-        <IconButton onClick={props.handleClose} sx={{ alignSelf: "end" }}>
-          <Image src={CloseIcon} alt="close-icon" />
-        </IconButton>
-        <Grid container alignItems={"center"} height={"100%"}>
-          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-            {hotels.map((terminal, index) => (
-              <Stack key={index} direction={"column"}>
+      {isHandheldDevice ? (
+        <HandheldDrawer handleClose={props.handleClose} />
+      ) : (
+        <DesktopDrawer
+          handleClose={props.handleClose}
+          handleHovered={handleHovered}
+          hovered={hovered}
+        />
+      )}
+    </Drawer>
+  );
+};
+
+const DesktopDrawer = (props: {
+  hovered: string;
+  handleClose: VoidFunction;
+  handleHovered: (name: string) => void;
+}) => {
+  const theme = useTheme();
+  const router = useRouter();
+  return (
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems={"center"}
+      role="presentation"
+      width={"100%"}
+      height={"100%"}
+      paddingY={2}
+      paddingX={7}
+      bgcolor={theme.palette.CtColorScheme.blue800}
+      overflow={"hidden"}
+    >
+      <IconButton onClick={props.handleClose} sx={{ alignSelf: "end" }}>
+        <Image src={CloseIcon} alt="close-icon" />
+      </IconButton>
+      <Grid container alignItems={"center"} height={"100%"}>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+          {hotels.map((terminal, index) => (
+            <Stack key={index} direction={"column"}>
+              <Typography
+                color={"primary"}
+                fontWeight={600}
+                fontSize={"20px"}
+                marginY={2}
+              >
+                {terminal.title}
+              </Typography>
+              {terminal.hotels.map((hotel, index) => (
                 <Typography
-                  color={"primary"}
-                  fontWeight={600}
-                  fontSize={"20px"}
-                  marginY={2}
+                  key={index}
+                  variant="body2"
+                  color={theme.palette.CtColorScheme.white}
+                  onMouseEnter={() => props.handleHovered(hotel)}
+                  onMouseLeave={() => props.handleHovered("")}
                 >
-                  {terminal.title}
+                  {hotel}
                 </Typography>
-                {terminal.hotels.map((hotel, index) => (
-                  <Typography
-                    key={index}
-                    variant="body2"
-                    color={theme.palette.CtColorScheme.white}
-                    onMouseEnter={() => handleHovered(hotel)}
-                    onMouseLeave={() => handleHovered("")}
-                  >
-                    {hotel}
-                  </Typography>
-                ))}
-              </Stack>
-            ))}
-          </Grid>
-          <Grid item xs={0} sm={0} md={4} lg={4} xl={4}>
-            <Box
-              width={"100%"}
-              height={"100%"}
-              display={"flex"}
-              justifyContent={"center"}
-              alignItems={"center"}
-              position="relative"
+              ))}
+            </Stack>
+          ))}
+        </Grid>
+        <Grid item xs={0} sm={0} md={4} lg={4} xl={4}>
+          <Box
+            width={"100%"}
+            height={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            position="relative"
+          >
+            <Image
+              src={CTIcon}
+              alt="capsule-transit"
+              style={{ width: "70%", height: "auto", zIndex: 0 }}
+            />
+            <Slide
+              direction={"up"}
+              in={props.hovered === "Airside"}
+              mountOnEnter
+              unmountOnExit
+              style={{ position: "absolute" }}
             >
               <Image
-                src={CTIcon}
+                src={DrawerAirside}
                 alt="capsule-transit"
                 style={{ width: "70%", height: "auto", zIndex: 0 }}
               />
-              <Slide
-                direction={"up"}
-                in={hovered === "Airside"}
-                mountOnEnter
-                unmountOnExit
-                style={{ position: "absolute" }}
-              >
-                <Image
-                  src={DrawerAirside}
-                  alt="capsule-transit"
-                  style={{ width: "70%", height: "auto", zIndex: 0 }}
-                />
-              </Slide>
-              <Slide
-                direction={"up"}
-                in={hovered === "Landside"}
-                mountOnEnter
-                unmountOnExit
-                style={{ position: "absolute" }}
-              >
-                <Image
-                  src={DrawerLandside}
-                  alt="capsule-transit"
-                  style={{ width: "70%", height: "auto", zIndex: 0 }}
-                />
-              </Slide>
-              <Slide
-                direction={"up"}
-                in={hovered === "MAX"}
-                mountOnEnter
-                unmountOnExit
-                style={{ position: "absolute" }}
-              >
-                <Image
-                  src={DrawerMAX}
-                  alt="capsule-transit"
-                  style={{ width: "70%", height: "auto", zIndex: 0 }}
-                />
-              </Slide>
-              <Slide
-                direction={"up"}
-                in={hovered === "Sleep Lounge"}
-                mountOnEnter
-                unmountOnExit
-                style={{ position: "absolute" }}
-              >
-                <Image
-                  src={DrawerSleepLounge}
-                  alt="capsule-transit"
-                  style={{ width: "70%", height: "auto", zIndex: 0 }}
-                />
-              </Slide>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-            <Stack
-              direction={"row"}
-              width={"100%"}
-              height={"100%"}
-              spacing={5}
-              paddingLeft={"150px"}
+            </Slide>
+            <Slide
+              direction={"up"}
+              in={props.hovered === "Landside"}
+              mountOnEnter
+              unmountOnExit
+              style={{ position: "absolute" }}
             >
-              <Divider
-                orientation="vertical"
-                variant="middle"
-                flexItem
-                sx={{
-                  backgroundColor: theme.palette.CtColorScheme.neon200,
-                }}
+              <Image
+                src={DrawerLandside}
+                alt="capsule-transit"
+                style={{ width: "70%", height: "auto", zIndex: 0 }}
               />
-              <Grid container direction={"row"}>
+            </Slide>
+            <Slide
+              direction={"up"}
+              in={props.hovered === "MAX"}
+              mountOnEnter
+              unmountOnExit
+              style={{ position: "absolute" }}
+            >
+              <Image
+                src={DrawerMAX}
+                alt="capsule-transit"
+                style={{ width: "70%", height: "auto", zIndex: 0 }}
+              />
+            </Slide>
+            <Slide
+              direction={"up"}
+              in={props.hovered === "Sleep Lounge"}
+              mountOnEnter
+              unmountOnExit
+              style={{ position: "absolute" }}
+            >
+              <Image
+                src={DrawerSleepLounge}
+                alt="capsule-transit"
+                style={{ width: "70%", height: "auto", zIndex: 0 }}
+              />
+            </Slide>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+          <Stack
+            direction={"row"}
+            width={"100%"}
+            height={"100%"}
+            spacing={5}
+            paddingLeft={"150px"}
+          >
+            <Divider
+              orientation="vertical"
+              variant="middle"
+              flexItem
+              sx={{
+                backgroundColor: theme.palette.CtColorScheme.neon200,
+              }}
+            />
+            <Grid container direction={"row"}>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={12}
+                lg={12}
+                xl={12}
+                marginBottom={1}
+              >
+                <Typography
+                  variant="button"
+                  color={"primary"}
+                  fontSize={"20px"}
+                >
+                  {rightSection.title}
+                </Typography>
+              </Grid>
+              {rightSection.links.map((link, index) => (
                 <Grid
+                  key={index}
                   item
-                  xs={12}
-                  sm={12}
+                  xs={6}
+                  sm={6}
                   md={12}
                   lg={12}
                   xl={12}
-                  marginBottom={1}
+                  marginY={1}
                 >
-                  <Typography
-                    variant="button"
-                    color={"primary"}
-                    fontSize={"20px"}
-                  >
-                    {rightSection.title}
-                  </Typography>
+                  {link.title === "divider" ? (
+                    <Divider
+                      sx={{
+                        width: "30px",
+                        bgcolor: theme.palette.CtColorScheme.grey400,
+                        marginTop: 1,
+                      }}
+                    />
+                  ) : link.title === "Instagram" ? (
+                    <IconButton
+                      onClick={() => router.push(link.url)}
+                      sx={{ padding: 0, color: "white" }}
+                    >
+                      <Instagram />
+                    </IconButton>
+                  ) : (
+                    <Button
+                      onClick={() => router.push(link.url)}
+                      sx={{
+                        padding: 0,
+                        justifyContent: "flex-start",
+                        color: "white",
+                        fontSize: "20px",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {link.title}
+                    </Button>
+                  )}
                 </Grid>
-                {rightSection.links.map((link, index) => (
+              ))}
+            </Grid>
+          </Stack>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
+
+const HandheldDrawer = (props: { handleClose: VoidFunction }) => {
+  const theme = useTheme();
+  const router = useRouter();
+  return (
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems={"center"}
+      role="presentation"
+      width={"100%"}
+      height={"100%"}
+      paddingY={2}
+      paddingX={3}
+      bgcolor={theme.palette.CtColorScheme.blue800}
+      overflow={"hidden"}
+    >
+      <Stack
+        direction={"row"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        width={"100%"}
+      >
+        <Image src={CTIcon} alt="close-icon" />
+        <IconButton onClick={props.handleClose} sx={{ alignSelf: "end" }}>
+          <Image src={CloseIcon} alt="close-icon" />
+        </IconButton>
+      </Stack>
+      <Grid container rowSpacing={4}>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+          {hotels.map((terminal, index) => (
+            <Stack key={index} direction={"column"}>
+              <Typography
+                color={"primary"}
+                fontWeight={600}
+                fontSize={"20px"}
+                marginY={2}
+              >
+                {terminal.title}
+              </Typography>
+              {terminal.hotels.map((hotel, index) => (
+                <Typography
+                  key={index}
+                  variant="body2"
+                  color={theme.palette.CtColorScheme.white}
+                >
+                  {hotel}
+                </Typography>
+              ))}
+            </Stack>
+          ))}
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+          <Stack
+            direction={"column"}
+            width={"100%"}
+            height={"100%"}
+            spacing={3}
+          >
+            <Divider
+              variant="middle"
+              flexItem
+              sx={{
+                backgroundColor: theme.palette.CtColorScheme.neon200,
+              }}
+            />
+            <Grid container direction={"row"}>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={12}
+                lg={12}
+                xl={12}
+                marginBottom={1}
+              >
+                <Typography
+                  variant="button"
+                  color={"primary"}
+                  fontSize={"20px"}
+                >
+                  {rightSection.title}
+                </Typography>
+              </Grid>
+              {rightSection.links
+                .filter((link) => link.title !== "divider")
+                .map((link, index) => (
                   <Grid
                     key={index}
                     item
@@ -219,15 +379,7 @@ const CustomDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
                     xl={12}
                     marginY={1}
                   >
-                    {link.title === "divider" ? (
-                      <Divider
-                        sx={{
-                          width: "30px",
-                          bgcolor: theme.palette.CtColorScheme.grey400,
-                          marginTop: 1,
-                        }}
-                      />
-                    ) : link.title === "Instagram" ? (
+                    {link.title === "Instagram" ? (
                       <IconButton
                         onClick={() => router.push(link.url)}
                         sx={{ padding: 0, color: "white" }}
@@ -250,12 +402,19 @@ const CustomDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
                     )}
                   </Grid>
                 ))}
-              </Grid>
-            </Stack>
-          </Grid>
+            </Grid>
+            <Divider
+              variant="middle"
+              flexItem
+              sx={{
+                backgroundColor: theme.palette.CtColorScheme.neon200,
+              }}
+            />
+          </Stack>
         </Grid>
-      </Box>
-    </Drawer>
+      </Grid>
+    </Box>
   );
 };
+
 export default CustomDrawer;
