@@ -12,7 +12,7 @@ const KLIA2Page = () => {
   return (
     <Box
       display={"flex"}
-      width={"99vw"}
+      width={"100vw"}
       flexDirection={"column"}
       sx={{ overflowX: "hidden" }}
     >
@@ -21,7 +21,7 @@ const KLIA2Page = () => {
       <AirsideOverviewKLIA2 />
       <LandsideOverviewKLIA2 />
       <MaxOverviewKLIA2 />
-      <Box marginY={6} />
+      <Box marginY={3} />
       <Footer />
     </Box>
   );

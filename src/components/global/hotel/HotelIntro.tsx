@@ -1,4 +1,11 @@
-import { Box, Breadcrumbs, Link, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Breadcrumbs,
+  Link,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import React from "react";
 import Image from "next/image";
@@ -11,6 +18,21 @@ export interface IBreadCrumbs {
 }
 
 const HotelIntro = (props: {
+  breadCrumbsContent: IBreadCrumbs[];
+  textContent: string;
+  images: any[];
+  buttonUrl: string;
+  subtitle?: React.ReactNode;
+}) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+  return !isHandheldDevice ? (
+    <DesktopView {...props} />
+  ) : (
+    <HandheldView {...props} />
+  );
+};
+
+const DesktopView = (props: {
   breadCrumbsContent: IBreadCrumbs[];
   textContent: string;
   images: any[];
@@ -106,6 +128,73 @@ const HotelIntro = (props: {
           </div>
         </Box>
       </Box>
+    </Box>
+  );
+};
+
+const HandheldView = (props: {
+  breadCrumbsContent: IBreadCrumbs[];
+  textContent: string;
+  images: any[];
+  buttonUrl: string;
+  subtitle?: React.ReactNode;
+}) => {
+  const router = useRouter();
+  return (
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      paddingY={3}
+      position={"relative"}
+    >
+      <Breadcrumbs
+        separator={<KeyboardArrowRightIcon fontSize="small" />}
+        sx={{ paddingX: 3 }}
+      >
+        {props.breadCrumbsContent.map((content, index) => {
+          return index !== props.breadCrumbsContent.length - 1 ? (
+            <Link underline="hover" color="inherit" href={content.url}>
+              {content.name}
+            </Link>
+          ) : (
+            <Typography>{content.name}</Typography>
+          );
+        })}
+      </Breadcrumbs>
+      <Box
+        display={"flex"}
+        width={"100%"}
+        flexDirection={"column"}
+        marginTop={10}
+        paddingX={3}
+      >
+        <Typography variant="h3">{props.textContent}</Typography>
+        {props.subtitle && props.subtitle}
+        <Box display={"flex"} marginTop={10}>
+          <CTButton
+            onClick={() => router.push(props.buttonUrl)}
+            text="BOOK NOW"
+            variant="secondary"
+          />
+        </Box>
+      </Box>
+      <Stack paddingX={2} spacing={5} marginTop={"200px"}>
+        <Image
+          src={props.images[0]}
+          alt="airside-display-1"
+          style={{ height: "600px", width: "100%" }}
+        />
+        <Image
+          src={props.images[1]}
+          alt="airside-display-1"
+          style={{ height: "600px", width: "100%" }}
+        />
+        <Image
+          src={props.images[2]}
+          alt="airside-display-1"
+          style={{ height: "600px", width: "100%" }}
+        />
+      </Stack>
     </Box>
   );
 };

@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material";
-import { TypographyStyleOptions } from "@mui/material/styles/createTypography";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -84,31 +83,43 @@ const theme = createTheme({
   typography: {
     fontFamily: "'IBM Plex Sans', sans-serif",
     h1: {
-      fontSize: "5.625rem",
+      fontSize: "5.3rem",
       fontWeight: 600,
       color: "#1A1A1a",
+      "@media (max-width: 1050px)": {
+        fontSize: "3rem", // Adjust font size for mobile
+      },
     },
     h2: {
       fontSize: "5rem",
       fontWeight: 600,
       color: "#1A1A1a",
+      "@media (max-width: 1050px)": {
+        fontSize: "3.75rem", // Adjust font size for mobile
+      },
     },
     h3: {
       fontSize: "3.75rem",
       fontWeight: 600,
       color: "#1A1A1a",
+      "@media (max-width: 1050px)": {
+        fontSize: "2.3rem", // Adjust font size for mobile
+      },
     },
     h4: {
       fontSize: "2.25rem",
       fontWeight: 600,
       color: "#1A1A1a",
+      "@media (max-width: 1050px)": {
+        fontSize: "1.6rem", // Adjust font size for mobile
+      },
     },
     h5: {
       fontSize: "2rem",
       color: "#1A1A1A",
       fontWeight: 600,
-      "@media (max-width: 768px)": {
-        fontSize: "1rem", // Adjust font size for mobile
+      "@media (max-width: 1050px)": {
+        fontSize: "1.5rem", // Adjust font size for mobile
       },
     },
     h6: {
@@ -132,11 +143,11 @@ const theme = createTheme({
     },
     body2: {
       //Display 2
-      fontSize: "4.5rem",
+      fontSize: "4rem",
       color: "#1A1A1A",
       fontWeight: 600,
-      "@media (max-width: 768px)": {
-        fontSize: "2rem", // Adjust font size for mobile
+      "@media (max-width: 1050px)": {
+        fontSize: "2.125rem", // Adjust font size for mobile
       },
     },
     caption: {
@@ -146,6 +157,9 @@ const theme = createTheme({
     button: {
       fontSize: "0.875rem",
       fontWeight: 600,
+      "@media (max-width: 1050px)": {
+        fontSize: "1rem", // Adjust font size for mobile
+      },
     },
   },
 });

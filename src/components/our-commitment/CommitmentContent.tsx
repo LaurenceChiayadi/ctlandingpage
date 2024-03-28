@@ -6,6 +6,7 @@ import {
   Grid,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import ContentWrapper from "../global/ContentWrapper";
@@ -31,6 +32,7 @@ const CommitmentContent = () => {
 
 const BestRateSection = () => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -40,9 +42,9 @@ const BestRateSection = () => {
           <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
         }
       />
-      <Grid container marginY={8}>
+      <Grid container marginY={isHandheldDevice ? "100px" : 8}>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Typography variant="h3" maxWidth={"400px"}>
+          <Typography variant="h3" maxWidth={"300px"} marginBottom={3}>
             Best Rate Guarantee
           </Typography>
         </Grid>
@@ -124,6 +126,7 @@ const BestRateSection = () => {
 
 const ContactlessServiceSection = () => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -133,9 +136,9 @@ const ContactlessServiceSection = () => {
           <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
         }
       />
-      <Grid container marginY={8}>
+      <Grid container marginY={isHandheldDevice ? "100px" : 8}>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Typography variant="h3" maxWidth={"400px"}>
+          <Typography variant="h3" maxWidth={"300px"} marginBottom={3}>
             Contactless Services
           </Typography>
         </Grid>
@@ -158,6 +161,7 @@ const ContactlessServiceSection = () => {
 
 const FlexibleCancellationSection = () => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -167,9 +171,9 @@ const FlexibleCancellationSection = () => {
           <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
         }
       />
-      <Grid container marginY={8}>
+      <Grid container marginY={isHandheldDevice ? "100px" : 8}>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Typography variant="h3" maxWidth={"400px"}>
+          <Typography variant="h3" maxWidth={"300px"} marginBottom={3}>
             Flexible Cancellation
           </Typography>
         </Grid>
@@ -211,6 +215,7 @@ const FlexibleCancellationSection = () => {
 
 const CommitedCleanSection = () => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -220,9 +225,9 @@ const CommitedCleanSection = () => {
           <Typography textAlign={"end"}>{recurringTexts[1]}</Typography>
         }
       />
-      <Grid container marginY={8}>
+      <Grid container marginY={isHandheldDevice ? "100px" : 8}>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Typography variant="h3" maxWidth={"400px"}>
+          <Typography variant="h3" maxWidth={"300px"} marginBottom={3}>
             Commited to Clean
           </Typography>
         </Grid>

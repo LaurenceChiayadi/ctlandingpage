@@ -1,4 +1,10 @@
-import { Box, Grid, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Grid,
+  IconButton,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import ContentWrapper from "../ContentWrapper";
 import HeaderBottom from "../HeaderBottom";
 import Image from "next/image";
@@ -13,8 +19,9 @@ const HotelOverview = (props: {
   illus?: any;
 }) => {
   const router = useRouter();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
-    <ContentWrapper>
+    <ContentWrapper noMarginTop>
       <HeaderBottom
         leftComponent={<Typography>{props.header[0]}</Typography>}
         middleComponent={<Typography>{props.header[1]}</Typography>}
@@ -25,6 +32,7 @@ const HotelOverview = (props: {
         direction={"row-reverse"}
         alignItems={"center"}
         marginTop={8}
+        marginBottom={5}
       >
         <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
           <Image
@@ -42,7 +50,9 @@ const HotelOverview = (props: {
             paddingRight={5}
           >
             <Typography variant="body2">{props.content[0]}</Typography>
-            <Typography width={"70%"}>{props.content[1]}</Typography>
+            <Typography width={isHandheldDevice ? "100%" : "90%"}>
+              {props.content[1]}
+            </Typography>
             <Box
               display={"flex"}
               width={"100%"}

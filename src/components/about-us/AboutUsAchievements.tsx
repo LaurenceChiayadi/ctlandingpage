@@ -2,7 +2,7 @@ import Image from "next/image";
 import ContentWrapper from "../global/ContentWrapper";
 import HeaderBottom from "../global/HeaderBottom";
 import HeaderTop from "../global/HeaderTop";
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography, useMediaQuery } from "@mui/material";
 
 import CTIconBlack from "@/assets/icons/general/icon-logo-ct-black.svg";
 import AboutBanner from "./images/img-banner-about.jpg";
@@ -40,6 +40,7 @@ const content = {
 };
 
 const AboutUsAchievements = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <ContentWrapper>
       <HeaderBottom
@@ -49,14 +50,19 @@ const AboutUsAchievements = () => {
           <Typography textAlign={"right"}>{header[1]}</Typography>
         }
       />
-      <Box display={"flex"} width={"100%"} height={"550px"} marginTop={"110px"}>
+      <Box
+        display={"flex"}
+        width={"100%"}
+        height={isHandheldDevice ? "300px" : "550px"}
+        marginTop={"110px"}
+      >
         <Image
           src={AboutBanner}
           alt="about-banner"
           style={{ width: "100%", height: "100%" }}
         />
       </Box>
-      <Grid container marginTop={5}>
+      <Grid container marginTop={5} rowSpacing={4}>
         <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
           <Typography variant="h5">{content.title}</Typography>
         </Grid>
@@ -71,7 +77,11 @@ const AboutUsAchievements = () => {
                   <Typography fontSize={"20px"} fontWeight={600}>
                     {achievement.highlightDescription}
                   </Typography>
-                  <Typography fontSize={"16px"} marginTop={3} maxWidth={"70%"}>
+                  <Typography
+                    fontSize={"16px"}
+                    marginTop={3}
+                    maxWidth={isHandheldDevice ? "100%" : "70%"}
+                  >
                     {achievement.paragraph}
                   </Typography>
                 </Stack>

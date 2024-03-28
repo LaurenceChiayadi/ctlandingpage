@@ -1,4 +1,11 @@
-import { Box, Grid, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import ContentWrapper from "../global/ContentWrapper";
 import CTButton from "../global/CTButton";
 import Image from "next/image";
@@ -29,8 +36,23 @@ const CTIntroduction = () => {
   const handleKLIA1ButtonPress = () => {};
   const handleKLIA2ButtonPress = () => {};
   const handleHighlightButtonPress = () => {};
+
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <ContentWrapper>
+      {!isHandheldDevice ? (
+        <DesktopView handleHighlightButtonPress={handleHighlightButtonPress} />
+      ) : (
+        <HandheldView handleHighlightButtonPress={handleHighlightButtonPress} />
+      )}
+    </ContentWrapper>
+  );
+};
+
+const DesktopView = (props: { handleHighlightButtonPress: VoidFunction }) => {
+  const theme = useTheme();
+  return (
+    <>
       <Stack
         direction={"row"}
         padding={"5px"}
@@ -54,7 +76,7 @@ const CTIntroduction = () => {
           {textContents[3].text}
         </Typography>
       </Box>
-      <Stack
+      {/* <Stack
         direction={"row"}
         spacing={2}
         alignItems={"center"}
@@ -71,7 +93,7 @@ const CTIntroduction = () => {
           text={textContents[5].text}
           variant="secondary"
         />
-      </Stack>
+      </Stack> */}
       <Box
         display={"flex"}
         alignItems={"end"}
@@ -106,12 +128,73 @@ const CTIntroduction = () => {
       </Grid>
       <Box marginY={10}>
         <CTButton
-          onClick={handleHighlightButtonPress}
+          onClick={props.handleHighlightButtonPress}
           text="SEE HIGHLIGHT DETAIL"
           variant="secondary"
         />
       </Box>
-    </ContentWrapper>
+    </>
+  );
+};
+
+const HandheldView = (props: { handleHighlightButtonPress: VoidFunction }) => {
+  const theme = useTheme();
+  return (
+    <>
+      <Stack
+        direction={"row"}
+        padding={"5px"}
+        bgcolor={theme.palette.CtColorScheme.neon200}
+        spacing={1}
+        marginY={2}
+        display={"inline-flex"}
+      >
+        <Typography variant="h6" fontWeight={500}>
+          {textContents[0].text}
+        </Typography>
+        <Typography variant="h6" fontWeight={700}>
+          {textContents[1].text}
+        </Typography>
+      </Stack>
+      <Box display={"flex"} flexDirection={"column"} marginY={4}>
+        <Typography variant="body2" width={"90%"}>
+          {textContents[2].text}
+        </Typography>
+        <Typography variant="body2" color={theme.palette.CtColorScheme.neon300}>
+          {textContents[3].text}
+        </Typography>
+      </Box>
+
+      <Box display={"flex"} justifyContent={"end"} height={"300px"}>
+        <Image
+          src={IllustrationCloudMan}
+          alt="cloud-man-walkin"
+          style={{ height: "100%", width: "auto" }}
+        />
+      </Box>
+      <Grid container borderTop={1} direction={"row"}>
+        {gridContents.map((content, index) => (
+          <Grid item key={index} xs={12} sm={12} md={6} lg={6} xl={6}>
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              paddingY={4}
+              borderBottom={1}
+            >
+              <Typography variant="h4">{content.title}</Typography>
+              <Typography variant="h6">{content.description}</Typography>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+      <Box marginY={10}>
+        <CTButton
+          onClick={props.handleHighlightButtonPress}
+          text="SEE HIGHLIGHT DETAIL"
+          variant="secondary"
+        />
+      </Box>
+    </>
   );
 };
 

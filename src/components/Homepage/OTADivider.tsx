@@ -16,7 +16,7 @@ const OTADivider = () => {
         }
         rightComponent={
           <Typography textAlign={"right"}>
-            Overall ratings 7.8/10 on OTAs
+            Overall ratings <b>7.8/10</b> on OTAs
           </Typography>
         }
       />

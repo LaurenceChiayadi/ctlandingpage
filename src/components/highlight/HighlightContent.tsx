@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography, useMediaQuery } from "@mui/material";
 import ContentWrapper from "../global/ContentWrapper";
 import HeaderBottom from "../global/HeaderBottom";
 import Image from "next/image";
@@ -32,6 +32,7 @@ const HighlightContent = () => {
 };
 
 const BestLocationSection = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -46,6 +47,7 @@ const BestLocationSection = () => {
         marginY={8}
         justifyContent={"center"}
         alignItems={"center"}
+        rowSpacing={2}
       >
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
           <Image src={Highlight1} alt="best-location" />
@@ -54,7 +56,7 @@ const BestLocationSection = () => {
           <Typography variant="h3">Best Locations</Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Stack spacing={3} width={"80%"}>
+          <Stack spacing={3} width={isHandheldDevice ? "100%" : "80%"}>
             <Typography>
               Conveniently located inside the airport, just a short walk from
               your departure gate and airport services.
@@ -82,6 +84,7 @@ const BestLocationSection = () => {
 };
 
 const FlexibleCheckInSection = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -96,6 +99,7 @@ const FlexibleCheckInSection = () => {
         marginY={8}
         justifyContent={"center"}
         alignItems={"center"}
+        rowSpacing={2}
       >
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
           <Image src={Highlight2} alt="best-location" />
@@ -104,7 +108,7 @@ const FlexibleCheckInSection = () => {
           <Typography variant="h3">Flexible Check-in Time</Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Stack spacing={3} width={"80%"}>
+          <Stack spacing={3} width={isHandheldDevice ? "100%" : "80%"}>
             <Typography>
               Travel schedules can be unpredictable. That&apos;s why we offer a
               flexible check-in time to accomodate your needs.
@@ -123,6 +127,7 @@ const FlexibleCheckInSection = () => {
 };
 
 const BookByHoursSection = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -137,6 +142,7 @@ const BookByHoursSection = () => {
         marginY={8}
         justifyContent={"center"}
         alignItems={"center"}
+        rowSpacing={2}
       >
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
           <Image src={Highlight3} alt="book-by-hours" />
@@ -145,7 +151,7 @@ const BookByHoursSection = () => {
           <Typography variant="h3">Book by the Hours</Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Stack spacing={3} width={"80%"}>
+          <Stack spacing={3} width={isHandheldDevice ? "100%" : "80%"}>
             <Typography>
               Our flexible booking system means you only pay for the hours you
               stay.
@@ -167,6 +173,7 @@ const BookByHoursSection = () => {
 };
 
 const LuggageLockerSection = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -181,6 +188,7 @@ const LuggageLockerSection = () => {
         marginY={8}
         justifyContent={"center"}
         alignItems={"center"}
+        rowSpacing={2}
       >
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
           <Image src={Highlight4} alt="best-location" />
@@ -196,7 +204,7 @@ const LuggageLockerSection = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Stack spacing={3} width={"80%"}>
+          <Stack spacing={3} width={isHandheldDevice ? "100%" : "80%"}>
             <Typography>
               Each of our <b>hotel guests</b> enjoys a complimentary storage
               locker in their capsule, freeing up space in their capsule for a
@@ -215,6 +223,7 @@ const LuggageLockerSection = () => {
 };
 
 const ShowerServiceSection = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -229,6 +238,7 @@ const ShowerServiceSection = () => {
         marginY={8}
         justifyContent={"center"}
         alignItems={"center"}
+        rowSpacing={2}
       >
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
           <Image src={Highlight5} alt="best-location" />
@@ -249,7 +259,7 @@ const ShowerServiceSection = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Stack spacing={3} width={"80%"}>
+          <Stack spacing={3} width={isHandheldDevice ? "100%" : "80%"}>
             <Typography>
               We provide <b>restrooms with rain showers</b> for our guests,
               along with necessities like a shower towel and a dental kit.
@@ -267,6 +277,7 @@ const ShowerServiceSection = () => {
 };
 
 const GenderSpecificSection = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <HeaderBottom
@@ -281,6 +292,7 @@ const GenderSpecificSection = () => {
         marginY={8}
         justifyContent={"center"}
         alignItems={"center"}
+        rowSpacing={2}
       >
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
           <Image src={Highlight6} alt="book-by-hours" />
@@ -289,7 +301,7 @@ const GenderSpecificSection = () => {
           <Typography variant="h3">Gender- Specific Zones</Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-          <Stack spacing={3} width={"80%"}>
+          <Stack spacing={3} width={isHandheldDevice ? "100% " : "80%"}>
             <Typography>
               While we have mixed zones for our guests to socialise and make
               friends, we also provide{" "}

@@ -5,6 +5,7 @@ import {
   Grid,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import ContentWrapper from "../global/ContentWrapper";
@@ -36,6 +37,8 @@ const AboutUsHistory = () => {
     setOpenWhySoDrawer(false);
   };
 
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+
   return (
     <ContentWrapper>
       <HeaderTop title="">
@@ -47,18 +50,10 @@ const AboutUsHistory = () => {
 
       <Grid
         container
-        direction={"row-reverse"}
+        direction={"row"}
         justifyContent={"space-between"}
+        rowSpacing={4}
       >
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <Box display={"flex"} justifyContent={"end"}>
-            <Image
-              src={AboutImage}
-              alt="capsule-about"
-              style={{ maxWidth: "750px", height: "80vh" }}
-            />
-          </Box>
-        </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Stack spacing={5} maxWidth={"630px"}>
             <Typography variant="h4" fontWeight={700}>
@@ -66,6 +61,18 @@ const AboutUsHistory = () => {
             </Typography>
             <Typography variant="h4">{textContent[2]}</Typography>
           </Stack>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+          <Box display={"flex"} justifyContent={"end"}>
+            <Image
+              src={AboutImage}
+              alt="capsule-about"
+              style={{
+                maxWidth: isHandheldDevice ? "100%" : "500px",
+                height: isHandheldDevice ? "60vh" : "80vh",
+              }}
+            />
+          </Box>
         </Grid>
       </Grid>
 
@@ -88,142 +95,266 @@ const WhySoDrawerContent = [
 
 const WhySoDrawer = (props: { open: boolean; handleClose: VoidFunction }) => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Drawer
       open={props.open}
       anchor="right"
-      //   slotProps={{
-      //     backdrop: {
-      //       sx: {
-      //         backgroundColor: theme.palette.primary.main,
-      //       },
-      //     },
-      //   }}
       PaperProps={{
         style: { width: "100%", backgroundColor: theme.palette.primary.main },
-      }} // Use style instead of width
-      sx={{ width: "100vw" }} // Ensure Drawer takes 100vw
+      }}
+      sx={{ width: "100vw", height: "100%" }}
     >
-      <Box
-        alignSelf={"end"}
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        role="presentation"
-        width={"100%"}
-        maxWidth={"1600px"}
-        height={"100%"}
-        paddingY={2}
-        paddingX={7}
-        bgcolor={theme.palette.CtColorScheme.blue800}
-        overflow={"hidden"}
-      >
-        <Stack
-          direction={"row"}
-          width={"100%"}
-          justifyContent={"space-between"}
-          alignItems={"end"}
-          borderBottom={1}
-          borderColor={theme.palette.CtColorScheme.white}
-          marginBottom={10}
-          paddingBottom={2}
-        >
-          <Image src={CTIcon} alt="ct-icon" />
-          <Typography color={theme.palette.CtColorScheme.white}>
-            {WhySoDrawerContent[0]}
-          </Typography>
-        </Stack>
+      {!isHandheldDevice ? (
+        <DesktopWhySoDrawer handleClose={props.handleClose} />
+      ) : (
+        <HandheldWhySoDrawer handleClose={props.handleClose} />
+      )}
+    </Drawer>
+  );
+};
 
-        <Box
-          display={"flex"}
-          height={"100%"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Box
-                display={"flex"}
-                width={"100%"}
-                height={"100%"}
-                justifyContent={"center"}
-                alignItems={"end"}
-              >
-                <Image
-                  src={OurStoryIllustration}
-                  alt="our-story-illustration"
-                  //   style={{
-                  //     width: "100%", // Follow the width of the Box
-                  //     height: "auto", // Maintain aspect ratio
-                  //     display: "block",
-                  //   }}
-                />
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Stack direction={"column"} width={"75%"} spacing={4}>
-                <Typography color={theme.palette.CtColorScheme.white}>
-                  {WhySoDrawerContent[1]}
+const DesktopWhySoDrawer = (props: { handleClose: VoidFunction }) => {
+  const theme = useTheme();
+  return (
+    <Box
+      alignSelf={"end"}
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems={"center"}
+      role="presentation"
+      width={"100%"}
+      maxWidth={"1600px"}
+      height={"100%"}
+      paddingY={2}
+      paddingX={7}
+      bgcolor={theme.palette.CtColorScheme.blue800}
+      overflow={"hidden"}
+    >
+      <Stack
+        direction={"row"}
+        width={"100%"}
+        justifyContent={"space-between"}
+        alignItems={"end"}
+        borderBottom={1}
+        borderColor={theme.palette.CtColorScheme.white}
+        marginBottom={10}
+        paddingBottom={2}
+      >
+        <Image src={CTIcon} alt="ct-icon" />
+        <Typography color={theme.palette.CtColorScheme.white}>
+          {WhySoDrawerContent[0]}
+        </Typography>
+      </Stack>
+
+      <Box
+        display={"flex"}
+        height={"100%"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+            <Box
+              display={"flex"}
+              width={"100%"}
+              height={"100%"}
+              justifyContent={"center"}
+              alignItems={"end"}
+            >
+              <Image src={OurStoryIllustration} alt="our-story-illustration" />
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+            <Stack direction={"column"} width={"75%"} spacing={4}>
+              <Typography color={theme.palette.CtColorScheme.white}>
+                {WhySoDrawerContent[1]}
+              </Typography>
+              <Typography color={theme.palette.CtColorScheme.white}>
+                {WhySoDrawerContent[2]}
+              </Typography>
+              <Stack direction={"row"} spacing={2}>
+                <Typography variant="h5" color={"primary"}>
+                  “
                 </Typography>
-                <Typography color={theme.palette.CtColorScheme.white}>
-                  {WhySoDrawerContent[2]}
-                </Typography>
-                <Stack direction={"row"} spacing={2}>
-                  <Typography variant="h5" color={"primary"}>
-                    “
-                  </Typography>
-                  <Typography
-                    variant="h5"
-                    color={theme.palette.CtColorScheme.white}
+                <Typography
+                  variant="h5"
+                  color={theme.palette.CtColorScheme.white}
+                >
+                  {WhySoDrawerContent[3]}{" "}
+                  <span
+                    style={{
+                      marginLeft: "5px",
+                      color: theme.palette.primary.main,
+                    }}
                   >
-                    {WhySoDrawerContent[3]}{" "}
-                    <span
-                      style={{
-                        marginLeft: "5px",
-                        color: theme.palette.primary.main,
-                      }}
-                    >
-                      ”
-                    </span>
+                    ”
+                  </span>
+                </Typography>
+              </Stack>
+              <Typography color={theme.palette.CtColorScheme.white}>
+                {WhySoDrawerContent[4]}
+              </Typography>
+              <Button
+                onClick={props.handleClose}
+                sx={{
+                  padding: 0,
+                  justifyContent: "flex-start",
+                  color: "white",
+                }}
+              >
+                <Stack
+                  direction={"row"}
+                  width={"100%"}
+                  spacing={2}
+                  alignItems={"center"}
+                  marginTop={5}
+                >
+                  <Image
+                    src={IconArrowRight}
+                    alt="CT-Right-Up"
+                    color={theme.palette.primary.main}
+                    style={{
+                      transform: "scaleX(-1)",
+                    }}
+                  />
+                  <Typography variant="h4" color={"primary"}>
+                    {WhySoDrawerContent[5]}
                   </Typography>
                 </Stack>
-                <Typography color={theme.palette.CtColorScheme.white}>
-                  {WhySoDrawerContent[4]}
-                </Typography>
-                <Button
-                  onClick={props.handleClose}
-                  sx={{
-                    padding: 0,
-                    justifyContent: "flex-start",
-                    color: "white",
-                  }}
-                >
-                  <Stack
-                    direction={"row"}
-                    width={"100%"}
-                    spacing={2}
-                    alignItems={"center"}
-                    marginTop={5}
-                  >
-                    <Image
-                      src={IconArrowRight}
-                      alt="CT-Right-Up"
-                      color={theme.palette.primary.main}
-                      style={{
-                        transform: "scaleX(-1)",
-                      }}
-                    />
-                    <Typography variant="h4" color={"primary"}>
-                      {WhySoDrawerContent[5]}
-                    </Typography>
-                  </Stack>
-                </Button>
-              </Stack>
-            </Grid>
+              </Button>
+            </Stack>
           </Grid>
-        </Box>
+        </Grid>
       </Box>
-    </Drawer>
+    </Box>
+  );
+};
+
+const HandheldWhySoDrawer = (props: { handleClose: VoidFunction }) => {
+  const theme = useTheme();
+  return (
+    <Box
+      alignSelf={"end"}
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems={"center"}
+      role="presentation"
+      width={"100%"}
+      height={"100%"}
+      paddingY={2}
+      paddingX={3}
+      bgcolor={theme.palette.CtColorScheme.blue800}
+      overflow={"auto"}
+    >
+      <Stack
+        direction={"row"}
+        width={"100%"}
+        justifyContent={"space-between"}
+        alignItems={"end"}
+        borderBottom={1}
+        borderColor={theme.palette.CtColorScheme.white}
+        marginBottom={10}
+        paddingBottom={2}
+      >
+        <Image src={CTIcon} alt="ct-icon" />
+        <Typography color={theme.palette.CtColorScheme.white}>
+          {WhySoDrawerContent[0]}
+        </Typography>
+      </Stack>
+
+      <Box
+        display={"flex"}
+        height={"100%"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Grid container direction={"column"} rowGap={6}>
+          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+            <Box
+              display={"flex"}
+              width={"100%"}
+              height={"100%"}
+              marginTop={4}
+              justifyContent={"center"}
+              alignItems={"end"}
+            >
+              <Image
+                src={OurStoryIllustration}
+                alt="our-story-illustration"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  height: "auto",
+                  width: "auto",
+                }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+            <Stack direction={"column"} width={"90%"} spacing={4}>
+              <Typography color={theme.palette.CtColorScheme.white}>
+                {WhySoDrawerContent[1]}
+              </Typography>
+              <Typography color={theme.palette.CtColorScheme.white}>
+                {WhySoDrawerContent[2]}
+              </Typography>
+              <Stack direction={"row"} spacing={2}>
+                <Typography variant="h5" color={"primary"}>
+                  “
+                </Typography>
+                <Typography
+                  variant="h5"
+                  color={theme.palette.CtColorScheme.white}
+                >
+                  {WhySoDrawerContent[3]}{" "}
+                  <span
+                    style={{
+                      marginLeft: "5px",
+                      color: theme.palette.primary.main,
+                    }}
+                  >
+                    ”
+                  </span>
+                </Typography>
+              </Stack>
+              <Typography color={theme.palette.CtColorScheme.white}>
+                {WhySoDrawerContent[4]}
+              </Typography>
+              <Button
+                onClick={props.handleClose}
+                sx={{
+                  padding: 0,
+                  justifyContent: "flex-start",
+                  color: "white",
+                }}
+              >
+                <Stack
+                  direction={"row"}
+                  width={"100%"}
+                  spacing={2}
+                  alignItems={"center"}
+                  marginTop={2}
+                  marginBottom={4}
+                >
+                  <Image
+                    src={IconArrowRight}
+                    alt="CT-Right-Up"
+                    color={theme.palette.primary.main}
+                    style={{
+                      transform: "scaleX(-1)",
+                    }}
+                  />
+                  <Typography variant="h3" color={"primary"}>
+                    {WhySoDrawerContent[5]}
+                  </Typography>
+                </Stack>
+              </Button>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 

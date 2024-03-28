@@ -4,6 +4,7 @@ import {
   IconButton,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import ContentWrapper from "../global/ContentWrapper";
@@ -63,6 +64,7 @@ const contents = [
 const NewsRoomContent = () => {
   const theme = useTheme();
   const router = useRouter();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Box
       display={"flex"}
@@ -72,12 +74,23 @@ const NewsRoomContent = () => {
     >
       {contents.map((content, index) => (
         <ContentWrapper key={index} noMarginTop>
-          <Grid container borderTop={1} paddingTop={3} paddingBottom={10}>
+          <Grid
+            container
+            borderTop={1}
+            paddingTop={3}
+            paddingBottom={10}
+            columnSpacing={8}
+            rowSpacing={2}
+          >
             <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
               <Image src={content.image} alt={content.title} />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={7} xl={7}>
-              <Stack justifyContent={"space-between"} height={"100%"}>
+              <Stack
+                justifyContent={"space-between"}
+                height={"100%"}
+                spacing={1}
+              >
                 <Typography variant="h4" maxWidth={"660px"}>
                   {content.title}
                 </Typography>
@@ -94,16 +107,23 @@ const NewsRoomContent = () => {
               </Stack>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={1} xl={1}>
-              <IconButton
-                onClick={() => router.push(content.url)}
-                sx={{ transform: "scaleX(-1)" }}
+              <Box
+                display={"flex"}
+                justifyContent={isHandheldDevice ? "end" : "start"}
               >
-                <Image
-                  src={IconArrowLeft}
-                  alt="arrow-left"
-                  style={{ transform: "scaleX(-1)" }}
-                />
-              </IconButton>
+                <IconButton
+                  onClick={() => router.push(content.url)}
+                  sx={{
+                    transform: "scaleX(-1)",
+                  }}
+                >
+                  <Image
+                    src={IconArrowLeft}
+                    alt="arrow-left"
+                    style={{ transform: "scaleX(-1)" }}
+                  />
+                </IconButton>
+              </Box>
             </Grid>
           </Grid>
         </ContentWrapper>

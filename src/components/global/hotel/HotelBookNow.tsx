@@ -1,10 +1,11 @@
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Button, Divider, Typography, useMediaQuery } from "@mui/material";
 import Image, { StaticImageData } from "next/image";
 
 import CTLogoWhite from "@/assets/icons/general/LogoWhite.svg";
 import CTRight from "@/assets/icons/general/icon-arrow-top-right-white.svg";
 
 const HotelBookNow = (props: { HeroImage: StaticImageData; title: string }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Box
       width="100%"
@@ -22,9 +23,10 @@ const HotelBookNow = (props: { HeroImage: StaticImageData; title: string }) => {
         style={{
           position: "absolute",
           zIndex: -1,
-          width: "100%",
-          height: "auto",
-          //   top: `${scrollPosition * 0.5}px`, // Adjust parallax effect by changing multiplier
+          maxWidth: "100%",
+          width: "auto",
+          height: "100%",
+          objectFit: "cover",
         }}
       />
       <Box
@@ -50,7 +52,14 @@ const HotelBookNow = (props: { HeroImage: StaticImageData; title: string }) => {
           <Typography variant="body2" color={"white"} marginRight={2}>
             {"Book Now"}
           </Typography>
-          <Image src={CTRight} alt="CT-Right-Up" style={{ color: "white" }} />
+          <Image
+            src={CTRight}
+            alt="CT-Right-Up"
+            style={{
+              color: "white",
+              width: isHandheldDevice ? "80px" : "140px",
+            }}
+          />
         </Button>
       </Box>
     </Box>

@@ -7,6 +7,7 @@ import {
   IconButton,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import ContentWrapper from "../global/ContentWrapper";
@@ -131,30 +132,39 @@ const HotelAndLocation = () => {
     setHovered(data);
   };
 
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+
   return (
     <ContentWrapper>
       <HeaderTop title={textContent[0].title}>
-        <Button
-          onClick={() => setKLIA2Selected(false)}
-          sx={{ color: KLIA2Selected ? "black" : "" }}
+        <Stack
+          direction={"row"}
+          spacing={2}
+          justifyContent={isHandheldDevice ? "space-between" : "start"}
+          width={"100%"}
         >
-          {textContent[1].title}
-          {KLIA2Selected && (
-            <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
-          )}
-        </Button>
-        <Typography variant="h6" color={"grey"}>
-          /
-        </Typography>
-        <Button
-          onClick={() => setKLIA2Selected(true)}
-          sx={{ color: !KLIA2Selected ? "black" : "" }}
-        >
-          {textContent[2].title}
-          {!KLIA2Selected && (
-            <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
-          )}
-        </Button>
+          <Button
+            onClick={() => setKLIA2Selected(false)}
+            sx={{ color: KLIA2Selected ? "black" : "" }}
+          >
+            {textContent[1].title}
+            {KLIA2Selected && (
+              <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
+            )}
+          </Button>
+          <Typography variant="h6" color={"grey"}>
+            /
+          </Typography>
+          <Button
+            onClick={() => setKLIA2Selected(true)}
+            sx={{ color: !KLIA2Selected ? "black" : "" }}
+          >
+            {textContent[2].title}
+            {!KLIA2Selected && (
+              <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
+            )}
+          </Button>
+        </Stack>
       </HeaderTop>
       {KLIA2Selected ? (
         <KLIA2Hotels hovered={hovered} handleHoverImage={handleHoverImage} />
@@ -170,14 +180,16 @@ const KLIA2Hotels = (props: {
   handleHoverImage: (data: string) => void;
 }) => {
   const theme = useTheme();
+
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
-    <Grid container direction={"row"} columnSpacing={3}>
+    <Grid container direction={"row"} columnSpacing={3} rowSpacing={5}>
       {terminal2Hotels.map((data, index) => (
         <Grid item key={index} xs={12} sm={12} md={4} lg={4} xl={4}>
-          {props.hovered === data.title ? (
+          {props.hovered === data.title && !isHandheldDevice ? (
             <Box
               width="100%"
-              height="700px"
+              height={isHandheldDevice ? "500px" : "700px"}
               display="flex"
               flexDirection={"column"}
               justifyContent="center"
@@ -257,36 +269,19 @@ const KLIA2Hotels = (props: {
           ) : (
             <Box
               width={"100%"}
-              height={"700px"}
+              height={isHandheldDevice ? "500px" : "700px"}
               onMouseOver={() => props.handleHoverImage(data.title)}
             >
-              {typeof data.backgroundUrl === "string" ? (
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  style={
-                    {
-                      //   position: "absolute",
-                      // minWidth: "100%",
-                      // minHeight: "100%",
-                    }
-                  }
-                >
-                  <source src={data.backgroundUrl} type="video/mp4" />
-                </video>
-              ) : (
-                <Image
-                  src={data.backgroundUrl}
-                  alt={data.title}
-                  // width={30}
-                  // height={20}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                />
-              )}
+              <Image
+                src={data.backgroundUrl}
+                alt={data.title}
+                // width={30}
+                // height={20}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
             </Box>
           )}
           <Stack
@@ -318,6 +313,27 @@ const KLIA2Hotels = (props: {
               {data.location}
             </Typography>
           </Stack>
+          {isHandheldDevice && (
+            <Stack
+              direction={"row"}
+              alignItems={"center"}
+              spacing={1}
+              marginTop={2}
+            >
+              {data.features.map((feature) => {
+                return (
+                  FeaturesIcons.features(feature) !== "" && (
+                    <Image
+                      src={FeaturesIcons.features(feature)}
+                      alt="feature"
+                      width={30}
+                      height={30}
+                    />
+                  )
+                );
+              })}
+            </Stack>
+          )}
         </Grid>
       ))}
     </Grid>
@@ -329,13 +345,15 @@ const KLIA1Hotels = (props: {
   handleHoverImage: (data: string) => void;
 }) => {
   const theme = useTheme();
+
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Grid container direction={"row"} columnSpacing={3}>
       <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
         {props.hovered === terminal1Hotels.title ? (
           <Box
             width="100%"
-            height="700px"
+            height={isHandheldDevice ? "500px" : "700px"}
             display="flex"
             flexDirection={"column"}
             justifyContent="center"
@@ -415,7 +433,7 @@ const KLIA1Hotels = (props: {
         ) : (
           <Box
             width={"100%"}
-            height={"700px"}
+            height={isHandheldDevice ? "500px" : "700px"}
             onMouseOver={() => props.handleHoverImage(terminal1Hotels.title)}
           >
             <Image
@@ -459,21 +477,44 @@ const KLIA1Hotels = (props: {
             {terminal1Hotels.location}
           </Typography>
         </Stack>
+        {isHandheldDevice && (
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            spacing={1}
+            marginTop={2}
+          >
+            {terminal1Hotels.features.map((feature) => {
+              return (
+                FeaturesIcons.features(feature) !== "" && (
+                  <Image
+                    src={FeaturesIcons.features(feature)}
+                    alt="feature"
+                    width={30}
+                    height={30}
+                  />
+                )
+              );
+            })}
+          </Stack>
+        )}
       </Grid>
-      <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-        <Box width={"100%"} height={"700px"}>
-          <Image
-            src={SleepLoungImage}
-            alt={"capsule-transit-sleep-lounge"}
-            // width={30}
-            // height={20}
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
-          />
-        </Box>
-      </Grid>
+      {!isHandheldDevice && (
+        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+          <Box width={"100%"} height={"700px"}>
+            <Image
+              src={SleepLoungImage}
+              alt={"capsule-transit-sleep-lounge"}
+              // width={30}
+              // height={20}
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </Box>
+        </Grid>
+      )}
     </Grid>
   );
 };
