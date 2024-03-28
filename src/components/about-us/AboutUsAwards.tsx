@@ -1,4 +1,11 @@
-import { Box, Grid, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import ContentWrapper from "../global/ContentWrapper";
 
 import AgodaAwards from "./images/awards/logo-award-agoda.png";
@@ -19,18 +26,30 @@ const content = {
 
 const AboutUsAwards = () => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <ContentWrapper>
-      <Grid container borderTop={1} paddingY={4} marginBottom={4}>
+      <Grid
+        container
+        borderTop={1}
+        paddingY={4}
+        marginBottom={4}
+        rowSpacing={4}
+      >
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-          <Box display={"flex"} height={"100%"} alignItems={"center"}>
+          <Box
+            display={"flex"}
+            height={"100%"}
+            justifyContent={isHandheldDevice ? "center" : "start"}
+            alignItems={"center"}
+          >
             <Typography fontSize={"20px"}>{content.title}</Typography>
           </Box>
         </Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-          <Grid container justifyContent={"space-between"}>
+          <Grid container justifyContent={"space-between"} spacing={3}>
             {content.awards.map((award, index) => (
-              <Grid key={index} item xs={12} sm={12} md={6} lg={3} xl={3}>
+              <Grid key={index} item xs={6} sm={6} md={6} lg={3} xl={3}>
                 <Stack
                   direction={"column"}
                   justifyContent={"center"}

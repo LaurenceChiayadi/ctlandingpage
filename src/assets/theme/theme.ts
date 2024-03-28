@@ -87,7 +87,7 @@ const theme = createTheme({
       fontWeight: 600,
       color: "#1A1A1a",
       "@media (max-width: 1050px)": {
-        fontSize: "3.2rem", // Adjust font size for mobile
+        fontSize: "3rem", // Adjust font size for mobile
       },
     },
     h2: {
@@ -111,7 +111,7 @@ const theme = createTheme({
       fontWeight: 600,
       color: "#1A1A1a",
       "@media (max-width: 1050px)": {
-        fontSize: "1.875rem", // Adjust font size for mobile
+        fontSize: "1.6rem", // Adjust font size for mobile
       },
     },
     h5: {

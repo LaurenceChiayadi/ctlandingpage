@@ -1,4 +1,12 @@
-import { Box, Divider, Grid, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import ContentWrapper from "../global/ContentWrapper";
 
 import CapsuleTransitImage from "./images/logo-display-capsuletransit@2x.png";
@@ -34,6 +42,8 @@ const hotels = [
 
 const AboutUsCollections = () => {
   const theme = useTheme();
+
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <ContentWrapper>
       <Box display={"flex"} flexDirection={"column"} borderTop={1}>
@@ -41,32 +51,81 @@ const AboutUsCollections = () => {
           <Typography variant="body2">{textContent[0]}</Typography>
           <Typography>{textContent[1]}</Typography>
         </Stack>
-        <Grid container marginTop={"90px"} rowSpacing={8}>
-          {hotels.map((hotel, index) => (
-            <Grid key={index} xs={12} sm={12} md={6} lg={4} xl={4}>
-              <Stack spacing={6}>
-                <Image
-                  src={hotel.image}
-                  alt={hotel.title}
-                  style={{ height: "60px", maxWidth: "60%" }}
-                />
-                <Stack direction={"column"} spacing={3}>
-                  <Divider
-                    sx={{
-                      width: "30px",
-                      bgcolor: theme.palette.CtColorScheme.grey400,
-                      marginTop: 1,
-                    }}
-                  />
-                  <Typography fontWeight={700}>{hotel.title}</Typography>
-                  <Typography maxWidth={"60%"}>{hotel.description}</Typography>
-                </Stack>
-              </Stack>
-            </Grid>
-          ))}
-        </Grid>
+
+        {!isHandheldDevice ? <DesktopView /> : <HandheldView />}
       </Box>
     </ContentWrapper>
+  );
+};
+
+const DesktopView = () => {
+  const theme = useTheme();
+  return (
+    <Grid container marginTop={"90px"} rowSpacing={8}>
+      {hotels.map((hotel, index) => (
+        <Grid key={index} xs={12} sm={12} md={6} lg={4} xl={4}>
+          <Stack spacing={6}>
+            <Image
+              src={hotel.image}
+              alt={hotel.title}
+              style={{ height: "60px", maxWidth: "60%" }}
+            />
+            <Stack direction={"column"} spacing={3}>
+              <Divider
+                sx={{
+                  width: "30px",
+                  bgcolor: theme.palette.CtColorScheme.grey400,
+                  marginTop: 1,
+                }}
+              />
+              <Typography fontWeight={700}>{hotel.title}</Typography>
+              <Typography maxWidth={"60%"}>{hotel.description}</Typography>
+            </Stack>
+          </Stack>
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
+
+const HandheldView = () => {
+  const theme = useTheme();
+  return (
+    <Stack
+      direction={"row"}
+      marginTop={"90px"}
+      spacing={4}
+      overflow={"auto"}
+      sx={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+    >
+      {hotels.map((hotel, index) => (
+        <Box key={index} width={"410px"}>
+          <Stack spacing={8}>
+            <Image
+              src={hotel.image}
+              alt={hotel.title}
+              style={{
+                maxWidth: "410px",
+                maxHeight: "100%",
+                height: "auto",
+                width: "auto",
+              }}
+            />
+            <Stack direction={"column"} spacing={3}>
+              <Divider
+                sx={{
+                  width: "30px",
+                  bgcolor: theme.palette.CtColorScheme.grey400,
+                  marginTop: 1,
+                }}
+              />
+              <Typography fontWeight={700}>{hotel.title}</Typography>
+              <Typography maxWidth={"100%"}>{hotel.description}</Typography>
+            </Stack>
+          </Stack>
+        </Box>
+      ))}
+    </Stack>
   );
 };
 
