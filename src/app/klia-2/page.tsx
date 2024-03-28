@@ -12,7 +12,7 @@ const KLIA2Page = () => {
   return (
     <Box
       display={"flex"}
-      width={"99vw"}
+      width={"100vw"}
       flexDirection={"column"}
       sx={{ overflowX: "hidden" }}
     >

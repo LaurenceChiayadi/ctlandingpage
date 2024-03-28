@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import HeaderTop from "../HeaderTop";
 import Image, { StaticImageData } from "next/image";
 import ContentWrapper from "../ContentWrapper";
@@ -10,35 +17,52 @@ const HotelGallery = (props: {
   textContents: string[];
   images: StaticImageData[];
 }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   const [imageDisplay, setImageDisplay] = useState<string>(
-    props.textContents[2]
+    isHandheldDevice ? props.textContents[1] : props.textContents[2]
   );
   return (
     <ContentWrapper>
       <HeaderTop title={props.textContents[0]}>
-        <Button
-          onClick={() => setImageDisplay(props.textContents[1])}
-          sx={{ color: imageDisplay === props.textContents[2] ? "black" : "" }}
-        >
-          {props.textContents[1]}
-          {imageDisplay === props.textContents[2] && (
-            <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
-          )}
-        </Button>
-        <Typography variant="h6" color={"grey"}>
-          /
-        </Typography>
-        <Button
-          onClick={() => setImageDisplay(props.textContents[2])}
-          sx={{ color: imageDisplay === props.textContents[1] ? "black" : "" }}
-        >
-          {props.textContents[2]}
-          {imageDisplay === props.textContents[1] && (
-            <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
-          )}
-        </Button>
+        {!isHandheldDevice && (
+          <>
+            <Button
+              onClick={() => setImageDisplay(props.textContents[1])}
+              sx={{
+                color: imageDisplay === props.textContents[2] ? "black" : "",
+              }}
+            >
+              {props.textContents[1]}
+              {imageDisplay === props.textContents[2] && (
+                <Image
+                  src={EyeIcon}
+                  alt={"eye-icon"}
+                  style={{ marginLeft: 5 }}
+                />
+              )}
+            </Button>
+            <Typography variant="h6" color={"grey"}>
+              /
+            </Typography>
+            <Button
+              onClick={() => setImageDisplay(props.textContents[2])}
+              sx={{
+                color: imageDisplay === props.textContents[1] ? "black" : "",
+              }}
+            >
+              {props.textContents[2]}
+              {imageDisplay === props.textContents[1] && (
+                <Image
+                  src={EyeIcon}
+                  alt={"eye-icon"}
+                  style={{ marginLeft: 5 }}
+                />
+              )}
+            </Button>
+          </>
+        )}
       </HeaderTop>
-      {imageDisplay === props.textContents[1] ? (
+      {imageDisplay === props.textContents[1] || !isHandheldDevice ? (
         <Grid container spacing={4}>
           {props.images.map((image, index) => (
             <Grid
@@ -49,7 +73,7 @@ const HotelGallery = (props: {
               md={4}
               lg={3}
               xl={3}
-              height={"400px"}
+              height={isHandheldDevice ? "200px" : "400px"}
             >
               <Box
                 display={"flex"}

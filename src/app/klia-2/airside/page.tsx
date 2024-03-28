@@ -13,7 +13,7 @@ import Footer from "@/components/global/Footer";
 
 const Airside = () => {
   return (
-    <Box display={"flex"} width={"99vw"} flexDirection={"column"}>
+    <Box display={"flex"} width={"100vw"} flexDirection={"column"}>
       <NavBar />
       <AirsideHero />
       <AirsideIntro />

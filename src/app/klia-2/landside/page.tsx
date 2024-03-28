@@ -14,7 +14,7 @@ import LandsideExploreOther from "@/components/landside/LandsideExploreOther";
 
 const Landside = () => {
   return (
-    <Box display={"flex"} width={"99vw"} flexDirection={"column"}>
+    <Box display={"flex"} width={"100vw"} flexDirection={"column"}>
       <NavBar />
       <LandsideHero />
       <LandsideIntro />

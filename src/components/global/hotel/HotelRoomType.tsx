@@ -4,6 +4,7 @@ import {
   Stack,
   Typography,
   duration,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { featuresEnum } from "@/constant/Enums";
@@ -59,16 +60,20 @@ const HotelRoomType = (props: {
           </Stack>
         }
       />
-      <Grid container direction={"row"} marginTop={8}>
+      <Grid container direction={"row"} marginTop={8} rowGap={5}>
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <Typography variant="h3" width={"70%"}>
             {props.title}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-          <Grid container columnSpacing={3} rowSpacing={3}>
+          <Grid
+            container
+            columnSpacing={3}
+            rowSpacing={{ xs: 8, sm: 8, md: 5, lg: 5, xl: 5 }}
+          >
             {props.roomTypes.map((roomType, index) => (
-              <Grid key={index} item xs={6} sm={6} md={6} lg={6} xl={6}>
+              <Grid key={index} item xs={12} sm={12} md={6} lg={6} xl={6}>
                 <Box display={"flex"} flexDirection={"column"}>
                   <Image
                     src={roomType.image}
