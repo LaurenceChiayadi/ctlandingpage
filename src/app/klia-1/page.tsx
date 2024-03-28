@@ -21,7 +21,7 @@ const KLIA1Page = () => {
       <NavBar />
       <KLIA1Hero />
       <SleepLoungeOverviewKLIA2 />
-      <Box marginY={6} />
+      <Box marginY={3} />
       <Footer />
     </Box>
   );

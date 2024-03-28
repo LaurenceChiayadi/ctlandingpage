@@ -21,7 +21,7 @@ const KLIA2Page = () => {
       <AirsideOverviewKLIA2 />
       <LandsideOverviewKLIA2 />
       <MaxOverviewKLIA2 />
-      <Box marginY={6} />
+      <Box marginY={3} />
       <Footer />
     </Box>
   );

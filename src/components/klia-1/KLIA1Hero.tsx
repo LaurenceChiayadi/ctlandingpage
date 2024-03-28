@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 
 const textContent = [
   "Capsule Transit",
@@ -7,6 +7,7 @@ const textContent = [
 ];
 
 const KLIA1Hero = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Box
       display={"flex"}
@@ -21,7 +22,7 @@ const KLIA1Hero = () => {
       </Typography>
       <Typography
         variant="h4"
-        width={"700px"}
+        width={isHandheldDevice ? "80%" : "700px"}
         textAlign={"center"}
         marginTop={5}
       >
