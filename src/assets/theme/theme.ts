@@ -83,7 +83,7 @@ const theme = createTheme({
   typography: {
     fontFamily: "'IBM Plex Sans', sans-serif",
     h1: {
-      fontSize: "5.625rem",
+      fontSize: "5.3rem",
       fontWeight: 600,
       color: "#1A1A1a",
       "@media (max-width: 1050px)": {
@@ -143,7 +143,7 @@ const theme = createTheme({
     },
     body2: {
       //Display 2
-      fontSize: "4.5rem",
+      fontSize: "4rem",
       color: "#1A1A1A",
       fontWeight: 600,
       "@media (max-width: 1050px)": {

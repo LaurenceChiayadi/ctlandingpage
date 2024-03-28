@@ -25,8 +25,18 @@ import { Instagram } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 
 const hotels = [
-  { title: "Hotel @ KLIA T1", hotels: ["Sleep Lounge"] },
-  { title: "Hotel @ KLIA T2", hotels: ["Airside", "Landside", "MAX"] },
+  {
+    title: "Hotel @ KLIA T1",
+    hotels: [{ title: "Sleep Lounge", url: "/klia-1/sleep-lounge" }],
+  },
+  {
+    title: "Hotel @ KLIA T2",
+    hotels: [
+      { title: "Airside", url: "/klia-2/airside" },
+      { title: "Landside", url: "/klia-2/landside" },
+      { title: "MAX", url: "/klia-2/max" },
+    ],
+  },
 ];
 
 const rightSection = {
@@ -118,15 +128,21 @@ const DesktopDrawer = (props: {
                 {terminal.title}
               </Typography>
               {terminal.hotels.map((hotel, index) => (
-                <Typography
+                <Button
                   key={index}
-                  variant="body2"
-                  color={theme.palette.CtColorScheme.white}
-                  onMouseEnter={() => props.handleHovered(hotel)}
-                  onMouseLeave={() => props.handleHovered("")}
+                  onClick={() => router.push(hotel.url)}
+                  sx={{ padding: 0, justifyContent: "start" }}
                 >
-                  {hotel}
-                </Typography>
+                  <Typography
+                    variant="body2"
+                    color={theme.palette.CtColorScheme.white}
+                    textAlign={"start"}
+                    onMouseEnter={() => props.handleHovered(hotel.title)}
+                    onMouseLeave={() => props.handleHovered("")}
+                  >
+                    {hotel.title}
+                  </Typography>
+                </Button>
               ))}
             </Stack>
           ))}
@@ -323,13 +339,18 @@ const HandheldDrawer = (props: { handleClose: VoidFunction }) => {
                 {terminal.title}
               </Typography>
               {terminal.hotels.map((hotel, index) => (
-                <Typography
+                <Button
                   key={index}
-                  variant="body2"
-                  color={theme.palette.CtColorScheme.white}
+                  onClick={() => router.push(hotel.url)}
+                  sx={{ padding: 0, justifyContent: "start" }}
                 >
-                  {hotel}
-                </Typography>
+                  <Typography
+                    variant="body2"
+                    color={theme.palette.CtColorScheme.white}
+                  >
+                    {hotel.title}
+                  </Typography>
+                </Button>
               ))}
             </Stack>
           ))}
