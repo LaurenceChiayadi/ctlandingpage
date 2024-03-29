@@ -2,10 +2,15 @@ import { useState } from "react";
 import {
   Box,
   Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
   Grid,
   Stack,
   Typography,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import HeaderTop from "../HeaderTop";
 import Image, { StaticImageData } from "next/image";
@@ -13,17 +18,25 @@ import ContentWrapper from "../ContentWrapper";
 
 import EyeIcon from "@/assets/icons/general/icon-view-black.svg";
 
+export interface IHotelGalleryImages {
+  image: StaticImageData;
+  category: string;
+}
+
 const HotelGallery = (props: {
   textContents: string[];
-  images: StaticImageData[];
+  images: IHotelGalleryImages[];
 }) => {
+  const theme = useTheme();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   const [imageDisplay, setImageDisplay] = useState<string>(
     isHandheldDevice ? props.textContents[1] : props.textContents[2]
   );
+  const [filter, setFilter] = useState<string[]>([]);
+
   return (
     <ContentWrapper>
-      <HeaderTop title={props.textContents[0]}>
+      <HeaderTop title={props.textContents[0]} marginBottom={3}>
         {!isHandheldDevice && (
           <>
             <Button
@@ -62,40 +75,93 @@ const HotelGallery = (props: {
           </>
         )}
       </HeaderTop>
-      {imageDisplay === props.textContents[1] || !isHandheldDevice ? (
-        <Grid container spacing={4}>
-          {props.images.map((image, index) => (
-            <Grid
+      <FormGroup row sx={{ marginBottom: 5 }}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={filter.length === 0}
+              onChange={() => setFilter([])}
+              sx={{
+                color: theme.palette.CtColorScheme.yellow500,
+                "&.Mui-checked": {
+                  color: theme.palette.CtColorScheme.yellow500,
+                },
+              }}
+            />
+          }
+          label="All"
+        />
+        {Array.from(new Set(props.images.map((image) => image.category))).map(
+          (category, index) => (
+            <FormControlLabel
               key={index}
-              item
-              xs={6}
-              sm={6}
-              md={4}
-              lg={3}
-              xl={3}
-              height={isHandheldDevice ? "200px" : "400px"}
-            >
-              <Box
-                display={"flex"}
-                width={"100%"}
-                height={"100%"}
-                justifyContent={"center"}
-                alignItems={"center"}
-                overflow={"hidden"}
-              >
-                <Image
-                  src={image}
-                  alt={`airside-${index}`}
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: "100%",
-                    width: "auto",
-                    height: "auto",
+              control={
+                <Checkbox
+                  checked={filter.includes(category)}
+                  onChange={(event) => {
+                    if (event.target.checked) {
+                      setFilter((prevValue) => [...prevValue, category]);
+                    } else {
+                      setFilter((prevValue) =>
+                        prevValue.filter((filter) => filter !== category)
+                      );
+                    }
+                  }}
+                  sx={{
+                    color: theme.palette.CtColorScheme.yellow500,
+                    "&.Mui-checked": {
+                      color: theme.palette.CtColorScheme.yellow500,
+                    },
                   }}
                 />
-              </Box>
-            </Grid>
-          ))}
+              }
+              label={category}
+            />
+          )
+        )}
+      </FormGroup>
+      {imageDisplay === props.textContents[1] && !isHandheldDevice ? (
+        <Grid container spacing={4}>
+          {props.images
+            .filter((image) => {
+              if (filter.length === 0) {
+                return true;
+              } else {
+                return filter.includes(image.category);
+              }
+            })
+            .map((image, index) => (
+              <Grid
+                key={index}
+                item
+                xs={6}
+                sm={6}
+                md={4}
+                lg={3}
+                xl={3}
+                height={isHandheldDevice ? "200px" : "400px"}
+              >
+                <Box
+                  display={"flex"}
+                  width={"100%"}
+                  height={"100%"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  overflow={"hidden"}
+                >
+                  <Image
+                    src={image.image}
+                    alt={`airside-${index}`}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      width: "auto",
+                      height: "auto",
+                    }}
+                  />
+                </Box>
+              </Grid>
+            ))}
         </Grid>
       ) : (
         <Stack
@@ -105,22 +171,30 @@ const HotelGallery = (props: {
           spacing={3}
           sx={{ overflowX: "auto", overflowY: "hidden" }}
         >
-          {props.images.map((image, index) => (
-            <Box key={index} width={"100%"} height={"80vh"}>
-              <Image
-                src={image}
-                alt={`airside-${index}`}
-                style={{
-                  maxWidth: "30vw",
-                  maxHeight: "100%",
-                  width: "auto",
-                  height: "auto",
-                  // width: "30vw",
-                  // height: "100%",
-                }}
-              />
-            </Box>
-          ))}
+          {props.images
+            .filter((image) => {
+              if (filter.length === 0) {
+                return true;
+              } else {
+                return filter.includes(image.category);
+              }
+            })
+            .map((image, index) => (
+              <Box key={index} width={"100%"} height={"80vh"}>
+                <Image
+                  src={image.image}
+                  alt={`airside-${index}`}
+                  style={{
+                    maxWidth: "600px",
+                    maxHeight: "100%",
+                    width: "auto",
+                    height: "auto",
+                    // width: "30vw",
+                    // height: "100%",
+                  }}
+                />
+              </Box>
+            ))}
         </Stack>
       )}
     </ContentWrapper>

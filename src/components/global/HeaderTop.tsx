@@ -1,15 +1,27 @@
 import { Stack, Typography, useMediaQuery } from "@mui/material";
 
-const HeaderTop = (props: { title: string; children: React.ReactNode }) => {
+const HeaderTop = (props: {
+  title: string;
+  children: React.ReactNode;
+  marginBottom?: number;
+}) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return !isHandheldDevice ? (
-    <DesktopView title={props.title}>{props.children}</DesktopView>
+    <DesktopView title={props.title} marginBottom={props.marginBottom}>
+      {props.children}
+    </DesktopView>
   ) : (
-    <HandheldView title={props.title}>{props.children}</HandheldView>
+    <HandheldView title={props.title} marginBottom={props.marginBottom}>
+      {props.children}
+    </HandheldView>
   );
 };
 
-const DesktopView = (props: { title: string; children: React.ReactNode }) => {
+const DesktopView = (props: {
+  title: string;
+  children: React.ReactNode;
+  marginBottom?: number;
+}) => {
   return (
     <Stack
       direction={"row"}
@@ -17,7 +29,7 @@ const DesktopView = (props: { title: string; children: React.ReactNode }) => {
       justifyContent={"space-between"}
       alignItems={"end"}
       borderBottom={1}
-      marginBottom={10}
+      marginBottom={props.marginBottom ? props.marginBottom : 8}
     >
       <Typography variant="h3" width={"25%"}>
         {props.title}
@@ -34,14 +46,18 @@ const DesktopView = (props: { title: string; children: React.ReactNode }) => {
   );
 };
 
-const HandheldView = (props: { title: string; children: React.ReactNode }) => {
+const HandheldView = (props: {
+  title: string;
+  children: React.ReactNode;
+  marginBottom?: number;
+}) => {
   return (
     <Stack
       direction={"column"}
       width={"100%"}
       justifyContent={"space-between"}
       borderBottom={1}
-      marginBottom={6}
+      marginBottom={props.marginBottom ? props.marginBottom : 6}
       paddingBottom={2}
       spacing={4}
     >

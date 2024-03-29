@@ -33,44 +33,134 @@ import Landside25 from "./images/room-types-showcase/img-landside-25@2x.jpg";
 import Landside26 from "./images/room-types-showcase/img-landside-26@2x.jpg";
 import Landside27 from "./images/room-types-showcase/img-landside-27@2x.jpg";
 import Landside28 from "./images/room-types-showcase/img-landside-28@2x.jpg";
-import HotelGallery from "../global/hotel/HotelGallery";
+import HotelGallery, {
+  IHotelGalleryImages,
+} from "../global/hotel/HotelGallery";
 0;
 
 const textContents = ["Have a Glance", "Grid", "List"];
 
-const AirsideImages = [
-  Landside1,
-  Landside2,
-  Landside3,
-  Landside4,
-  Landside5,
-  Landside6,
-  Landside7,
-  Landside8,
-  Landside9,
-  Landside10,
-  Landside11,
-  Landside12,
-  Landside13,
-  Landside14,
-  Landside15,
-  Landside16,
-  Landside17,
-  Landside18,
-  Landside19,
-  Landside20,
-  Landside21,
-  Landside22,
-  Landside23,
-  Landside24,
-  Landside25,
-  Landside26,
-  Landside27,
-  Landside28,
+const LandsideImages: IHotelGalleryImages[] = [
+  {
+    image: Landside1,
+    category: "Female Single",
+  },
+  {
+    image: Landside2,
+    category: "Other",
+  },
+  {
+    image: Landside3,
+    category: "Other",
+  },
+
+  {
+    image: Landside4,
+    category: "Other",
+  },
+  {
+    image: Landside5,
+    category: "Other",
+  },
+  {
+    image: Landside6,
+    category: "Other",
+  },
+  {
+    image: Landside7,
+    category: "Other",
+  },
+
+  {
+    image: Landside8,
+    category: "Other",
+  },
+  {
+    image: Landside9,
+    category: "Other",
+  },
+  {
+    image: Landside10,
+    category: "Other",
+  },
+  {
+    image: Landside11,
+    category: "Other",
+  },
+  {
+    image: Landside12,
+    category: "Other",
+  },
+  {
+    image: Landside13,
+    category: "Other",
+  },
+  {
+    image: Landside14,
+    category: "Other",
+  },
+  {
+    image: Landside15,
+    category: "Other",
+  },
+  {
+    image: Landside16,
+    category: "Other",
+  },
+  {
+    image: Landside17,
+    category: "Other",
+  },
+
+  {
+    image: Landside18,
+    category: "Other",
+  },
+  {
+    image: Landside19,
+    category: "Other",
+  },
+  {
+    image: Landside20,
+    category: "Other",
+  },
+  {
+    image: Landside21,
+    category: "Other",
+  },
+
+  {
+    image: Landside22,
+    category: "Other",
+  },
+  {
+    image: Landside23,
+    category: "Other",
+  },
+  {
+    image: Landside24,
+    category: "Other",
+  },
+  {
+    image: Landside25,
+    category: "Other",
+  },
+  {
+    image: Landside26,
+    category: "Other",
+  },
+  {
+    image: Landside27,
+    category: "Other",
+  },
+  {
+    image: Landside28,
+    category: "Other",
+  },
 ];
 
 const LandsideRoomTypesShowcase = () => {
-  return <HotelGallery images={AirsideImages} textContents={textContents} />;
+  return <HotelGallery images={LandsideImages} textContents={textContents} />;
 };
 
 export default LandsideRoomTypesShowcase;

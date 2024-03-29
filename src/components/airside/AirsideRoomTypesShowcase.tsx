@@ -16,23 +16,25 @@ import Airside8 from "./images/room-types-showcase/img-airside-8@2x.jpg";
 import Airside9 from "./images/room-types-showcase/img-airside-9@2x.jpg";
 import Airside10 from "./images/room-types-showcase/img-airside-10@2x.jpg";
 import Airside11 from "./images/room-types-showcase/img-airside-11@2x.jpg";
-import HotelGallery from "../global/hotel/HotelGallery";
+import HotelGallery, {
+  IHotelGalleryImages,
+} from "../global/hotel/HotelGallery";
 0;
 
 const textContents = ["Have a Glance", "Grid", "List"];
 
-const AirsideImages = [
-  Airside1,
-  Airside2,
-  Airside3,
-  Airside4,
-  Airside5,
-  Airside6,
-  Airside7,
-  Airside8,
-  Airside9,
-  Airside10,
-  Airside11,
+const AirsideImages: IHotelGalleryImages[] = [
+  { image: Airside1, category: "Female Single" },
+  { image: Airside2, category: "Other" },
+  { image: Airside3, category: "Other" },
+  { image: Airside4, category: "Other" },
+  { image: Airside5, category: "Other" },
+  { image: Airside6, category: "Other" },
+  { image: Airside7, category: "Other" },
+  { image: Airside8, category: "Other" },
+  { image: Airside9, category: "Other" },
+  { image: Airside10, category: "Other" },
+  { image: Airside11, category: "Other" },
 ];
 
 const AirsideRoomTypesShowcase = () => {

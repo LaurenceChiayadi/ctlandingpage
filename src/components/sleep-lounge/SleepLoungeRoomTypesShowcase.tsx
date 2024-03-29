@@ -23,35 +23,37 @@ import SleepLounge22 from "./images/room-types-showcase/img-sleeplounge-22@2x.jp
 import SleepLounge23 from "./images/room-types-showcase/img-sleeplounge-23@2x.jpg";
 import SleepLounge24 from "./images/room-types-showcase/img-sleeplounge-24@2x.jpg";
 
-import HotelGallery from "../global/hotel/HotelGallery";
+import HotelGallery, {
+  IHotelGalleryImages,
+} from "../global/hotel/HotelGallery";
 
 const textContents = ["Have a Glance", "Grid", "List"];
 
-const AirsideImages = [
-  SleepLounge1,
-  SleepLounge2,
-  SleepLounge3,
-  SleepLounge4,
-  SleepLounge5,
-  SleepLounge6,
-  SleepLounge7,
-  SleepLounge8,
-  SleepLounge9,
-  SleepLounge10,
-  SleepLounge11,
-  SleepLounge12,
-  SleepLounge13,
-  SleepLounge14,
-  SleepLounge15,
-  SleepLounge16,
-  SleepLounge17,
-  SleepLounge18,
-  SleepLounge19,
-  SleepLounge20,
-  SleepLounge21,
-  SleepLounge22,
-  SleepLounge23,
-  SleepLounge24,
+const AirsideImages: IHotelGalleryImages[] = [
+  { image: SleepLounge1, category: "Other" },
+  { image: SleepLounge2, category: "Other" },
+  { image: SleepLounge3, category: "Other" },
+  { image: SleepLounge4, category: "Other" },
+  { image: SleepLounge5, category: "Other" },
+  { image: SleepLounge6, category: "Other" },
+  { image: SleepLounge7, category: "Other" },
+  { image: SleepLounge8, category: "Other" },
+  { image: SleepLounge9, category: "Other" },
+  { image: SleepLounge10, category: "Other" },
+  { image: SleepLounge11, category: "Other" },
+  { image: SleepLounge12, category: "Other" },
+  { image: SleepLounge13, category: "Other" },
+  { image: SleepLounge14, category: "Other" },
+  { image: SleepLounge15, category: "Other" },
+  { image: SleepLounge16, category: "Other" },
+  { image: SleepLounge17, category: "Other" },
+  { image: SleepLounge18, category: "Other" },
+  { image: SleepLounge19, category: "Other" },
+  { image: SleepLounge20, category: "Other" },
+  { image: SleepLounge21, category: "Other" },
+  { image: SleepLounge22, category: "Other" },
+  { image: SleepLounge23, category: "Other" },
+  { image: SleepLounge24, category: "Other" },
 ];
 
 const SleepLoungeRoomTypesShowcase = () => {
