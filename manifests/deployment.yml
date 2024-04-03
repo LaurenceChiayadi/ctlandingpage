@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ctlandingpage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ctlandingpage
+  template:
+    metadata:
+      labels:
+        app: ctlandingpage
+    spec:
+      containers:
+        - name: ctlandingpage
+          image: DOCKER_IMAGE
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+        
+
+      imagePullSecrets:
+        - name: ecr-registry
+          # envFrom:
+          #   - secretRef:
+          #       name: secretsenvironments
+# aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 204760077555.dkr.ecr.ap-southeast-1.amazonaws.com 
