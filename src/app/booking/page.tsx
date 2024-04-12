@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  ButtonBase,
+  IconButton,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -16,9 +23,27 @@ import {
   PersonOutline,
 } from "@mui/icons-material";
 import StaySection from "@/components/booking/StaySection";
+import ScheduleSection from "@/components/booking/ScheduleSection";
+import { BookingScheduleInitial, IBookingSchedule } from "@/models/Booking";
 
 const BookingPage = () => {
   const [stepper, setStepper] = useState<number>(1);
+  const [selectedHotel, setSelectedHotel] = useState<string>();
+  const [selectedDateWithPromotion, setSelectedDateWithPromotion] =
+    useState<IBookingSchedule>(BookingScheduleInitial);
+
+  const handleChangeStepper = (value: number) => {
+    setStepper(value);
+  };
+
+  const handleChangeSelectedHotel = (value: string) => {
+    setSelectedHotel(value);
+    setStepper(2);
+  };
+
+  const handleChangeDatePromotion = (value: IBookingSchedule) => {
+    setSelectedDateWithPromotion(value);
+  };
 
   return (
     <Box
@@ -28,8 +53,21 @@ const BookingPage = () => {
       sx={{ overflowX: "hidden" }}
     >
       <BookingHeader />
-      <BookingStepper stepper={stepper} />
-      {stepper === 1 ? <StaySection /> : <></>}
+      <BookingStepper
+        stepper={stepper}
+        handleChangeStepper={handleChangeStepper}
+      />
+      {stepper === 1 ? (
+        <StaySection handleChangeSelectedHotel={handleChangeSelectedHotel} />
+      ) : stepper === 2 ? (
+        <ScheduleSection
+          bookingSchedule={selectedDateWithPromotion}
+          handleChangeDatePromotion={handleChangeDatePromotion}
+          handleChangeStepper={handleChangeStepper}
+        />
+      ) : (
+        <></>
+      )}
     </Box>
   );
 };
@@ -99,7 +137,10 @@ const steps = [
   },
 ];
 
-const BookingStepper = (props: { stepper: number }) => {
+const BookingStepper = (props: {
+  stepper: number;
+  handleChangeStepper: (value: number) => void;
+}) => {
   const theme = useTheme();
   return (
     <Stack
@@ -112,9 +153,11 @@ const BookingStepper = (props: { stepper: number }) => {
       borderBottom={2}
     >
       {steps.map((step, index) => (
-        <>
+        <ButtonBase
+          key={index}
+          onClick={() => props.handleChangeStepper(step.value)}
+        >
           <Stack
-            key={index}
             direction={"row"}
             justifyContent={"center"}
             alignItems={"center"}
@@ -134,7 +177,7 @@ const BookingStepper = (props: { stepper: number }) => {
               sx={{ marginLeft: 5, color: theme.palette.CtColorScheme.grey300 }}
             />
           )}
-        </>
+        </ButtonBase>
       ))}
     </Stack>
   );

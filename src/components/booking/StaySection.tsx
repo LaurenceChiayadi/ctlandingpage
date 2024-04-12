@@ -62,7 +62,9 @@ const KLIA2Options: IKLIAOptions = {
   ],
 };
 
-const StaySection = () => {
+const StaySection = (props: {
+  handleChangeSelectedHotel: (value: string) => void;
+}) => {
   const [staySectionStepper, setStaySectionStepper] = useState<string>("");
 
   const handleChangeStaySectionStepper = (title: string) => {
@@ -80,6 +82,7 @@ const StaySection = () => {
       <KLIAStaySection
         content={KLIA1Options}
         handleChangeStaySectionStepper={handleChangeStaySectionStepper}
+        handleChangeSelectedHotel={props.handleChangeSelectedHotel}
       />
     );
   } else if (staySectionStepper === options[1].title) {
@@ -87,6 +90,7 @@ const StaySection = () => {
       <KLIAStaySection
         content={KLIA2Options}
         handleChangeStaySectionStepper={handleChangeStaySectionStepper}
+        handleChangeSelectedHotel={props.handleChangeSelectedHotel}
       />
     );
   }
@@ -183,6 +187,7 @@ const StaySectionHome = (props: {
 const KLIAStaySection = (props: {
   content: IKLIAOptions;
   handleChangeStaySectionStepper: (title: string) => void;
+  handleChangeSelectedHotel: (value: string) => void;
 }) => {
   return (
     <Box
@@ -238,7 +243,10 @@ const KLIAStaySection = (props: {
             </Stack>
             <Stack spacing={3} marginTop={10}>
               {location.hotels.map((hotel, index) => (
-                <Button key={index}>
+                <Button
+                  onClick={() => props.handleChangeSelectedHotel(hotel)}
+                  key={index}
+                >
                   <Typography variant="h4" marginRight={3}>
                     {hotel}
                   </Typography>
