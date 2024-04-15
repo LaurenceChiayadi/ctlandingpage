@@ -25,7 +25,7 @@ interface IKLIAOptions {
     name: string;
     description?: string;
     remarks: string;
-    hotels: string[];
+    hotels: { name: string; detailedLocation: string }[];
   }[];
 }
 
@@ -40,7 +40,13 @@ const KLIA1Options: IKLIAOptions = {
         "At KLIA Terminal 1, our hotel provides a single-servie sleep-only lounge for you to rest and take a nap",
       remarks:
         "If you are landing in Malaysia, you will need valid entry into Malaysia (visa, landing card) to clear Malaysian Imigration and access our Sleep Lounge",
-      hotels: ["Sleep Lounge"],
+      hotels: [
+        {
+          name: "Sleep Lounge",
+          detailedLocation:
+            "Lot L1-1, 2, 3 & 4, Level 1, Gateway Terminal KLIA2, Jalan KLIA 2/1, 64000 KLIA, Sepang, Selangor, Malaysia",
+        },
+      ],
     },
   ],
 };
@@ -52,13 +58,30 @@ const KLIA2Options: IKLIAOptions = {
       name: "Restricted Area",
       remarks:
         "If you are departing from Malaysia, you will need valid documents for flight check-in (boarding pass, passport, or visa) to enter to restricted area and access our Airside",
-      hotels: ["Airside"],
+      hotels: [
+        {
+          name: "Airside",
+          detailedLocation:
+            "Lot L1-1, 2, 3 & 4, Level 1, Gateway Terminal KLIA2, Jalan KLIA 2/1, 64000 KLIA, Sepang, Selangor, Malaysia",
+        },
+      ],
     },
     {
       name: "Public Area",
       remarks:
         "If you are landing in Malaysia, you will need valid entry into Malaysia (visa, landing card) to clear Malaysian Imigration and access our Landside and MAX",
-      hotels: ["Landside", "MAX"],
+      hotels: [
+        {
+          name: "Landside",
+          detailedLocation:
+            "Lot L1-1, 2, 3 & 4, Level 1, Gateway Terminal KLIA2, Jalan KLIA 2/1, 64000 KLIA, Sepang, Selangor, Malaysia",
+        },
+        {
+          name: "MAX",
+          detailedLocation:
+            "Lot L1-1, 2, 3 & 4, Level 1, Gateway Terminal KLIA2, Jalan KLIA 2/1, 64000 KLIA, Sepang, Selangor, Malaysia",
+        },
+      ],
     },
   ],
 };
@@ -248,13 +271,14 @@ const KLIAStaySection = (props: {
                   onClick={() =>
                     props.handleChangeSelectedHotel({
                       hotelLocation: props.content.terminalName,
-                      hotelName: hotel,
+                      hotelName: hotel.name,
+                      hotelDetailedLocation: hotel.detailedLocation,
                     })
                   }
                   key={index}
                 >
                   <Typography variant="h4" marginRight={3}>
-                    {hotel}
+                    {hotel.name}
                   </Typography>
                   <Image src={IconArrowRight} alt="CT-Right-Up" />
                 </Button>

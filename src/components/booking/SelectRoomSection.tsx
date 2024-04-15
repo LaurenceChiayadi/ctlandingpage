@@ -16,11 +16,13 @@ import ContentWrapper from "../global/ContentWrapper";
 import { format } from "date-fns";
 import CTButton from "../global/CTButton";
 import Image from "next/image";
-
-import FemaleSingleImage from "../landside/images/room-single-female@2x.jpg";
 import { DurationIcons } from "@/constant/Icons";
 import { featuresEnum } from "@/constant/Enums";
 import { Add, Remove } from "@mui/icons-material";
+import { displayThousands, matchDurationEnum } from "@/utils/functions";
+
+import FemaleSingleImage from "../landside/images/room-single-female@2x.jpg";
+import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 
 const title = "Select Your Room";
 
@@ -56,12 +58,16 @@ const SelectRoomSection = (props: {
   roomBookings: IRoomBooking[];
   handleAddRoomBooking: (value: IRoomBooking) => void;
   handleDeductRoomBooking: (value: IRoomBooking) => void;
+  handleChangeStepper: (value: number) => void;
 }) => {
   return (
-    <ContentWrapper noMarginTop>
-      <BookingSummary {...props} />
-      <RoomTypesContent {...props} />
-    </ContentWrapper>
+    <>
+      <ContentWrapper noMarginTop>
+        <BookingSummary {...props} />
+        <RoomTypesContent {...props} />
+      </ContentWrapper>
+      {props.roomBookings.length > 0 && <BookNowButton {...props} />}
+    </>
   );
 };
 
@@ -149,20 +155,6 @@ const RoomTypesContent = (props: {
 }) => {
   const theme = useTheme();
 
-  const matchDurationEnum = (duration: number) => {
-    if (duration === 1) {
-      return featuresEnum.OneHourStay;
-    } else if (duration === 3) {
-      return featuresEnum.ThreeHourStay;
-    } else if (duration === 6) {
-      return featuresEnum.SixHourStay;
-    } else if (duration === 12) {
-      return featuresEnum.TwelveHourStay;
-    } else {
-      return "";
-    }
-  };
-
   return (
     <Box
       display={"flex"}
@@ -178,6 +170,7 @@ const RoomTypesContent = (props: {
         marginTop={8}
         maxWidth={"900px"}
         columnSpacing={3}
+        marginBottom={8}
         rowSpacing={{ xs: 8, sm: 8, md: 5, lg: 5, xl: 5 }}
       >
         {sampleHotel.map((hotel, index) => (
@@ -239,6 +232,9 @@ const RoomTypesContent = (props: {
                           duration: props.bookingSchedule.duration,
                           price: hotel.price,
                           quantity: 1,
+                          bedType: hotel.bedType,
+                          capacity: hotel.capacity,
+                          zone: hotel.zone,
                         })
                       }
                       sx={{
@@ -278,6 +274,9 @@ const RoomTypesContent = (props: {
                           duration: props.bookingSchedule.duration,
                           price: hotel.price,
                           quantity: 1,
+                          bedType: hotel.bedType,
+                          capacity: hotel.capacity,
+                          zone: hotel.zone,
                         })
                       }
                       sx={{
@@ -302,6 +301,9 @@ const RoomTypesContent = (props: {
                         duration: props.bookingSchedule.duration,
                         price: hotel.price,
                         quantity: 1,
+                        bedType: hotel.bedType,
+                        capacity: hotel.capacity,
+                        zone: hotel.zone,
                       })
                     }
                     sx={{
@@ -317,6 +319,73 @@ const RoomTypesContent = (props: {
             </Box>
           </Grid>
         ))}
+      </Grid>
+    </Box>
+  );
+};
+
+const BookNowButton = (props: {
+  roomBookings: IRoomBooking[];
+  handleChangeStepper: (value: number) => void;
+}) => {
+  const theme = useTheme();
+
+  const amountOfRooms = props.roomBookings.reduce(
+    (total, curr) => (total = total + curr.quantity),
+    0
+  );
+
+  const totalAmount = props.roomBookings.reduce(
+    (total, curr) => (total = total + curr.price * curr.quantity),
+    0
+  );
+  return (
+    <Box
+      display={"flex"}
+      alignItems={"center"}
+      position={"fixed"}
+      borderTop={1}
+      width={"100%"}
+      height={"80px"}
+      zIndex={10}
+      bottom={0}
+      bgcolor={theme.palette.primary.main}
+      paddingX={7}
+    >
+      <Grid container>
+        <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
+          <Typography variant="h4">{amountOfRooms} rooms selected</Typography>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+          <Stack direction={"row"} alignItems={"end"} spacing={1}>
+            <Typography variant="h4">
+              RM{displayThousands(totalAmount)}
+            </Typography>
+            <Typography variant="subtitle1">
+              price before discount and tax
+            </Typography>
+          </Stack>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
+          <Box display={"flex"} justifyContent={"end"} alignItems={"center"}>
+            <Button
+              onClick={() => props.handleChangeStepper(4)}
+              sx={{
+                padding: 0,
+              }}
+            >
+              <Typography variant="h4">{"Book Now"}</Typography>
+              <Image
+                src={CTRight}
+                alt="CT-Right-Up"
+                style={{
+                  color: "white",
+                  width: "60px",
+                }}
+              />
+            </Button>
+          </Box>
+        </Grid>
       </Grid>
     </Box>
   );

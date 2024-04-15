@@ -32,6 +32,7 @@ import {
   IRoomBooking,
 } from "@/models/Booking";
 import SelectRoomSection from "@/components/booking/SelectRoomSection";
+import SummarySection from "@/components/booking/SummarySection";
 
 const BookingPage = () => {
   const [stepper, setStepper] = useState<number>(1);
@@ -103,7 +104,7 @@ const BookingPage = () => {
   return (
     <Box
       display={"flex"}
-      width={"100vw"}
+      width={"99vw"}
       flexDirection={"column"}
       sx={{ overflowX: "hidden" }}
     >
@@ -128,6 +129,13 @@ const BookingPage = () => {
           roomBookings={roomBookings}
           handleAddRoomBooking={handleAddRoomBooking}
           handleDeductRoomBooking={handleDeductRoomBooking}
+          handleChangeStepper={handleChangeStepper}
+        />
+      ) : stepper === 4 ? (
+        <SummarySection
+          bookingSchedule={bookingSchedule}
+          selectedHotel={selectedHotel}
+          roomBookings={roomBookings}
         />
       ) : (
         <></>

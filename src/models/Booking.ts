@@ -1,11 +1,13 @@
 export interface IBookingLocation {
   hotelName: string;
   hotelLocation: string;
+  hotelDetailedLocation: string;
 }
 
 export const BookingLocationInitial: IBookingLocation = {
   hotelLocation: "",
   hotelName: "",
+  hotelDetailedLocation: "",
 };
 
 export interface IBookingSchedule {
@@ -24,4 +26,8 @@ export interface IRoomBooking {
   duration: number;
   price: number;
   quantity: number;
+
+  bedType: string;
+  zone?: string;
+  capacity: string;
 }
