@@ -27,6 +27,7 @@ const ScheduleSection = (props: {
   bookingSchedule: IBookingSchedule;
   handleChangeDatePromotion: (value: IBookingSchedule) => void;
   handleChangeStepper: (value: number) => void;
+  handleEmptyRoomBooking: VoidFunction;
 }) => {
   const theme = useTheme();
 
@@ -38,6 +39,7 @@ const ScheduleSection = (props: {
   const handleDurationOnChange = (duration: number): void => {
     const newValue = { ...props.bookingSchedule, duration: duration };
     props.handleChangeDatePromotion(newValue);
+    props.handleEmptyRoomBooking();
   };
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>

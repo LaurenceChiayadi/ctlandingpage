@@ -96,6 +96,10 @@ const BookingPage = () => {
     }
   };
 
+  const handleEmptyRoomBooking = () => {
+    setRoomBookings([]);
+  };
+
   return (
     <Box
       display={"flex"}
@@ -115,6 +119,7 @@ const BookingPage = () => {
           bookingSchedule={bookingSchedule}
           handleChangeDatePromotion={handleChangeDatePromotion}
           handleChangeStepper={handleChangeStepper}
+          handleEmptyRoomBooking={handleEmptyRoomBooking}
         />
       ) : stepper === 3 ? (
         <SelectRoomSection
