@@ -1,3 +1,13 @@
+export interface IBookingLocation {
+  hotelName: string;
+  hotelLocation: string;
+}
+
+export const BookingLocationInitial: IBookingLocation = {
+  hotelLocation: "",
+  hotelName: "",
+};
+
 export interface IBookingSchedule {
   date?: Date;
   duration?: number;
@@ -7,3 +17,11 @@ export interface IBookingSchedule {
 export const BookingScheduleInitial: IBookingSchedule = {
   promotion: "",
 };
+
+export interface IRoomBooking {
+  roomTypeId: string;
+  roomType: string;
+  duration: number;
+  price: number;
+  quantity: number;
+}

@@ -17,6 +17,7 @@ import {
 } from "@mui/icons-material";
 import Image from "next/image";
 import IconArrowRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
+import { IBookingLocation } from "@/models/Booking";
 
 interface IKLIAOptions {
   terminalName: string;
@@ -63,7 +64,7 @@ const KLIA2Options: IKLIAOptions = {
 };
 
 const StaySection = (props: {
-  handleChangeSelectedHotel: (value: string) => void;
+  handleChangeSelectedHotel: (value: IBookingLocation) => void;
 }) => {
   const [staySectionStepper, setStaySectionStepper] = useState<string>("");
 
@@ -187,7 +188,7 @@ const StaySectionHome = (props: {
 const KLIAStaySection = (props: {
   content: IKLIAOptions;
   handleChangeStaySectionStepper: (title: string) => void;
-  handleChangeSelectedHotel: (value: string) => void;
+  handleChangeSelectedHotel: (value: IBookingLocation) => void;
 }) => {
   return (
     <Box
@@ -244,7 +245,12 @@ const KLIAStaySection = (props: {
             <Stack spacing={3} marginTop={10}>
               {location.hotels.map((hotel, index) => (
                 <Button
-                  onClick={() => props.handleChangeSelectedHotel(hotel)}
+                  onClick={() =>
+                    props.handleChangeSelectedHotel({
+                      hotelLocation: props.content.terminalName,
+                      hotelName: hotel,
+                    })
+                  }
                   key={index}
                 >
                   <Typography variant="h4" marginRight={3}>

@@ -24,25 +24,76 @@ import {
 } from "@mui/icons-material";
 import StaySection from "@/components/booking/StaySection";
 import ScheduleSection from "@/components/booking/ScheduleSection";
-import { BookingScheduleInitial, IBookingSchedule } from "@/models/Booking";
+import {
+  BookingLocationInitial,
+  BookingScheduleInitial,
+  IBookingLocation,
+  IBookingSchedule,
+  IRoomBooking,
+} from "@/models/Booking";
+import SelectRoomSection from "@/components/booking/SelectRoomSection";
 
 const BookingPage = () => {
   const [stepper, setStepper] = useState<number>(1);
-  const [selectedHotel, setSelectedHotel] = useState<string>();
-  const [selectedDateWithPromotion, setSelectedDateWithPromotion] =
-    useState<IBookingSchedule>(BookingScheduleInitial);
+  const [selectedHotel, setSelectedHotel] = useState<IBookingLocation>(
+    BookingLocationInitial
+  );
+  const [bookingSchedule, setBookingSchedule] = useState<IBookingSchedule>(
+    BookingScheduleInitial
+  );
+  const [roomBookings, setRoomBookings] = useState<IRoomBooking[]>([]);
 
   const handleChangeStepper = (value: number) => {
     setStepper(value);
   };
 
-  const handleChangeSelectedHotel = (value: string) => {
+  const handleChangeSelectedHotel = (value: IBookingLocation) => {
     setSelectedHotel(value);
     setStepper(2);
   };
 
   const handleChangeDatePromotion = (value: IBookingSchedule) => {
-    setSelectedDateWithPromotion(value);
+    setBookingSchedule(value);
+  };
+
+  const handleAddRoomBooking = (value: IRoomBooking) => {
+    if (
+      roomBookings.some(
+        (roomBooking) => roomBooking.roomTypeId === value.roomTypeId
+      )
+    ) {
+      const selectedRoom = roomBookings.find(
+        (roomBooking) => roomBooking.roomTypeId === value.roomTypeId
+      );
+      const filteredRoomBookings = roomBookings.filter(
+        (roomBooking) => roomBooking.roomTypeId !== value.roomTypeId
+      );
+      if (selectedRoom) {
+        setRoomBookings([
+          ...filteredRoomBookings,
+          { ...selectedRoom, quantity: selectedRoom.quantity + 1 },
+        ]);
+      }
+    } else {
+      setRoomBookings((prevValue) => [...prevValue, value]);
+    }
+  };
+
+  const handleDeductRoomBooking = (value: IRoomBooking) => {
+    const selectedRoom = roomBookings.find(
+      (roomBooking) => roomBooking.roomTypeId === value.roomTypeId
+    );
+    const filteredRoomBookings = roomBookings.filter(
+      (roomBooking) => roomBooking.roomTypeId !== value.roomTypeId
+    );
+    if (selectedRoom && selectedRoom.quantity > 1) {
+      setRoomBookings([
+        ...filteredRoomBookings,
+        { ...selectedRoom, quantity: selectedRoom.quantity - 1 },
+      ]);
+    } else {
+      setRoomBookings(filteredRoomBookings);
+    }
   };
 
   return (
@@ -61,9 +112,17 @@ const BookingPage = () => {
         <StaySection handleChangeSelectedHotel={handleChangeSelectedHotel} />
       ) : stepper === 2 ? (
         <ScheduleSection
-          bookingSchedule={selectedDateWithPromotion}
+          bookingSchedule={bookingSchedule}
           handleChangeDatePromotion={handleChangeDatePromotion}
           handleChangeStepper={handleChangeStepper}
+        />
+      ) : stepper === 3 ? (
+        <SelectRoomSection
+          bookingSchedule={bookingSchedule}
+          selectedHotel={selectedHotel}
+          roomBookings={roomBookings}
+          handleAddRoomBooking={handleAddRoomBooking}
+          handleDeductRoomBooking={handleDeductRoomBooking}
         />
       ) : (
         <></>
