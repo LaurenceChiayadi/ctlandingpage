@@ -1,0 +1,46 @@
+export const airsideFacilities = [
+  "Wifi",
+  "Air Conditioning",
+  "Earplug",
+  "Sleeping Eye Mask",
+  "In-House Slippers",
+  "Dental Kit and Toiletries",
+  "Bottled Water",
+  "Luggage Storage Locker",
+  "Shoe Locker",
+  "Shared Bathroom with Rain Shower",
+  "Shower Towel",
+  "Free Flow Coffee and Tea",
+  "24-hour Reception Desk",
+];
+
+export const landsideFacilities = [
+  "Wifi",
+  "Air Conditioning",
+  "Earplug",
+  "Sleeping Eye Mask",
+  "In-House Slippers",
+  "Dental Kit and Toiletries",
+  "Bottled Water",
+  "Luggage Storage Locker",
+  "Shoe Locker",
+  "Shared Bathroom with Rain Shower",
+  "Shower Towel",
+  "Free Flow Coffee and Tea",
+  "In-house lounge and library",
+  "24-hour Reception Desk",
+];
+
+export const sleepLoungeFacilities = [
+  "Wifi",
+  "Air Conditioning",
+  "Earplug",
+  "Sleeping Eye Mask",
+  "In-House Slippers",
+  "Dental Kit and Toiletries",
+  "Bottled Water",
+  "Luggage Storage Locker",
+  "Shoe Locker",
+  "Free Flow Coffee and Tea",
+  "24-hour Reception Desk",
+];

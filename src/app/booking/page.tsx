@@ -136,6 +136,7 @@ const BookingPage = () => {
           bookingSchedule={bookingSchedule}
           selectedHotel={selectedHotel}
           roomBookings={roomBookings}
+          handleChangeStepper={handleChangeStepper}
         />
       ) : (
         <></>

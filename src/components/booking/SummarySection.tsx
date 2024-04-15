@@ -5,6 +5,7 @@ import {
 } from "@/models/Booking";
 import {
   Box,
+  Button,
   Divider,
   Grid,
   IconButton,
@@ -15,9 +16,17 @@ import {
 import { format } from "date-fns";
 import CTButton from "../global/CTButton";
 import Image from "next/image";
-import { matchDurationEnum } from "@/utils/functions";
+import { displayThousands, matchDurationEnum } from "@/utils/functions";
 import { DurationIcons } from "@/constant/Icons";
 import { Add } from "@mui/icons-material";
+import {
+  airsideFacilities,
+  landsideFacilities,
+  sleepLoungeFacilities,
+} from "./FacilitiesList";
+import { useState } from "react";
+
+import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 
 const contentWidth = "900px";
 
@@ -25,7 +34,18 @@ const SummarySection = (props: {
   selectedHotel: IBookingLocation;
   bookingSchedule: IBookingSchedule;
   roomBookings: IRoomBooking[];
+  handleChangeStepper: (value: number) => void;
 }) => {
+  const [taxPercentage, setTaxPercentage] = useState<string>("8%");
+
+  const sum = props.roomBookings.reduce(
+    (total, curr) => (total = total + curr.price * curr.quantity),
+    0
+  );
+
+  const taxAmount = (sum * parseFloat(taxPercentage)) / 100;
+
+  const debitAmount = sum + (sum * parseFloat(taxPercentage)) / 100;
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
       <Box marginY={10}>
@@ -33,6 +53,18 @@ const SummarySection = (props: {
       </Box>
       <SummaryHeader {...props} />
       <RoomBookingSection {...props} />
+      <FacilitiesSection {...props} />
+      <AddRoomsSection {...props} />
+      <RoomPricingSection {...props} />
+      <PromotionSection sum={sum} />
+      <TotalBillSection
+        debitAmount={debitAmount}
+        taxAmount={taxAmount}
+        taxPercentage={taxPercentage}
+      />
+      <PaymentPolicySection />
+      <ImportantInformationSection />
+      <ContinueSection {...props} />
     </Box>
   );
 };
@@ -132,6 +164,7 @@ const SummaryContent = (props: { title: string; data: string }) => {
 const RoomBookingSection = (props: {
   roomBookings: IRoomBooking[];
   bookingSchedule: IBookingSchedule;
+  handleChangeStepper: (value: number) => void;
 }) => {
   const theme = useTheme();
   return (
@@ -158,9 +191,13 @@ const RoomBookingSection = (props: {
                   <Typography variant="h6" fontWeight={700}>
                     {roomBooking.roomType} {`(${roomBooking.zone})`}
                   </Typography>
-                  <IconButton color="primary" sx={{ padding: 0 }}>
-                    <Add />
-                  </IconButton>
+                  <Button
+                    onClick={() => {
+                      props.handleChangeStepper(3);
+                    }}
+                  >
+                    Edit
+                  </Button>
                 </Stack>
                 <Stack direction={"row"} spacing={1} marginTop={1}>
                   <Typography color={theme.palette.CtColorScheme.grey400}>
@@ -205,6 +242,205 @@ const RoomBookingSection = (props: {
           </Grid>
         </Grid>
       ))}
+    </Box>
+  );
+};
+
+const FacilitiesSection = (props: { selectedHotel: IBookingLocation }) => {
+  const data =
+    props.selectedHotel.hotelName === "Airside"
+      ? airsideFacilities
+      : props.selectedHotel.hotelName === "Landside"
+      ? landsideFacilities
+      : props.selectedHotel.hotelName === "Sleep Lounge"
+      ? sleepLoungeFacilities
+      : props.selectedHotel.hotelName === "MAX"
+      ? []
+      : [];
+
+  return (
+    <Box width={contentWidth} paddingY={2}>
+      <Typography variant="h6" fontWeight={700} marginBottom={1}>
+        Included
+      </Typography>
+      <Grid container spacing={1}>
+        {data.map((data, index) => (
+          <Grid item xs={6} key={index}>
+            <li style={{ listStyle: "none" }}>✓ {data}</li>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+  );
+};
+
+const AddRoomsSection = (props: {
+  handleChangeStepper: (value: number) => void;
+}) => {
+  return (
+    <Box
+      display={"flex"}
+      width={contentWidth}
+      justifyContent={"center"}
+      borderTop={1}
+      paddingY={3}
+      height={"200px"}
+    >
+      <Button
+        onClick={() => props.handleChangeStepper(3)}
+        sx={{ height: "50px", color: "black" }}
+      >
+        Add Rooms <Add />
+      </Button>
+    </Box>
+  );
+};
+
+const RoomPricingSection = (props: { roomBookings: IRoomBooking[] }) => {
+  return (
+    <Stack spacing={1} width={contentWidth} borderTop={1} paddingY={3}>
+      {props.roomBookings.map((roomBooking, index) => (
+        <Stack
+          key={index}
+          direction={"row"}
+          justifyContent={"space-between"}
+          width={"100%"}
+        >
+          <Stack>
+            <Typography variant="h6" fontWeight={700}>
+              {roomBooking.roomType}{" "}
+              {roomBooking.zone ? `(${roomBooking.zone})` : ""} for{" "}
+              {roomBooking.duration} hours
+            </Typography>
+            <Typography>
+              {roomBooking.quantity} X RM{roomBooking.price}
+            </Typography>
+          </Stack>
+          <Typography variant="h6" fontWeight={700}>
+            RM
+            {displayThousands(roomBooking.quantity * roomBooking.price)}
+          </Typography>
+        </Stack>
+      ))}
+    </Stack>
+  );
+};
+
+const PromotionSection = (props: { sum: number }) => {
+  return (
+    <Stack
+      spacing={1}
+      width={contentWidth}
+      borderTop={1}
+      paddingY={3}
+      alignItems={"start"}
+    >
+      <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
+        <Typography>Exclude Tax</Typography>
+        <Typography>RM{displayThousands(props.sum)}</Typography>
+      </Stack>
+      <Button sx={{ color: "black", paddingX: 0 }}>
+        Add Promo Code <Add />
+      </Button>
+    </Stack>
+  );
+};
+
+const TotalBillSection = (props: {
+  taxAmount: number;
+  debitAmount: number;
+  taxPercentage: string;
+}) => {
+  return (
+    <Stack
+      spacing={1}
+      width={contentWidth}
+      borderTop={1}
+      borderBottom={1}
+      paddingY={3}
+      alignItems={"start"}
+    >
+      <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
+        <Typography>Service Tax {props.taxPercentage}</Typography>
+        <Typography>RM{displayThousands(props.taxAmount)}</Typography>
+      </Stack>
+      <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
+        <Typography variant="h6" fontWeight={700}>
+          Total Payable Price
+        </Typography>
+        <Typography variant="h5">
+          RM{displayThousands(props.debitAmount)}
+        </Typography>
+      </Stack>
+    </Stack>
+  );
+};
+
+const paymentPolicyText =
+  "Full payment will be charged once your booking is confirmed. There are no additional fees for credit or debit cards and all prices shown are inclusive of local taxes. Discounted and promotional rates are non-refundable. Any amendments or cancellation bookings with discounted or promotional rates will be charged in full. In the case of modification of check-in dates, cancellation or no-show will, 100% of the room rate including any other applicable charges and taxes will be charged to your credit/debit card.";
+
+const PaymentPolicySection = () => {
+  return (
+    <Stack
+      spacing={1}
+      width={contentWidth}
+      marginTop={"130px"}
+      alignItems={"start"}
+    >
+      <Typography fontWeight={700}>Payment and Cancellation Policy</Typography>
+      <Typography>{paymentPolicyText}</Typography>
+    </Stack>
+  );
+};
+
+const importantInformationText =
+  "Please make sure that the hotel and location you have selected matches the area of the airport your flight will depart from. If you are entering Malaysia or in transit to another destination, you will need valid entry into Malaysia (visa, landing card) to clear Malaysian immigration and access our hotel. The hotel will not be liable to any cost and will not refund any charges if the wrong booking have been made. If you are departing from Malaysia, you can easily access the hotel as It is located before immigration and customs checkpoint. If you are landing at KLIA1, proceed through immigration, customs checkpoints and baggage reclaim, embark either the free shuttle bus service or ERL (Train) to the South Terminal and follow the directions to our hotel. Please log on to https://www.imi.gov.my/index.php/en/main-services/visa/ should you require a VISA to enter Malaysia and to exit the airport departure hall to access CapsuleTransit.";
+
+const ImportantInformationSection = () => {
+  return (
+    <Stack spacing={1} width={contentWidth} marginTop={3} alignItems={"start"}>
+      <Typography fontWeight={700}>Important Information</Typography>
+      <Typography>{importantInformationText}</Typography>
+    </Stack>
+  );
+};
+
+const ContinueSection = (props: {
+  handleChangeStepper: (value: number) => void;
+}) => {
+  const theme = useTheme();
+  return (
+    <Box
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      borderTop={1}
+      width={"100%"}
+      height={"80px"}
+      zIndex={10}
+      bottom={0}
+      bgcolor={theme.palette.primary.main}
+      paddingX={7}
+      marginTop={10}
+    >
+      <Box display={"flex"} justifyContent={"end"} alignItems={"center"}>
+        <Button
+          onClick={() => props.handleChangeStepper(5)}
+          sx={{
+            padding: 0,
+          }}
+        >
+          <Typography variant="h4">All Good, Continue</Typography>
+          <Image
+            src={CTRight}
+            alt="CT-Right-Up"
+            style={{
+              color: "white",
+              width: "60px",
+            }}
+          />
+        </Button>
+      </Box>
     </Box>
   );
 };
