@@ -57,3 +57,25 @@ export const PaymentInfoInitial: IPaymentInfo = {
   sum: 0,
   taxAmount: 0,
 };
+
+export interface IGuestDetail {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  nationality: string;
+  identification: string;
+  idNumber: string;
+  email: string;
+  phone: string;
+}
+
+export const GuestDetailInitial: IGuestDetail = {
+  email: "",
+  firstName: "",
+  gender: "",
+  identification: "MyKad",
+  idNumber: "",
+  lastName: "",
+  nationality: "",
+  phone: "",
+};

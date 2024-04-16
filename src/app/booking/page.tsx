@@ -27,8 +27,10 @@ import ScheduleSection from "@/components/booking/ScheduleSection";
 import {
   BookingLocationInitial,
   BookingScheduleInitial,
+  GuestDetailInitial,
   IBookingLocation,
   IBookingSchedule,
+  IGuestDetail,
   IPaymentInfo,
   IRoomBooking,
   PaymentInfoInitial,
@@ -38,6 +40,9 @@ import SummarySection from "@/components/booking/SummarySection";
 import BASE_API from "@/constant/api";
 import { lotNumberEnum } from "@/constant/Enums";
 import { getLotNumber } from "@/utils/functions";
+import DetailSection from "@/components/booking/DetailSection";
+import { FormikProps, useFormik } from "formik";
+import * as Yup from "yup";
 
 const BookingPage = () => {
   const [stepper, setStepper] = useState<number>(1);
@@ -52,6 +57,13 @@ const BookingPage = () => {
     useState<IPaymentInfo>(PaymentInfoInitial);
 
   const [taxPercentage, setTaxPercentage] = useState<string>("8%");
+
+  const [consentSigned, setConsentSigned] = useState<boolean>(false);
+  const handleConsentSignChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setConsentSigned(event.target.checked);
+  };
 
   const handleChangeStepper = (value: number) => {
     setStepper(value);
@@ -157,6 +169,22 @@ const BookingPage = () => {
     }
   }, [selectedHotel.hotelName]);
 
+  const formik: FormikProps<IGuestDetail> = useFormik({
+    initialValues: GuestDetailInitial,
+    validationSchema: Yup.object().shape({
+      firstName: Yup.string().required("First Name is Required"),
+      gender: Yup.string().required("Gender is Required"),
+      nationality: Yup.string().required("Nationality is Required"),
+      identification: Yup.string().required("Identification is Required"),
+      idNumber: Yup.string().required("ID Number is Required"),
+      email: Yup.string().required("Email is Required"),
+      phone: Yup.string().required("Phone Number is Required"),
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <Box
       display={"flex"}
@@ -195,6 +223,15 @@ const BookingPage = () => {
           handleChangeStepper={handleChangeStepper}
           paymentInfo={paymentInfo}
           taxPercentage={taxPercentage}
+        />
+      ) : stepper === 5 ? (
+        <DetailSection
+          paymentInfo={paymentInfo}
+          roomBookings={roomBookings}
+          taxPercentage={taxPercentage}
+          formik={formik}
+          consentSigned={consentSigned}
+          handleConsentSignChange={handleConsentSignChange}
         />
       ) : (
         <></>
