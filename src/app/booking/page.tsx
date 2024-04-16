@@ -50,8 +50,13 @@ const BookingPage = () => {
     setStepper(value);
   };
 
+  const handleEmptyRoomBooking = () => {
+    setRoomBookings([]);
+  };
+
   const handleChangeSelectedHotel = (value: IBookingLocation) => {
     setSelectedHotel(value);
+    handleEmptyRoomBooking();
     setStepper(2);
   };
 
@@ -99,10 +104,6 @@ const BookingPage = () => {
     }
   };
 
-  const handleEmptyRoomBooking = () => {
-    setRoomBookings([]);
-  };
-
   useEffect(() => {
     if (selectedHotel.hotelName) {
       const lotNumber =
@@ -133,7 +134,7 @@ const BookingPage = () => {
         )
         .catch((error) => console.error(error));
     }
-  }, [selectedHotel]);
+  }, [selectedHotel.hotelName]);
 
   return (
     <Box
