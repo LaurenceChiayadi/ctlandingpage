@@ -88,6 +88,7 @@ const SummaryHeader = (props: {
                 props.selectedHotel.hotelLocation
               }
             />
+            <Typography>{props.selectedHotel.hotelPhoneNumber}</Typography>
             <Typography>{props.selectedHotel.hotelDetailedLocation}</Typography>
             <Typography color={theme.palette.CtColorScheme.pink300}>
               <ul style={{ marginTop: 0, paddingLeft: "20px" }}>

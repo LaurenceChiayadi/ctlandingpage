@@ -2,6 +2,8 @@ export interface IBookingLocation {
   hotelName: string;
   hotelLocation: string;
   hotelDetailedLocation: string;
+
+  hotelPhoneNumber?: string;
 }
 
 export const BookingLocationInitial: IBookingLocation = {

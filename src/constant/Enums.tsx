@@ -19,3 +19,10 @@ export enum featuresEnum {
   Slippers = "slippers",
   Drinks = "drinks",
 }
+
+export enum lotNumberEnum {
+  landside = 1,
+  airside = 2,
+  sleepLounge = 3,
+  max = 4,
+}
