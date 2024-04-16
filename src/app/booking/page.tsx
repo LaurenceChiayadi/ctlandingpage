@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   ButtonBase,
@@ -33,6 +33,8 @@ import {
 } from "@/models/Booking";
 import SelectRoomSection from "@/components/booking/SelectRoomSection";
 import SummarySection from "@/components/booking/SummarySection";
+import BASE_API from "@/constant/api";
+import { lotNumberEnum } from "@/constant/Enums";
 
 const BookingPage = () => {
   const [stepper, setStepper] = useState<number>(1);
@@ -100,6 +102,38 @@ const BookingPage = () => {
   const handleEmptyRoomBooking = () => {
     setRoomBookings([]);
   };
+
+  useEffect(() => {
+    if (selectedHotel.hotelName) {
+      const lotNumber =
+        selectedHotel.hotelName === "Airside"
+          ? lotNumberEnum.airside
+          : selectedHotel.hotelName === "Landside"
+          ? lotNumberEnum.landside
+          : selectedHotel.hotelName === "Sleep Lounge"
+          ? lotNumberEnum.sleepLounge
+          : selectedHotel.hotelName === "MAX"
+          ? lotNumberEnum.max
+          : 0;
+      const apiUrl = `${BASE_API}/landing-page/lot-info/${lotNumber}`;
+      fetch(apiUrl, {
+        method: "GET",
+        redirect: "follow",
+      })
+        .then((response) => response.json())
+        .then((result) =>
+          setSelectedHotel((prevValue) => {
+            const data = result.data;
+            return {
+              ...prevValue,
+              hotelDetailedLocation: data.address,
+              hotelPhoneNumber: data.tel,
+            };
+          })
+        )
+        .catch((error) => console.error(error));
+    }
+  }, [selectedHotel]);
 
   return (
     <Box
