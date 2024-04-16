@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 export interface IBookingLocation {
   hotelName: string;
   hotelLocation: string;
@@ -32,4 +34,14 @@ export interface IRoomBooking {
   bedType: string;
   zone?: string;
   capacity: string;
+}
+
+export interface IHotelRooms {
+  image: StaticImageData;
+  name: string;
+  zone: string;
+  bedType: string;
+  capacity: string;
+  price: number;
+  availableCount: number;
 }

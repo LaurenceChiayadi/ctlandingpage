@@ -1,4 +1,4 @@
-import { featuresEnum } from "@/constant/Enums";
+import { featuresEnum, lotNumberEnum } from "@/constant/Enums";
 
 export const displayThousands = (number: number) => {
   var numberString = number.toString();
@@ -21,5 +21,34 @@ export const matchDurationEnum = (duration: number) => {
     return featuresEnum.TwelveHourStay;
   } else {
     return "";
+  }
+};
+
+export const getLotNumber = (name: string) => {
+  const lotNumber =
+    name === "Airside"
+      ? lotNumberEnum.airside
+      : name === "Landside"
+      ? lotNumberEnum.landside
+      : name === "Sleep Lounge"
+      ? lotNumberEnum.sleepLounge
+      : name === "MAX"
+      ? lotNumberEnum.max
+      : 0;
+
+  return lotNumber;
+};
+
+export const predictBedType = (maxPax: string) => {
+  const maxPaxNumber = parseInt(maxPax);
+
+  if (maxPaxNumber === 1) {
+    return "Single";
+  } else if (maxPaxNumber === 2) {
+    return "Queen";
+  } else if (maxPaxNumber === 3) {
+    return "Queen + Single";
+  } else {
+    return "Unknown";
   }
 };

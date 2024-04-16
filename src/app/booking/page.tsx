@@ -35,6 +35,7 @@ import SelectRoomSection from "@/components/booking/SelectRoomSection";
 import SummarySection from "@/components/booking/SummarySection";
 import BASE_API from "@/constant/api";
 import { lotNumberEnum } from "@/constant/Enums";
+import { getLotNumber } from "@/utils/functions";
 
 const BookingPage = () => {
   const [stepper, setStepper] = useState<number>(1);
@@ -106,16 +107,7 @@ const BookingPage = () => {
 
   useEffect(() => {
     if (selectedHotel.hotelName) {
-      const lotNumber =
-        selectedHotel.hotelName === "Airside"
-          ? lotNumberEnum.airside
-          : selectedHotel.hotelName === "Landside"
-          ? lotNumberEnum.landside
-          : selectedHotel.hotelName === "Sleep Lounge"
-          ? lotNumberEnum.sleepLounge
-          : selectedHotel.hotelName === "MAX"
-          ? lotNumberEnum.max
-          : 0;
+      const lotNumber = getLotNumber(selectedHotel.hotelName);
       const apiUrl = `${BASE_API}/landing-page/lot-info/${lotNumber}`;
       fetch(apiUrl, {
         method: "GET",
