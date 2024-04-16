@@ -90,14 +90,16 @@ const SummaryHeader = (props: {
             />
             <Typography>{props.selectedHotel.hotelPhoneNumber}</Typography>
             <Typography>{props.selectedHotel.hotelDetailedLocation}</Typography>
-            <Typography color={theme.palette.CtColorScheme.pink300}>
-              <ul style={{ marginTop: 0, paddingLeft: "20px" }}>
-                <li>
-                  Make sure you have your boarding pass and Visa or related
-                  documents to enter the restricted area.
-                </li>
-              </ul>
-            </Typography>
+            {props.selectedHotel.hotelName === "Airside" && (
+              <Typography color={theme.palette.CtColorScheme.pink300}>
+                <ul style={{ marginTop: 0, paddingLeft: "20px" }}>
+                  <li>
+                    Make sure you have your boarding pass and Visa or related
+                    documents to enter the restricted area.
+                  </li>
+                </ul>
+              </Typography>
+            )}
           </Stack>
         </Grid>
         <Grid item xs={0} sm={0} md={0} lg={1} xl={1}>
