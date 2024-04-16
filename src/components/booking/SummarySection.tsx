@@ -1,6 +1,7 @@
 import {
   IBookingLocation,
   IBookingSchedule,
+  IPaymentInfo,
   IRoomBooking,
 } from "@/models/Booking";
 import {
@@ -34,18 +35,10 @@ const SummarySection = (props: {
   selectedHotel: IBookingLocation;
   bookingSchedule: IBookingSchedule;
   roomBookings: IRoomBooking[];
+  paymentInfo: IPaymentInfo;
+  taxPercentage: string;
   handleChangeStepper: (value: number) => void;
 }) => {
-  const [taxPercentage, setTaxPercentage] = useState<string>("8%");
-
-  const sum = props.roomBookings.reduce(
-    (total, curr) => (total = total + curr.price * curr.quantity),
-    0
-  );
-
-  const taxAmount = (sum * parseFloat(taxPercentage)) / 100;
-
-  const debitAmount = sum + (sum * parseFloat(taxPercentage)) / 100;
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
       <Box marginY={10}>
@@ -56,12 +49,8 @@ const SummarySection = (props: {
       <FacilitiesSection {...props} />
       <AddRoomsSection {...props} />
       <RoomPricingSection {...props} />
-      <PromotionSection sum={sum} />
-      <TotalBillSection
-        debitAmount={debitAmount}
-        taxAmount={taxAmount}
-        taxPercentage={taxPercentage}
-      />
+      <PromotionSection {...props} />
+      <TotalBillSection {...props} />
       <PaymentPolicySection />
       <ImportantInformationSection />
       <ContinueSection {...props} />
@@ -329,7 +318,7 @@ const RoomPricingSection = (props: { roomBookings: IRoomBooking[] }) => {
   );
 };
 
-const PromotionSection = (props: { sum: number }) => {
+const PromotionSection = (props: { paymentInfo: IPaymentInfo }) => {
   return (
     <Stack
       spacing={1}
@@ -340,7 +329,7 @@ const PromotionSection = (props: { sum: number }) => {
     >
       <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
         <Typography>Exclude Tax</Typography>
-        <Typography>RM{displayThousands(props.sum)}</Typography>
+        <Typography>RM{displayThousands(props.paymentInfo.sum)}</Typography>
       </Stack>
       <Button sx={{ color: "black", paddingX: 0 }}>
         Add Promo Code <Add />
@@ -350,8 +339,7 @@ const PromotionSection = (props: { sum: number }) => {
 };
 
 const TotalBillSection = (props: {
-  taxAmount: number;
-  debitAmount: number;
+  paymentInfo: IPaymentInfo;
   taxPercentage: string;
 }) => {
   return (
@@ -365,14 +353,16 @@ const TotalBillSection = (props: {
     >
       <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
         <Typography>Service Tax {props.taxPercentage}</Typography>
-        <Typography>RM{displayThousands(props.taxAmount)}</Typography>
+        <Typography>
+          RM{displayThousands(props.paymentInfo.taxAmount)}
+        </Typography>
       </Stack>
       <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
         <Typography variant="h6" fontWeight={700}>
           Total Payable Price
         </Typography>
         <Typography variant="h5">
-          RM{displayThousands(props.debitAmount)}
+          RM{displayThousands(props.paymentInfo.debitAmount)}
         </Typography>
       </Stack>
     </Stack>

@@ -29,7 +29,9 @@ import {
   BookingScheduleInitial,
   IBookingLocation,
   IBookingSchedule,
+  IPaymentInfo,
   IRoomBooking,
+  PaymentInfoInitial,
 } from "@/models/Booking";
 import SelectRoomSection from "@/components/booking/SelectRoomSection";
 import SummarySection from "@/components/booking/SummarySection";
@@ -46,6 +48,10 @@ const BookingPage = () => {
     BookingScheduleInitial
   );
   const [roomBookings, setRoomBookings] = useState<IRoomBooking[]>([]);
+  const [paymentInfo, setPaymentInfo] =
+    useState<IPaymentInfo>(PaymentInfoInitial);
+
+  const [taxPercentage, setTaxPercentage] = useState<string>("8%");
 
   const handleChangeStepper = (value: number) => {
     setStepper(value);
@@ -106,6 +112,29 @@ const BookingPage = () => {
   };
 
   useEffect(() => {
+    const sum = roomBookings.reduce(
+      (total, curr) => (total = total + curr.price * curr.quantity),
+      0
+    );
+
+    const taxAmount = parseFloat(
+      ((sum * parseFloat(taxPercentage)) / 100).toFixed(2)
+    );
+
+    const debitAmount = parseFloat(
+      (sum + (sum * parseFloat(taxPercentage)) / 100).toFixed(2)
+    );
+
+    const paymentInfoObject = {
+      sum: sum,
+      taxAmount: taxAmount,
+      debitAmount: debitAmount,
+    };
+
+    setPaymentInfo(paymentInfoObject);
+  }, [roomBookings, taxPercentage]);
+
+  useEffect(() => {
     if (selectedHotel.hotelName) {
       const lotNumber = getLotNumber(selectedHotel.hotelName);
       const apiUrl = `${BASE_API}/landing-page/lot-info/${lotNumber}`;
@@ -164,6 +193,8 @@ const BookingPage = () => {
           selectedHotel={selectedHotel}
           roomBookings={roomBookings}
           handleChangeStepper={handleChangeStepper}
+          paymentInfo={paymentInfo}
+          taxPercentage={taxPercentage}
         />
       ) : (
         <></>

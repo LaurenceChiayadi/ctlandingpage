@@ -45,3 +45,15 @@ export interface IHotelRooms {
   price: number;
   availableCount: number;
 }
+
+export interface IPaymentInfo {
+  sum: number;
+  taxAmount: number;
+  debitAmount: number;
+}
+
+export const PaymentInfoInitial: IPaymentInfo = {
+  debitAmount: 0,
+  sum: 0,
+  taxAmount: 0,
+};
