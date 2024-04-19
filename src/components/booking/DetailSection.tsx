@@ -20,6 +20,7 @@ import {
   Stack,
   TextField,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { FormikProps, useFormik } from "formik";
@@ -32,6 +33,7 @@ import IPay88Image from "./images/ipay88.png";
 import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 
 const contentWidth = "900px";
+const mobileWidth = "100%";
 
 const textFieldProps = {
   ".MuiInputBase-input": {
@@ -50,47 +52,58 @@ const DetailSection = (props: {
   consentSigned: boolean;
   handleConsentSignChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
-    <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+    <>
       <Box
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
-        width={contentWidth}
-        paddingY={10}
-        borderBottom={1}
+        paddingX={3}
       >
-        <Typography variant="h4">Guest Information</Typography>
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          width={isHandheldDevice ? mobileWidth : contentWidth}
+          paddingY={10}
+          borderBottom={1}
+        >
+          <Typography variant="h4">Guest Information</Typography>
+        </Box>
+        <GuestDetailForm formik={props.formik} />
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          width={isHandheldDevice ? mobileWidth : contentWidth}
+          paddingY={isHandheldDevice ? 6 : 10}
+          borderBottom={isHandheldDevice ? 0 : 1}
+        >
+          <Typography variant="h4">Payment</Typography>
+        </Box>
+        <Box>
+          <PaymentOverview {...props} />
+        </Box>
+        <DetailPageFooter
+          consentSigned={props.consentSigned}
+          handleConsentSignChange={props.handleConsentSignChange}
+        />
       </Box>
-      <GuestDetailForm formik={props.formik} />
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        width={contentWidth}
-        paddingY={10}
-        borderBottom={1}
-      >
-        <Typography variant="h4">Payment</Typography>
-      </Box>
-      <PaymentOverview {...props} />
-      <DetailPageFooter
-        consentSigned={props.consentSigned}
-        handleConsentSignChange={props.handleConsentSignChange}
-      />
       <ProceedPaymentSection consentSigned={props.consentSigned} />
-    </Box>
+    </>
   );
 };
 
 const GuestDetailForm = (props: { formik: FormikProps<IGuestDetail> }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <form onSubmit={props.formik.handleSubmit}>
       <Grid
         container
-        width={contentWidth}
+        width={isHandheldDevice ? mobileWidth : contentWidth}
         paddingY={5}
-        columnSpacing={3}
+        columnSpacing={isHandheldDevice ? 0 : 3}
         rowGap={2}
       >
         <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
@@ -293,8 +306,36 @@ const DetailPageFooter = (props: {
   handleConsentSignChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+
   return (
-    <Grid container width={contentWidth} marginTop={8}>
+    <Grid
+      container
+      width={isHandheldDevice ? mobileWidth : contentWidth}
+      marginTop={8}
+      direction={"row-reverse"}
+      rowSpacing={2}
+    >
+      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+        <Typography fontWeight={700}>{iPay88Title}</Typography>
+        <Box
+          display={"flex"}
+          justifyContent={isHandheldDevice ? "center" : "start"}
+        >
+          <Image src={IPay88Image} alt="ipay88" style={{ marginTop: "20px" }} />
+        </Box>
+      </Grid>
+
+      <Grid item xs={0} sm={0} md={1} lg={1} xl={1}>
+        <Box display={"flex"} justifyContent={"center"} height={"100%"}>
+          <Divider orientation="vertical" sx={{ width: "1px" }} />
+        </Box>
+      </Grid>
+      {isHandheldDevice && (
+        <Grid item xs={12} sm={12} md={12} lg={0} xl={0}>
+          <Divider sx={{ bgcolor: "black" }} />
+        </Grid>
+      )}
       <Grid item xs={12} sm={12} md={7} lg={7} xl={7}>
         <Typography fontWeight={700}>{footerTitle}</Typography>
         <Typography width={"500px"} marginTop={1}>
@@ -316,15 +357,6 @@ const DetailPageFooter = (props: {
           />
           <Typography>{footerSelectLabel}</Typography>
         </Stack>
-      </Grid>
-      <Grid item xs={0} sm={0} md={1} lg={1} xl={1}>
-        <Box display={"flex"} justifyContent={"center"} height={"100%"}>
-          <Divider orientation="vertical" sx={{ width: "1px" }} />
-        </Box>
-      </Grid>
-      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-        <Typography fontWeight={700}>{iPay88Title}</Typography>
-        <Image src={IPay88Image} alt="ipay88" style={{ marginTop: "20px" }} />
       </Grid>
     </Grid>
   );

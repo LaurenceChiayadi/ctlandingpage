@@ -471,6 +471,7 @@ const BookingStepper = (props: {
                 .map((step, index) => (
                   <ButtonBase
                     key={index}
+                    disabled={handleDisabled(step.title)}
                     onClick={() => props.handleChangeStepper(step.value)}
                   >
                     <Stack

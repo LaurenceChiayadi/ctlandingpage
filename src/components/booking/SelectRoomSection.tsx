@@ -12,6 +12,7 @@ import {
   Skeleton,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import ContentWrapper from "../global/ContentWrapper";
@@ -92,15 +93,16 @@ const BookingSummary = (props: {
   selectedHotel: IBookingLocation;
   bookingSchedule: IBookingSchedule;
 }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Box
       display={"flex"}
       paddingY={3}
-      borderTop={1}
+      borderTop={isHandheldDevice ? 0 : 1}
       borderBottom={1}
       marginTop={10}
     >
-      <Grid container>
+      <Grid container rowSpacing={2}>
         <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
           <SummaryContent
             title="Outlet"
@@ -110,6 +112,11 @@ const BookingSummary = (props: {
         <Grid item xs={0} sm={0} md={0} lg={1} xl={1}>
           <Divider orientation="vertical" sx={{ width: "1px" }} />
         </Grid>
+        {isHandheldDevice && (
+          <Grid item xs={12} sm={12} md={12} lg={0} xl={0}>
+            <Divider sx={{ bgcolor: "black" }} />
+          </Grid>
+        )}
         <Grid item xs={12} sm={12} md={12} lg={2} xl={2}>
           <SummaryContent
             title="Date"
@@ -156,12 +163,22 @@ const BookingSummary = (props: {
 };
 
 const SummaryContent = (props: { title: string; data: string }) => {
-  return (
-    <Stack spacing={1}>
-      <Typography>{props.title}</Typography>
-      <Typography fontWeight={700}>{props.data}</Typography>
-    </Stack>
-  );
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+  if (!isHandheldDevice) {
+    return (
+      <Stack spacing={1}>
+        <Typography>{props.title}</Typography>
+        <Typography fontWeight={700}>{props.data}</Typography>
+      </Stack>
+    );
+  } else {
+    return (
+      <Stack direction={"row"} spacing={1}>
+        <Typography width={"140px"}>{props.title}</Typography>
+        <Typography fontWeight={700}>{props.data}</Typography>
+      </Stack>
+    );
+  }
 };
 
 const RoomTypesContent = (props: {
@@ -172,6 +189,7 @@ const RoomTypesContent = (props: {
   handleDeductRoomBooking: (value: IRoomBooking) => void;
 }) => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
 
   const [rooms, setRooms] = useState<IHotelRooms[]>([]);
 
@@ -260,7 +278,7 @@ const RoomTypesContent = (props: {
                       </Typography>
                     </Stack>
                     <Stack
-                      direction={"row"}
+                      direction={isHandheldDevice ? "column" : "row"}
                       marginTop={1}
                       justifyContent={"space-between"}
                     >
@@ -287,7 +305,12 @@ const RoomTypesContent = (props: {
                           )}
                       </Stack>
                       {roomSelected ? (
-                        <Stack direction={"row"} width={"180px"}>
+                        <Stack
+                          direction={"row"}
+                          width={isHandheldDevice ? "100%" : "180px"}
+                          marginTop={isHandheldDevice ? 1 : 0}
+                          height={"40px"}
+                        >
                           <Button
                             variant="outlined"
                             onClick={() =>
@@ -376,7 +399,9 @@ const RoomTypesContent = (props: {
                           sx={{
                             color: "black",
                             borderColor: "black",
-                            width: "180px",
+                            width: isHandheldDevice ? "100%" : "180px",
+                            height: "40px",
+                            marginTop: isHandheldDevice ? 1 : 0,
                           }}
                         >
                           ADD ROOM
@@ -397,6 +422,7 @@ const BookNowButton = (props: {
   handleChangeStepper: (value: number) => void;
 }) => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
 
   const amountOfRooms = props.roomBookings.reduce(
     (total, curr) => (total = total + curr.quantity),
@@ -417,43 +443,74 @@ const BookNowButton = (props: {
       zIndex={10}
       bottom={0}
       bgcolor={theme.palette.primary.main}
-      paddingX={7}
+      paddingX={3}
     >
-      <Grid container>
-        <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
-          <Typography variant="h4">{amountOfRooms} rooms selected</Typography>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <Stack direction={"row"} alignItems={"end"} spacing={1}>
-            <Typography variant="h4">
-              RM{displayThousands(parseFloat(totalAmount))}
-            </Typography>
-            <Typography variant="subtitle1">
-              price before discount and tax
-            </Typography>
-          </Stack>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
-          <Box display={"flex"} justifyContent={"end"} alignItems={"center"}>
-            <Button
-              onClick={() => props.handleChangeStepper(4)}
-              sx={{
-                padding: 0,
-              }}
-            >
-              <Typography variant="h4">{"Book Now"}</Typography>
-              <Image
-                src={CTRight}
-                alt="CT-Right-Up"
-                style={{
-                  color: "white",
-                  width: "60px",
+      {!isHandheldDevice ? (
+        <Grid container>
+          <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
+            <Typography variant="h4">{amountOfRooms} rooms selected</Typography>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+            <Stack direction={"row"} alignItems={"end"} spacing={1}>
+              <Typography variant="h4">
+                RM{displayThousands(parseFloat(totalAmount))}
+              </Typography>
+              <Typography variant="subtitle1">
+                price before discount and tax
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
+            <Box display={"flex"} justifyContent={"end"} alignItems={"center"}>
+              <Button
+                onClick={() => props.handleChangeStepper(4)}
+                sx={{
+                  padding: 0,
                 }}
-              />
-            </Button>
-          </Box>
+              >
+                <Typography variant="h4">{"Book Now"}</Typography>
+                <Image
+                  src={CTRight}
+                  alt="CT-Right-Up"
+                  style={{
+                    color: "white",
+                    width: "60px",
+                  }}
+                />
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      ) : (
+        <Stack
+          width={"100%"}
+          direction={"row"}
+          justifyContent={"space-between"}
+        >
+          <Stack>
+            <Typography variant="h4">
+              {amountOfRooms} rooms / RM
+              {displayThousands(parseFloat(totalAmount))}
+            </Typography>
+            <Typography>price before discount and tax</Typography>
+          </Stack>
+          <Button
+            onClick={() => props.handleChangeStepper(4)}
+            sx={{
+              padding: 0,
+            }}
+          >
+            <Image
+              src={CTRight}
+              alt="CT-Right-Up"
+              style={{
+                color: "white",
+                width: "60px",
+              }}
+            />
+          </Button>
+        </Stack>
+      )}
     </Box>
   );
 };

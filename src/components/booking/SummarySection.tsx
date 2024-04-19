@@ -12,6 +12,7 @@ import {
   IconButton,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { format } from "date-fns";
@@ -31,6 +32,7 @@ import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import PaymentOverview from "./PaymentOverview";
 
 const contentWidth = "900px";
+const mobileWidth = "100%";
 
 const SummarySection = (props: {
   selectedHotel: IBookingLocation;
@@ -41,19 +43,26 @@ const SummarySection = (props: {
   handleChangeStepper: (value: number) => void;
 }) => {
   return (
-    <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-      <Box marginY={10}>
-        <Typography variant="h4">Summary</Typography>
+    <>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={"center"}
+        paddingX={3}
+      >
+        <Box marginY={10}>
+          <Typography variant="h4">Summary</Typography>
+        </Box>
+        <SummaryHeader {...props} />
+        <RoomBookingSection {...props} />
+        <FacilitiesSection {...props} />
+        <AddRoomsSection {...props} />
+        <PaymentOverview {...props} />
+        <PaymentPolicySection />
+        <ImportantInformationSection />
       </Box>
-      <SummaryHeader {...props} />
-      <RoomBookingSection {...props} />
-      <FacilitiesSection {...props} />
-      <AddRoomsSection {...props} />
-      <PaymentOverview {...props} />
-      <PaymentPolicySection />
-      <ImportantInformationSection />
       <ContinueSection {...props} />
-    </Box>
+    </>
   );
 };
 
@@ -63,11 +72,16 @@ const SummaryHeader = (props: {
   roomBookings: IRoomBooking[];
 }) => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Box display={"flex"} borderTop={1} paddingTop={2} paddingBottom={7}>
-      <Grid container width={contentWidth}>
+      <Grid
+        container
+        rowSpacing={2}
+        width={isHandheldDevice ? mobileWidth : contentWidth}
+      >
         <Grid item xs={12} sm={12} md={12} lg={5} xl={5}>
-          <Stack spacing={1} width={"330px"}>
+          <Stack spacing={1} width={isHandheldDevice ? "100%" : "330px"}>
             <SummaryContent
               title="Outlet"
               data={
@@ -76,8 +90,18 @@ const SummaryHeader = (props: {
                 props.selectedHotel.hotelLocation
               }
             />
-            <Typography>{props.selectedHotel.hotelPhoneNumber}</Typography>
-            <Typography>{props.selectedHotel.hotelDetailedLocation}</Typography>
+            <Stack direction={"row"}>
+              {isHandheldDevice && <Box width={"140px"} />}
+              <Typography width={"60%"}>
+                {props.selectedHotel.hotelPhoneNumber}
+              </Typography>
+            </Stack>
+            <Stack direction={"row"}>
+              {isHandheldDevice && <Box width={"140px"} />}
+              <Typography width={"60%"}>
+                {props.selectedHotel.hotelDetailedLocation}
+              </Typography>
+            </Stack>
             {props.selectedHotel.hotelName === "Airside" && (
               <Typography color={theme.palette.CtColorScheme.pink300}>
                 <ul style={{ marginTop: 0, paddingLeft: "20px" }}>
@@ -100,6 +124,12 @@ const SummaryHeader = (props: {
             <Divider orientation="vertical" sx={{ width: "1px" }} />
           </Box>
         </Grid>
+        {isHandheldDevice && (
+          <Grid item xs={12} sm={12} md={12} lg={0} xl={0}>
+            <Divider sx={{ bgcolor: "black" }} />
+          </Grid>
+        )}
+
         <Grid item xs={12} sm={12} md={12} lg={5} xl={5}>
           <Stack spacing={2}>
             <SummaryContent
@@ -144,22 +174,32 @@ const SummaryHeader = (props: {
 };
 
 const SummaryContent = (props: { title: string; data: string }) => {
-  return (
-    <Stack spacing={0.5}>
-      <Typography>{props.title}</Typography>
-      <Typography fontWeight={700}>{props.data}</Typography>
-    </Stack>
-  );
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+  if (!isHandheldDevice) {
+    return (
+      <Stack spacing={0.5}>
+        <Typography>{props.title}</Typography>
+        <Typography fontWeight={700}>{props.data}</Typography>
+      </Stack>
+    );
+  } else {
+    return (
+      <Stack direction={"row"} spacing={1}>
+        <Typography width={"140px"}>{props.title}</Typography>
+        <Typography fontWeight={700}>{props.data}</Typography>
+      </Stack>
+    );
+  }
 };
-
 const RoomBookingSection = (props: {
   roomBookings: IRoomBooking[];
   bookingSchedule: IBookingSchedule;
   handleChangeStepper: (value: number) => void;
 }) => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
-    <Box width={contentWidth} borderTop={1}>
+    <Box width={isHandheldDevice ? mobileWidth : contentWidth} borderTop={1}>
       {props.roomBookings.map((roomBooking, index) => (
         <Grid
           container
@@ -169,13 +209,17 @@ const RoomBookingSection = (props: {
           paddingY={3}
         >
           <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-            <Box width={"300px"} height={"250px"} bgcolor={"grey"}></Box>
+            <Box
+              width={isHandheldDevice ? "100%" : "300px"}
+              height={"250px"}
+              bgcolor={"grey"}
+            ></Box>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
             <Stack
               justifyContent={"space-between"}
               height={"100%"}
-              marginLeft={2}
+              marginLeft={isHandheldDevice ? 0 : 2}
             >
               <Stack>
                 <Stack direction={"row"} justifyContent={"space-between"}>
@@ -190,7 +234,12 @@ const RoomBookingSection = (props: {
                     Edit
                   </Button>
                 </Stack>
-                <Stack direction={"row"} spacing={1} marginTop={1}>
+                <Stack
+                  direction={"row"}
+                  spacing={1}
+                  marginTop={isHandheldDevice ? 0 : 1}
+                  marginBottom={isHandheldDevice ? 1 : 0}
+                >
                   <Typography color={theme.palette.CtColorScheme.grey400}>
                     {roomBooking.bedType}
                   </Typography>
@@ -238,6 +287,7 @@ const RoomBookingSection = (props: {
 };
 
 const FacilitiesSection = (props: { selectedHotel: IBookingLocation }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   const data =
     props.selectedHotel.hotelName === "Airside"
       ? airsideFacilities
@@ -250,14 +300,21 @@ const FacilitiesSection = (props: { selectedHotel: IBookingLocation }) => {
       : [];
 
   return (
-    <Box width={contentWidth} paddingY={2}>
+    <Box width={isHandheldDevice ? mobileWidth : contentWidth} paddingY={2}>
       <Typography variant="h6" fontWeight={700} marginBottom={1}>
         Included
       </Typography>
       <Grid container spacing={1}>
         {data.map((data, index) => (
           <Grid item xs={6} key={index}>
-            <li style={{ listStyle: "none" }}>✓ {data}</li>
+            <li
+              style={{
+                listStyle: "none",
+                fontSize: isHandheldDevice ? "12px" : "14px",
+              }}
+            >
+              ✓ {data}
+            </li>
           </Grid>
         ))}
       </Grid>
@@ -268,10 +325,11 @@ const FacilitiesSection = (props: { selectedHotel: IBookingLocation }) => {
 const AddRoomsSection = (props: {
   handleChangeStepper: (value: number) => void;
 }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Box
       display={"flex"}
-      width={contentWidth}
+      width={isHandheldDevice ? mobileWidth : contentWidth}
       justifyContent={"center"}
       borderTop={1}
       paddingY={3}
@@ -291,11 +349,12 @@ const paymentPolicyText =
   "Full payment will be charged once your booking is confirmed. There are no additional fees for credit or debit cards and all prices shown are inclusive of local taxes. Discounted and promotional rates are non-refundable. Any amendments or cancellation bookings with discounted or promotional rates will be charged in full. In the case of modification of check-in dates, cancellation or no-show will, 100% of the room rate including any other applicable charges and taxes will be charged to your credit/debit card.";
 
 const PaymentPolicySection = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Stack
       spacing={1}
-      width={contentWidth}
-      marginTop={"130px"}
+      width={isHandheldDevice ? mobileWidth : contentWidth}
+      marginTop={isHandheldDevice ? 4 : "130px"}
       alignItems={"start"}
     >
       <Typography fontWeight={700}>Payment and Cancellation Policy</Typography>
@@ -308,8 +367,14 @@ const importantInformationText =
   "Please make sure that the hotel and location you have selected matches the area of the airport your flight will depart from. If you are entering Malaysia or in transit to another destination, you will need valid entry into Malaysia (visa, landing card) to clear Malaysian immigration and access our hotel. The hotel will not be liable to any cost and will not refund any charges if the wrong booking have been made. If you are departing from Malaysia, you can easily access the hotel as It is located before immigration and customs checkpoint. If you are landing at KLIA1, proceed through immigration, customs checkpoints and baggage reclaim, embark either the free shuttle bus service or ERL (Train) to the South Terminal and follow the directions to our hotel. Please log on to https://www.imi.gov.my/index.php/en/main-services/visa/ should you require a VISA to enter Malaysia and to exit the airport departure hall to access CapsuleTransit.";
 
 const ImportantInformationSection = () => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
-    <Stack spacing={1} width={contentWidth} marginTop={3} alignItems={"start"}>
+    <Stack
+      spacing={1}
+      width={isHandheldDevice ? mobileWidth : contentWidth}
+      marginTop={3}
+      alignItems={"start"}
+    >
       <Typography fontWeight={700}>Important Information</Typography>
       <Typography>{importantInformationText}</Typography>
     </Stack>
@@ -320,6 +385,7 @@ const ContinueSection = (props: {
   handleChangeStepper: (value: number) => void;
 }) => {
   const theme = useTheme();
+
   return (
     <Box
       display={"flex"}

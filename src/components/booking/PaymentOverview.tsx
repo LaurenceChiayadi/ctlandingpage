@@ -1,9 +1,10 @@
 import { IPaymentInfo, IRoomBooking } from "@/models/Booking";
 import { displayThousands } from "@/utils/functions";
 import { Add } from "@mui/icons-material";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
 
 const contentWidth = "900px";
+const mobileWidth = "100%";
 
 const PaymentOverview = (props: {
   roomBookings: IRoomBooking[];
@@ -20,13 +21,20 @@ const PaymentOverview = (props: {
 };
 
 const RoomPricingSection = (props: { roomBookings: IRoomBooking[] }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
-    <Stack spacing={1} width={contentWidth} borderTop={1} paddingY={3}>
+    <Stack
+      spacing={1}
+      width={isHandheldDevice ? mobileWidth : contentWidth}
+      borderTop={1}
+      paddingY={3}
+    >
       {props.roomBookings.map((roomBooking, index) => (
         <Stack
           key={index}
           direction={"row"}
           justifyContent={"space-between"}
+          alignItems={isHandheldDevice ? "end" : "start"}
           width={"100%"}
         >
           <Stack>
@@ -50,10 +58,11 @@ const RoomPricingSection = (props: { roomBookings: IRoomBooking[] }) => {
 };
 
 const PromotionSection = (props: { paymentInfo: IPaymentInfo }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Stack
       spacing={1}
-      width={contentWidth}
+      width={isHandheldDevice ? mobileWidth : contentWidth}
       borderTop={1}
       paddingY={3}
       alignItems={"start"}
@@ -73,10 +82,11 @@ const TotalBillSection = (props: {
   paymentInfo: IPaymentInfo;
   taxPercentage: string;
 }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Stack
       spacing={1}
-      width={contentWidth}
+      width={isHandheldDevice ? mobileWidth : contentWidth}
       borderTop={1}
       borderBottom={1}
       paddingY={3}

@@ -148,7 +148,7 @@ const StaySectionHome = (props: {
       >
         Where are you departing / landing?
       </Typography>
-      <Box display={"flex"}>
+      <Stack direction={"row"} spacing={isHandheldDevice ? 0 : "150px"}>
         <Box
           display={"flex"}
           flexDirection={"column"}
@@ -215,7 +215,7 @@ const StaySectionHome = (props: {
             variant="secondary"
           />
         </Box>
-      </Box>
+      </Stack>
     </Box>
   );
 };
