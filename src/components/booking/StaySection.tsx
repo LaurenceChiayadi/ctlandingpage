@@ -1,9 +1,11 @@
 import {
   Box,
   Button,
+  Divider,
   IconButton,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
   useThemeProps,
 } from "@mui/material";
@@ -127,6 +129,7 @@ const StaySectionHome = (props: {
   handleChangeStaySectionStepper: (title: string) => void;
 }) => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
 
   const [informationHovered, setInformationHovered] = useState<boolean>(false);
   return (
@@ -136,15 +139,21 @@ const StaySectionHome = (props: {
       height={"100%"}
       justifyContent={"center"}
       alignItems={"center"}
-      paddingY={10}
+      paddingY={isHandheldDevice ? 6 : 10}
     >
-      <Typography variant="h4">Where are you departing/landing?</Typography>
+      <Typography
+        variant="h4"
+        textAlign={"center"}
+        width={isHandheldDevice ? "350px" : "100%"}
+      >
+        Where are you departing / landing?
+      </Typography>
       <Box display={"flex"}>
         <Box
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
-          width={"500px"}
+          width={"40%"}
           height={"600px"}
         >
           <Typography variant="h4" textAlign={"center"} marginBottom={5}>
@@ -154,7 +163,7 @@ const StaySectionHome = (props: {
             onClick={() =>
               props.handleChangeStaySectionStepper(options[0].title)
             }
-            text="SELECT LOCATION"
+            text={isHandheldDevice ? "Select" : "SELECT LOCATION"}
             variant="secondary"
           />
         </Box>
@@ -163,7 +172,7 @@ const StaySectionHome = (props: {
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
-          width={"300px"}
+          width={"20%"}
           onMouseEnter={() => setInformationHovered(true)}
           onMouseLeave={() => setInformationHovered(false)}
         >
@@ -176,10 +185,13 @@ const StaySectionHome = (props: {
           </Box>
           {informationHovered && (
             <Box
+              position={"fixed"}
               display={"flex"}
               border={1}
+              width={"300px"}
               bgcolor={theme.palette.primary.main}
               padding={2}
+              zIndex={10}
             >
               {informationText}
             </Box>
@@ -189,7 +201,7 @@ const StaySectionHome = (props: {
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
-          width={"500px"}
+          width={"40%"}
           height={"600px"}
         >
           <Typography variant="h4" textAlign={"center"} marginBottom={5}>
@@ -199,7 +211,7 @@ const StaySectionHome = (props: {
             onClick={() =>
               props.handleChangeStaySectionStepper(options[1].title)
             }
-            text="SELECT LOCATION"
+            text={isHandheldDevice ? "Select" : "SELECT LOCATION"}
             variant="secondary"
           />
         </Box>
@@ -213,6 +225,7 @@ const KLIAStaySection = (props: {
   handleChangeStaySectionStepper: (title: string) => void;
   handleChangeSelectedHotel: (value: IBookingLocation) => void;
 }) => {
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Box
       display={"flex"}
@@ -220,11 +233,16 @@ const KLIAStaySection = (props: {
       height={"100%"}
       justifyContent={"center"}
       alignItems={"center"}
-      paddingY={10}
+      paddingY={isHandheldDevice ? 6 : 10}
       paddingX={3}
     >
-      <Stack direction={"row"} width={"100%"} marginBottom={6}>
-        <Box display={"flex"} width={"33%"}>
+      <Stack
+        direction={isHandheldDevice ? "column" : "row"}
+        width={"100%"}
+        marginBottom={6}
+        alignItems={isHandheldDevice ? "center" : "start"}
+      >
+        <Box display={"flex"} width={isHandheldDevice ? "70px" : "33%"}>
           <Button onClick={() => props.handleChangeStaySectionStepper("")}>
             <ChevronLeft />
             <Typography variant="h6" color={"primary"} fontWeight={600}>
@@ -236,15 +254,16 @@ const KLIAStaySection = (props: {
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
-          width={"33%"}
+          width={isHandheldDevice ? "100%" : "33%"}
         >
           <Typography variant="h4">{props.content.terminalName}</Typography>
         </Box>
       </Stack>
       <Stack
-        direction={"row"}
+        direction={isHandheldDevice ? "column" : "row"}
         width={"100%"}
         justifyContent={"center"}
+        alignItems={isHandheldDevice ? "center" : "start"}
         spacing={5}
       >
         {props.content.location.map((location, index) => (
@@ -254,7 +273,7 @@ const KLIAStaySection = (props: {
             flexDirection={"column"}
             alignItems={"center"}
             marginTop={10}
-            width={"480px"}
+            width={isHandheldDevice ? "350px" : "480px"}
           >
             <Stack spacing={2}>
               <Typography variant="h6" fontWeight={600} textAlign={"center"}>
@@ -265,7 +284,7 @@ const KLIAStaySection = (props: {
               </Typography>
               <Typography textAlign={"center"}>{location.remarks}</Typography>
             </Stack>
-            <Stack spacing={3} marginTop={10}>
+            <Stack spacing={3} marginTop={isHandheldDevice ? 6 : 10}>
               {location.hotels.map((hotel, index) => (
                 <Button
                   onClick={() =>
@@ -284,6 +303,16 @@ const KLIAStaySection = (props: {
                 </Button>
               ))}
             </Stack>
+            {isHandheldDevice &&
+              props.content.location.length - 1 !== index && (
+                <Divider
+                  variant="middle"
+                  sx={{
+                    width: "350px",
+                    marginTop: 4,
+                  }}
+                />
+              )}
           </Box>
         ))}
       </Stack>

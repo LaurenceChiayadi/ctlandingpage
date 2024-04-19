@@ -6,6 +6,7 @@ import {
   Select,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import {
@@ -30,6 +31,7 @@ const ScheduleSection = (props: {
   handleEmptyRoomBooking: VoidFunction;
 }) => {
   const theme = useTheme();
+  const isHandheldDevice = useMediaQuery("(max-width:1050px)");
 
   const handleDateOnChange = (date: Date): void => {
     const newValue = { ...props.bookingSchedule, date: date };
@@ -49,15 +51,27 @@ const ScheduleSection = (props: {
         height={"100%"}
         justifyContent={"center"}
         alignItems={"center"}
-        paddingY={10}
+        paddingY={isHandheldDevice ? 6 : 10}
+        paddingX={3}
       >
-        <Typography variant="h4">{title}</Typography>
-        <Stack direction={"row"} spacing={2}>
+        <Typography
+          variant="h4"
+          textAlign={"center"}
+          width={isHandheldDevice ? "320px" : "100%"}
+        >
+          {title}
+        </Typography>
+        <Stack
+          width={isHandheldDevice ? "100%" : "1050px"}
+          direction={isHandheldDevice ? "column" : "row"}
+          spacing={2}
+          marginTop={isHandheldDevice ? 5 : 0}
+        >
           <Stack
             flexDirection={"column"}
             justifyContent={"center"}
-            width={"350px"}
-            height={"400px"}
+            width={isHandheldDevice ? "100%" : "350px"}
+            height={isHandheldDevice ? "100px" : "400px"}
             spacing={2}
           >
             <Typography fontWeight={"600"}>Date</Typography>
@@ -73,8 +87,8 @@ const ScheduleSection = (props: {
           <Stack
             flexDirection={"column"}
             justifyContent={"center"}
-            width={"350px"}
-            height={"400px"}
+            width={isHandheldDevice ? "100%" : "350px"}
+            height={isHandheldDevice ? "100px" : "400px"}
             spacing={2}
           >
             <Typography fontWeight={"600"}>Time</Typography>
@@ -91,8 +105,8 @@ const ScheduleSection = (props: {
           <Stack
             flexDirection={"column"}
             justifyContent={"center"}
-            width={"350px"}
-            height={"400px"}
+            width={isHandheldDevice ? "100%" : "350px"}
+            height={isHandheldDevice ? "100px" : "400px"}
             spacing={2}
           >
             <Typography fontWeight={"600"}>Duration</Typography>
