@@ -57,7 +57,7 @@ const terminal2Hotels = [
   {
     title: "Capsule Transit Airside",
     location: "KLIA Terminal 2, Restricted Area",
-    backgroundUrl: AirsideImage,
+    backgroundUrl: "/videos/list-klia2-airside.mp4",
     description:
       "For early flights, Late arrivals, Missed flights or last minute flight cancellations.",
     features: [
@@ -186,7 +186,9 @@ const KLIA2Hotels = (props: {
     <Grid container direction={"row"} columnSpacing={3} rowSpacing={5}>
       {terminal2Hotels.map((data, index) => (
         <Grid item key={index} xs={12} sm={12} md={4} lg={4} xl={4}>
-          {props.hovered === data.title && !isHandheldDevice ? (
+          {props.hovered === data.title &&
+          !isHandheldDevice &&
+          typeof data.backgroundUrl !== "string" ? (
             <Box
               width="100%"
               height={isHandheldDevice ? "500px" : "700px"}
@@ -272,18 +274,31 @@ const KLIA2Hotels = (props: {
               height={isHandheldDevice ? "500px" : "700px"}
               onMouseOver={() => props.handleHoverImage(data.title)}
             >
-              <Image
-                src={data.backgroundUrl}
-                alt={data.title}
-                // width={30}
-                // height={20}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              />
+              {typeof data.backgroundUrl === "string" ? (
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{ width: "100%", height: "100%" }}
+                >
+                  <source src={data.backgroundUrl} type="video/mp4" />
+                </video>
+              ) : (
+                <Image
+                  src={data.backgroundUrl}
+                  alt={data.title}
+                  // width={30}
+                  // height={20}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              )}
             </Box>
           )}
+
           <Stack
             direction={"row"}
             width={"100%"}
