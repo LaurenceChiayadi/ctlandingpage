@@ -42,6 +42,7 @@ const SummarySection = (props: {
   taxPercentage: string;
   serviceChargePercentage: string;
   handleChangeStepper: (value: number) => void;
+  handleAddPromotion: (promotionName: string, promotionAmount: string) => void;
 }) => {
   return (
     <>

@@ -52,6 +52,12 @@ export interface IPaymentInfo {
   taxAmount: number;
   serviceChargeAmount: number;
   debitAmount: number;
+
+  sumBeforeDiscount: number;
+
+  promotion?: string;
+  promotionAmount?: number;
+  promotionDeduct?: string;
 }
 
 export const PaymentInfoInitial: IPaymentInfo = {
@@ -59,6 +65,7 @@ export const PaymentInfoInitial: IPaymentInfo = {
   sum: 0,
   taxAmount: 0,
   serviceChargeAmount: 0,
+  sumBeforeDiscount: 0,
 };
 
 export interface IGuestDetail {

@@ -1,7 +1,24 @@
+import BASE_API from "@/constant/api";
 import { IPaymentInfo, IRoomBooking } from "@/models/Booking";
 import { displayThousands } from "@/utils/functions";
-import { Add } from "@mui/icons-material";
-import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
+import {
+  Add,
+  ArrowRight,
+  Check,
+  KeyboardArrowRight,
+  Remove,
+} from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Stack,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import axios from "axios";
+import { useState } from "react";
 
 const contentWidth = "900px";
 const mobileWidth = "100%";
@@ -11,6 +28,7 @@ const PaymentOverview = (props: {
   paymentInfo: IPaymentInfo;
   taxPercentage: string;
   serviceChargePercentage: string;
+  handleAddPromotion: (promotionName: string, promotionAmount: string) => void;
 }) => {
   return (
     <>
@@ -58,8 +76,33 @@ const RoomPricingSection = (props: { roomBookings: IRoomBooking[] }) => {
   );
 };
 
-const PromotionSection = (props: { paymentInfo: IPaymentInfo }) => {
+const PromotionSection = (props: {
+  paymentInfo: IPaymentInfo;
+  handleAddPromotion: (promotionName: string, promotionAmount: string) => void;
+}) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+  const theme = useTheme();
+  const [isAddPromoPressed, setIsAddPromoPressed] = useState<boolean>(false);
+  const [promotionValue, setPromotionValue] = useState<string>("");
+  const [promotionDetected, setPromotionDetected] = useState<
+    boolean | undefined
+  >();
+
+  const handleGetPromotion = () => {
+    const apiUrl = `${BASE_API}/landing-page/promotions/?promoCode=${promotionValue}`;
+    axios
+      .get(apiUrl)
+      .then((result) => {
+        const data = result.data.data;
+        if (data === "") {
+          setPromotionDetected(false);
+        } else {
+          setPromotionDetected(true);
+          props.handleAddPromotion(promotionValue, data.promoValue);
+        }
+      })
+      .catch((error) => console.error(error));
+  };
   return (
     <Stack
       spacing={1}
@@ -70,11 +113,71 @@ const PromotionSection = (props: { paymentInfo: IPaymentInfo }) => {
     >
       <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
         <Typography>Exclude Tax</Typography>
-        <Typography>RM{displayThousands(props.paymentInfo.sum)}</Typography>
+        <Typography>
+          RM{displayThousands(props.paymentInfo.sumBeforeDiscount)}
+        </Typography>
       </Stack>
-      <Button sx={{ color: "black", paddingX: 0 }}>
-        Add Promo Code <Add />
+      <Button
+        onClick={() => setIsAddPromoPressed((value) => !value)}
+        sx={{ color: "black", paddingX: 0 }}
+      >
+        Add Promo Code {isAddPromoPressed ? <Remove /> : <Add />}
       </Button>
+      {isAddPromoPressed && (
+        <Box display="flex">
+          <TextField
+            size="small"
+            value={promotionValue}
+            onChange={(event) => setPromotionValue(event.target.value)}
+          />
+          <Button
+            onClick={handleGetPromotion}
+            sx={{ bgcolor: theme.palette.primary.main, color: "black" }}
+          >
+            <KeyboardArrowRight />
+          </Button>
+
+          {promotionDetected === true ? (
+            <Box
+              display="flex"
+              bgcolor={theme.palette.primary.main}
+              color={theme.palette.CtColorScheme.blue800}
+              alignSelf={"end"}
+              marginLeft={1}
+            >
+              (<Check />) Code Applied!
+            </Box>
+          ) : (
+            promotionDetected === false && (
+              <Box
+                display="flex"
+                color={theme.palette.CtColorScheme.pink300}
+                alignItems={"end"}
+                marginLeft={1}
+              >
+                (X) The code is not applicable.
+              </Box>
+            )
+          )}
+        </Box>
+      )}
+      {props.paymentInfo.promotion &&
+        props.paymentInfo.promotionDeduct &&
+        props.paymentInfo.promotionAmount && (
+          <Stack
+            direction={"row"}
+            justifyContent={"space-between"}
+            width={"100%"}
+          >
+            <Typography variant="h6" fontWeight={700}>
+              Promotion: {props.paymentInfo.promotion}{" "}
+              {props.paymentInfo.promotionDeduct}
+            </Typography>
+            <Typography variant="h6" fontWeight={700}>
+              - RM{displayThousands(props.paymentInfo.promotionAmount)}
+            </Typography>
+          </Stack>
+        )}
     </Stack>
   );
 };
@@ -94,6 +197,16 @@ const TotalBillSection = (props: {
       paddingY={3}
       alignItems={"start"}
     >
+      {props.paymentInfo.sum !== props.paymentInfo.sumBeforeDiscount && (
+        <Stack
+          direction={"row"}
+          justifyContent={"space-between"}
+          width={"100%"}
+        >
+          <Typography>After Discount</Typography>
+          <Typography>RM{displayThousands(props.paymentInfo.sum)}</Typography>
+        </Stack>
+      )}
       <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
         <Typography>Service Tax {props.serviceChargePercentage}</Typography>
         <Typography>

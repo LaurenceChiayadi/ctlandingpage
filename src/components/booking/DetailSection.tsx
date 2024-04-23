@@ -52,6 +52,7 @@ const DetailSection = (props: {
   formik: FormikProps<IGuestDetail>;
   consentSigned: boolean;
   handleConsentSignChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleAddPromotion: (promotionName: string, promotionAmount: string) => void;
 }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
