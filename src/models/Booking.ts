@@ -34,6 +34,7 @@ export interface IRoomBooking {
   bedType: string;
   zone?: string;
   capacity: string;
+  sum: number;
 }
 
 export interface IHotelRooms {
@@ -49,6 +50,7 @@ export interface IHotelRooms {
 export interface IPaymentInfo {
   sum: number;
   taxAmount: number;
+  serviceChargeAmount: number;
   debitAmount: number;
 }
 
@@ -56,6 +58,7 @@ export const PaymentInfoInitial: IPaymentInfo = {
   debitAmount: 0,
   sum: 0,
   taxAmount: 0,
+  serviceChargeAmount: 0,
 };
 
 export interface IGuestDetail {

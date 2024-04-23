@@ -10,6 +10,7 @@ const PaymentOverview = (props: {
   roomBookings: IRoomBooking[];
   paymentInfo: IPaymentInfo;
   taxPercentage: string;
+  serviceChargePercentage: string;
 }) => {
   return (
     <>
@@ -49,7 +50,7 @@ const RoomPricingSection = (props: { roomBookings: IRoomBooking[] }) => {
           </Stack>
           <Typography variant="h6" fontWeight={700}>
             RM
-            {displayThousands(roomBooking.quantity * roomBooking.price)}
+            {displayThousands(roomBooking.sum)}
           </Typography>
         </Stack>
       ))}
@@ -81,6 +82,7 @@ const PromotionSection = (props: { paymentInfo: IPaymentInfo }) => {
 const TotalBillSection = (props: {
   paymentInfo: IPaymentInfo;
   taxPercentage: string;
+  serviceChargePercentage: string;
 }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
@@ -93,7 +95,13 @@ const TotalBillSection = (props: {
       alignItems={"start"}
     >
       <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
-        <Typography>Service Tax {props.taxPercentage}</Typography>
+        <Typography>Service Tax {props.serviceChargePercentage}</Typography>
+        <Typography>
+          RM{displayThousands(props.paymentInfo.serviceChargeAmount)}
+        </Typography>
+      </Stack>
+      <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
+        <Typography>Tax {props.taxPercentage}</Typography>
         <Typography>
           RM{displayThousands(props.paymentInfo.taxAmount)}
         </Typography>

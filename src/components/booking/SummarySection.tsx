@@ -40,6 +40,7 @@ const SummarySection = (props: {
   roomBookings: IRoomBooking[];
   paymentInfo: IPaymentInfo;
   taxPercentage: string;
+  serviceChargePercentage: string;
   handleChangeStepper: (value: number) => void;
 }) => {
   return (

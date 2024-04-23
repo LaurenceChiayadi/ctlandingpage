@@ -108,18 +108,11 @@ const BookingPage = () => {
       if (selectedRoom) {
         setRoomBookings([
           ...filteredRoomBookings,
-          {
-            ...selectedRoom,
-            quantity: selectedRoom.quantity + 1,
-            sum: selectedRoom.sum + Number(selectedRoom.price),
-          },
+          { ...selectedRoom, quantity: selectedRoom.quantity + 1 },
         ]);
       }
     } else {
-      setRoomBookings((prevValue) => [
-        ...prevValue,
-        { ...value, sum: Number(value.price) },
-      ]);
+      setRoomBookings((prevValue) => [...prevValue, value]);
     }
   };
 
@@ -282,14 +275,12 @@ const BookingPage = () => {
           handleChangeStepper={handleChangeStepper}
           paymentInfo={paymentInfo}
           taxPercentage={taxPercentage}
-          serviceChargePercentage={serviceChargePercentage}
         />
       ) : stepper === 5 ? (
         <DetailSection
           paymentInfo={paymentInfo}
           roomBookings={roomBookings}
           taxPercentage={taxPercentage}
-          serviceChargePercentage={serviceChargePercentage}
           formik={formik}
           consentSigned={consentSigned}
           handleConsentSignChange={handleConsentSignChange}

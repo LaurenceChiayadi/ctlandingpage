@@ -324,6 +324,8 @@ const RoomTypesContent = (props: {
                                 bedType: room.bedType,
                                 capacity: room.capacity,
                                 zone: room.zone,
+
+                                sum: 0,
                               })
                             }
                             sx={{
@@ -367,6 +369,8 @@ const RoomTypesContent = (props: {
                                 bedType: room.bedType,
                                 capacity: room.capacity,
                                 zone: room.zone,
+
+                                sum: 0,
                               })
                             }
                             sx={{
@@ -394,6 +398,8 @@ const RoomTypesContent = (props: {
                               bedType: room.bedType,
                               capacity: room.capacity,
                               zone: room.zone,
+
+                              sum: 0,
                             })
                           }
                           sx={{

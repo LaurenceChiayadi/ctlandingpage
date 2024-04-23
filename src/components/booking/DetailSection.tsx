@@ -48,6 +48,7 @@ const DetailSection = (props: {
   roomBookings: IRoomBooking[];
   paymentInfo: IPaymentInfo;
   taxPercentage: string;
+  serviceChargePercentage: string;
   formik: FormikProps<IGuestDetail>;
   consentSigned: boolean;
   handleConsentSignChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
