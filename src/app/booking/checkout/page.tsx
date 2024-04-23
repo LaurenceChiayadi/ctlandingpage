@@ -108,11 +108,18 @@ const BookingPage = () => {
       if (selectedRoom) {
         setRoomBookings([
           ...filteredRoomBookings,
-          { ...selectedRoom, quantity: selectedRoom.quantity + 1 },
+          {
+            ...selectedRoom,
+            quantity: selectedRoom.quantity + 1,
+            sum: selectedRoom.sum + Number(selectedRoom.price),
+          },
         ]);
       }
     } else {
-      setRoomBookings((prevValue) => [...prevValue, value]);
+      setRoomBookings((prevValue) => [
+        ...prevValue,
+        { ...value, sum: Number(value.price) },
+      ]);
     }
   };
 
@@ -133,11 +140,41 @@ const BookingPage = () => {
     }
   };
 
+  const handleAddPromotion = (
+    promotionName: string,
+    promotionAmount: string
+  ) => {
+    setPaymentInfo((prevValue) => ({
+      ...prevValue,
+      promotion: promotionName,
+      promotionDeduct: promotionAmount,
+    }));
+  };
+
   useEffect(() => {
-    const sum = roomBookings.reduce(
+    let sum = roomBookings.reduce(
       (total, curr) => (total = total + curr.price * curr.quantity),
       0
     );
+
+    const sumBeforeDiscount = sum;
+
+    let promotionAmount = 0;
+
+    if (paymentInfo.promotion && paymentInfo.promotionDeduct) {
+      if (paymentInfo.promotionDeduct.includes("%")) {
+        const promotionDetail = parseFloat(paymentInfo.promotionDeduct);
+
+        promotionAmount = parseFloat(
+          ((sum * promotionDetail) / 100).toFixed(2)
+        );
+        sum = parseFloat((sum - promotionAmount).toFixed(2));
+      } else {
+        const promotionDetail = parseFloat(paymentInfo.promotionDeduct);
+        promotionAmount = promotionDetail;
+        sum = parseFloat((sum - promotionAmount).toFixed(2));
+      }
+    }
 
     const taxAmount = parseFloat(
       ((sum * parseFloat(taxPercentage)) / 100).toFixed(2)
@@ -152,14 +189,18 @@ const BookingPage = () => {
     );
 
     const paymentInfoObject = {
+      ...paymentInfo,
       sum: sum,
+      sumBeforeDiscount: sumBeforeDiscount,
       taxAmount: taxAmount,
       debitAmount: debitAmount,
       serviceChargeAmount: serviceChargeAmount,
+
+      promotionAmount: promotionAmount,
     };
 
     setPaymentInfo(paymentInfoObject);
-  }, [roomBookings, taxPercentage]);
+  }, [roomBookings, taxPercentage, paymentInfo.promotion]);
 
   useEffect(() => {
     if (selectedHotel.hotelName) {
@@ -275,15 +316,19 @@ const BookingPage = () => {
           handleChangeStepper={handleChangeStepper}
           paymentInfo={paymentInfo}
           taxPercentage={taxPercentage}
+          serviceChargePercentage={serviceChargePercentage}
+          handleAddPromotion={handleAddPromotion}
         />
       ) : stepper === 5 ? (
         <DetailSection
           paymentInfo={paymentInfo}
           roomBookings={roomBookings}
           taxPercentage={taxPercentage}
+          serviceChargePercentage={serviceChargePercentage}
           formik={formik}
           consentSigned={consentSigned}
           handleConsentSignChange={handleConsentSignChange}
+          handleAddPromotion={handleAddPromotion}
         />
       ) : (
         <></>
