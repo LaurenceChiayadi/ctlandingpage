@@ -94,7 +94,7 @@ const PromotionSection = (props: {
       .get(apiUrl)
       .then((result) => {
         const data = result.data.data;
-        if (data === "") {
+        if (result.status === 204) {
           setPromotionDetected(false);
         } else {
           setPromotionDetected(true);
