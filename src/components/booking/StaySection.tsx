@@ -17,13 +17,26 @@ import {
   HelpOutline,
   HelpOutlineOutlined,
 } from "@mui/icons-material";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import IconArrowRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import { IBookingLocation } from "@/models/Booking";
+
+import T1Icon from "./images/Icons/t1-icon.svg";
+import T2Icon from "./images/Icons/t2-icon.svg";
+import TrainBusIcon from "./images/Icons/train-bus-icon.svg";
+
+import Terminal1DetailedIcon from "./images/Icons/terminal-1-detailed-icon.svg";
+import Terminal1DetailedIconHovered from "./images/Icons/terminal-1-detailed-icon-hover.svg";
+import RestrictedAreaIcon from "./images/Icons/restricted-area-icon.svg";
+import RestrictedAreaIconHovered from "./images/Icons/restricted-area-icon-hover.svg";
+import PublicAreaIcon from "./images/Icons/public-area-icon.svg";
+import PublicAreaIconHovered from "./images/Icons/public-area-icon-hover.svg";
 
 interface IKLIAOptions {
   terminalName: string;
   location: {
+    icon: StaticImageData;
+    iconHovered: StaticImageData;
     name: string;
     description?: string;
     remarks: string;
@@ -37,6 +50,8 @@ const KLIA1Options: IKLIAOptions = {
   terminalName: "KLIA Terminal 1",
   location: [
     {
+      icon: Terminal1DetailedIcon,
+      iconHovered: Terminal1DetailedIconHovered,
       name: "Public Area",
       description:
         "At KLIA Terminal 1, our hotel provides a single-servie sleep-only lounge for you to rest and take a nap",
@@ -57,6 +72,8 @@ const KLIA2Options: IKLIAOptions = {
   terminalName: "KLIA Terminal 2",
   location: [
     {
+      icon: RestrictedAreaIcon,
+      iconHovered: RestrictedAreaIconHovered,
       name: "Restricted Area",
       remarks:
         "If you are departing from Malaysia, you will need valid documents for flight check-in (boarding pass, passport, or visa) to enter to restricted area and access our Airside",
@@ -69,6 +86,8 @@ const KLIA2Options: IKLIAOptions = {
       ],
     },
     {
+      icon: PublicAreaIcon,
+      iconHovered: PublicAreaIconHovered,
       name: "Public Area",
       remarks:
         "If you are landing in Malaysia, you will need valid entry into Malaysia (visa, landing card) to clear Malaysian Imigration and access our Landside and MAX",
@@ -148,14 +167,22 @@ const StaySectionHome = (props: {
       >
         Where are you departing / landing?
       </Typography>
-      <Stack direction={"row"} spacing={isHandheldDevice ? 0 : "150px"}>
+      <Stack direction={"row"} spacing={isHandheldDevice ? 0 : "70px"}>
         <Box
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
-          width={"40%"}
+          width={"35%"}
           height={"600px"}
         >
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            marginBottom={2}
+          >
+            <Image src={T1Icon} alt="terminal-1-icon" />
+          </Box>
           <Typography variant="h4" textAlign={"center"} marginBottom={5}>
             {options[0].title}
           </Typography>
@@ -172,11 +199,15 @@ const StaySectionHome = (props: {
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
-          width={"20%"}
-          onMouseEnter={() => setInformationHovered(true)}
+          width={"30%"}
           onMouseLeave={() => setInformationHovered(false)}
         >
-          <Box>
+          <Image
+            src={TrainBusIcon}
+            alt="transit-icon"
+            style={{ marginBottom: "50px", objectFit: "contain" }}
+          />
+          <Box onMouseEnter={() => setInformationHovered(true)}>
             {informationHovered ? (
               <Help color="primary" />
             ) : (
@@ -201,9 +232,17 @@ const StaySectionHome = (props: {
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
-          width={"40%"}
+          width={"35%"}
           height={"600px"}
         >
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            marginBottom={2}
+          >
+            <Image src={T2Icon} alt="terminal-2-icon" />
+          </Box>
           <Typography variant="h4" textAlign={"center"} marginBottom={5}>
             {options[1].title}
           </Typography>
@@ -226,6 +265,7 @@ const KLIAStaySection = (props: {
   handleChangeSelectedHotel: (value: IBookingLocation) => void;
 }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+  const [hover, setHovered] = useState<string>("");
   return (
     <Box
       display={"flex"}
@@ -274,8 +314,17 @@ const KLIAStaySection = (props: {
             alignItems={"center"}
             marginTop={10}
             width={isHandheldDevice ? "350px" : "480px"}
+            onMouseEnter={() => setHovered(location.name)}
+            onMouseLeave={() => setHovered("")}
           >
             <Stack spacing={2}>
+              <Box display={"flex"} justifyContent={"center"} height={"80px"}>
+                {hover === location.name ? (
+                  <Image src={location.iconHovered} alt={location.name} />
+                ) : (
+                  <Image src={location.icon} alt={location.name} />
+                )}
+              </Box>
               <Typography variant="h6" fontWeight={600} textAlign={"center"}>
                 {location.name}
               </Typography>
