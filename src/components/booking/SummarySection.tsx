@@ -215,7 +215,14 @@ const RoomBookingSection = (props: {
               width={isHandheldDevice ? "100%" : "300px"}
               height={"250px"}
               bgcolor={"grey"}
-            ></Box>
+            >
+              {roomBooking.imageUrl && (
+                <img
+                  src={roomBooking.imageUrl}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              )}
+            </Box>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
             <Stack

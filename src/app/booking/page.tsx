@@ -40,7 +40,6 @@ import {
 } from "@/models/Booking";
 import SelectRoomSection from "@/components/booking/SelectRoomSection";
 import SummarySection from "@/components/booking/SummarySection";
-import BASE_API from "@/constant/api";
 import { lotNumberEnum } from "@/constant/Enums";
 import { getLotNumber } from "@/utils/functions";
 import DetailSection from "@/components/booking/DetailSection";
@@ -52,6 +51,7 @@ import axios from "axios";
 import CTLogo from "../../assets/icons/general/Logo-CT.svg";
 import CTLogoOnly from "@/assets/icons/general/LogoPrimary.svg";
 import CloseIcon from "@/assets/icons/general/icon-menu-close.svg";
+import { BASE_API } from "@/constant/api";
 
 const BookingPage = () => {
   const [stepper, setStepper] = useState<number>(1);

@@ -30,6 +30,7 @@ export interface IRoomBooking {
   duration: number;
   price: number;
   quantity: number;
+  imageUrl?: string;
 
   bedType: string;
   zone?: string;
@@ -38,13 +39,15 @@ export interface IRoomBooking {
 }
 
 export interface IHotelRooms {
-  image: StaticImageData;
+  // image: StaticImageData;
   name: string;
   zone: string;
   bedType: string;
   capacity: string;
   price: number;
   availableCount: number;
+
+  imageUrl?: string;
 }
 
 export interface IPaymentInfo {
@@ -96,4 +99,9 @@ export interface ICountry {
   favorite: boolean;
   countryCode: string;
   prefix: string;
+}
+
+export interface IRoomImages {
+  name: string;
+  url: string;
 }

@@ -40,7 +40,6 @@ import {
 } from "@/models/Booking";
 import SelectRoomSection from "@/components/booking/SelectRoomSection";
 import SummarySection from "@/components/booking/SummarySection";
-import BASE_API from "@/constant/api";
 import { lotNumberEnum } from "@/constant/Enums";
 import { getLotNumber } from "@/utils/functions";
 import DetailSection from "@/components/booking/DetailSection";
@@ -52,6 +51,7 @@ import axios from "axios";
 import CTLogo from "../../assets/icons/general/Logo-CT.svg";
 import CTLogoOnly from "@/assets/icons/general/LogoPrimary.svg";
 import CloseIcon from "@/assets/icons/general/icon-menu-close.svg";
+import { BASE_API } from "@/constant/api";
 
 const BookingPage = () => {
   const [stepper, setStepper] = useState<number>(1);
@@ -234,8 +234,8 @@ const BookingPage = () => {
             const data = result.data;
             return {
               ...prevValue,
-              hotelDetailedLocation: data.address,
-              hotelPhoneNumber: data.tel,
+              hotelDetailedLocation: data.data.address,
+              hotelPhoneNumber: data.data.tel,
             };
           })
         )
@@ -267,37 +267,45 @@ const BookingPage = () => {
       phone: Yup.string().required("Phone Number is Required"),
     }),
     onSubmit: (values) => {
-      if (bookingSchedule.date && bookingSchedule.duration) {
-        const apiUrl = `${BASE_API}/landing-page/booking/`;
-
-        const formattedRoomBooking = roomBookings.map((roomBooking) => ({
-          roomTypeName: roomBooking.roomType,
-          quantity: roomBooking.quantity,
-          roomPrice: roomBooking.price,
-        }));
-
-        const formData = {
-          lotId: getLotNumber(selectedHotel.hotelName),
-          checkinDatetime: bookingSchedule.date.getTime() / 1000,
-          duration: bookingSchedule.duration,
-          roomTypes: formattedRoomBooking,
-          promotionAmount: paymentInfo.promotionAmount,
-          sum: paymentInfo.sum,
-          creditAmount: paymentInfo.debitAmount,
-          firstName: values.firstName,
-          lastName: values.lastName,
-          idType: values.identification,
-          idNo: values.idNumber,
-          countryCode: values.nationality,
-          email: values.email,
-          phoneNumber: values.phone,
-          gender: values.gender,
-        };
-
-        axios.post(apiUrl).then((result) => console.log(result));
-      }
+      handleSubmit();
     },
   });
+
+  const handleSubmit = () => {
+    if (bookingSchedule.date && bookingSchedule.duration) {
+      const apiUrl = `${BASE_API}/landing-page/booking/`;
+
+      const formattedRoomBooking = roomBookings.map((roomBooking) => ({
+        roomTypeName: roomBooking.roomType,
+        quantity: roomBooking.quantity,
+        roomPrice: roomBooking.price,
+      }));
+
+      const selectedCountry = countries.filter(
+        (country) => country.countryName === formik.values.nationality
+      );
+
+      const formData = {
+        lotId: getLotNumber(selectedHotel.hotelName),
+        checkinDatetime: bookingSchedule.date.getTime() / 1000,
+        duration: bookingSchedule.duration,
+        roomTypes: formattedRoomBooking,
+        promotionAmount: paymentInfo.promotionAmount,
+        sum: paymentInfo.sum,
+        creditAmount: paymentInfo.debitAmount,
+        countryCode: selectedCountry[0].countryCode,
+        firstName: formik.values.firstName,
+        lastName: formik.values.lastName,
+        idType: formik.values.identification,
+        idNo: formik.values.idNumber,
+        email: formik.values.email,
+        phoneNumber: formik.values.phone,
+        gender: formik.values.gender,
+      };
+
+      axios.post(apiUrl, formData).then((result) => console.log(result));
+    }
+  };
 
   // useEffect(() => {
   //   const apiUrl = "https://payment.ipay88.com.my/epayment/entry.asp";
@@ -378,6 +386,7 @@ const BookingPage = () => {
           consentSigned={consentSigned}
           handleConsentSignChange={handleConsentSignChange}
           handleAddPromotion={handleAddPromotion}
+          handleSubmit={handleSubmit}
         />
       ) : (
         <></>

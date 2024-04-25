@@ -3,6 +3,7 @@ import {
   IBookingSchedule,
   IHotelRooms,
   IRoomBooking,
+  IRoomImages,
 } from "@/models/Booking";
 import {
   Box,
@@ -32,8 +33,8 @@ import {
 import FemaleSingleImage from "../landside/images/room-single-female@2x.jpg";
 import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import { useEffect, useState } from "react";
-import BASE_API from "@/constant/api";
-
+import { BASE_API, STRAPI_BASE } from "@/constant/api";
+import axios from "axios";
 const title = "Select Your Room";
 
 const sampleHotel = [
@@ -192,8 +193,13 @@ const RoomTypesContent = (props: {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
 
   const [rooms, setRooms] = useState<IHotelRooms[]>([]);
+  const [roomImage, setRoomImages] = useState<IRoomImages[]>([]);
+
+  const [completedRoomData, setCompletedRoomData] = useState<IHotelRooms[]>([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [isLoadingImage, setIsLoadingImage] = useState<boolean>(false);
 
   useEffect(() => {
     if (props.bookingSchedule.date && props.bookingSchedule.duration) {
@@ -226,6 +232,51 @@ const RoomTypesContent = (props: {
     }
   }, [props.bookingSchedule, props.selectedHotel.hotelName]);
 
+  useEffect(() => {
+    const apiUrl = `${STRAPI_BASE}/api/room-type-images?populate=*`;
+
+    setIsLoadingImage(true);
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        const data = response.data.data;
+
+        const formattedData: IRoomImages[] = data.map((data: any) => ({
+          name: data.attributes.title,
+          url: `${STRAPI_BASE}${data.attributes.image.data.attributes.url}`,
+        }));
+
+        setRoomImages(formattedData);
+      })
+      .catch((response) => console.log(response))
+      .finally(() => setIsLoadingImage(false));
+  }, []);
+
+  useEffect(() => {
+    if (rooms.length > 0 && roomImage.length > 0) {
+      const data = rooms.map((room) => {
+        const strapiName = (
+          props.selectedHotel.hotelName +
+          "-" +
+          room.name
+        ).toLowerCase();
+        const imageLocated = roomImage.find(
+          (image) => image.name === strapiName
+        );
+
+        if (imageLocated) {
+          return {
+            ...room,
+            imageUrl: imageLocated.url,
+          };
+        } else {
+          return room;
+        }
+      });
+      setCompletedRoomData(data);
+    }
+  }, [roomImage, rooms]);
+
   return (
     <Box
       display={"flex"}
@@ -245,7 +296,7 @@ const RoomTypesContent = (props: {
         marginBottom={8}
         rowSpacing={{ xs: 8, sm: 8, md: 5, lg: 5, xl: 5 }}
       >
-        {isLoading
+        {isLoading || isLoadingImage
           ? [...Array(4)].map((_, index) => (
               <Grid key={index} item xs={12} sm={12} md={6} lg={6} xl={6}>
                 <Box display={"flex"} flexDirection={"column"}>
@@ -253,18 +304,22 @@ const RoomTypesContent = (props: {
                 </Box>
               </Grid>
             ))
-          : rooms.map((room, index) => {
+          : completedRoomData.map((room, index) => {
               const roomSelected = props.roomBookings.find(
                 (roomBooking) => roomBooking.roomTypeId === room.name
               );
               return (
                 <Grid key={index} item xs={12} sm={12} md={6} lg={6} xl={6}>
                   <Box display={"flex"} flexDirection={"column"}>
-                    <Image
-                      src={room.image}
-                      alt={room.name}
-                      style={{ width: "100%", height: "100%" }}
-                    />
+                    {room.imageUrl ? (
+                      <img
+                        src={room.imageUrl}
+                        alt={room.name}
+                        style={{ width: "100%", height: 550 }}
+                      />
+                    ) : (
+                      <Box bgcolor={"grey"} width={"100%"} height={550} />
+                    )}
                     <Typography variant="h6" fontWeight={700} marginTop={2}>
                       {room.name} {room.zone ? `(${room.zone})` : ""}
                     </Typography>
@@ -398,6 +453,7 @@ const RoomTypesContent = (props: {
                               bedType: room.bedType,
                               capacity: room.capacity,
                               zone: room.zone,
+                              imageUrl: room.imageUrl,
 
                               sum: 0,
                             })
