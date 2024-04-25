@@ -83,7 +83,7 @@ const SummaryHeader = (props: {
         width={isHandheldDevice ? mobileWidth : contentWidth}
       >
         <Grid item xs={12} sm={12} md={12} lg={5} xl={5}>
-          <Stack spacing={1} width={isHandheldDevice ? "100%" : "330px"}>
+          <Stack spacing={1} width={isHandheldDevice ? "100%" : "100%"}>
             <SummaryContent
               title="Outlet"
               data={
@@ -94,13 +94,13 @@ const SummaryHeader = (props: {
             />
             <Stack direction={"row"}>
               {isHandheldDevice && <Box width={"140px"} />}
-              <Typography width={"60%"}>
+              <Typography width={"80%"}>
                 {props.selectedHotel.hotelPhoneNumber}
               </Typography>
             </Stack>
             <Stack direction={"row"}>
               {isHandheldDevice && <Box width={"140px"} />}
-              <Typography width={"60%"}>
+              <Typography width={"80%"}>
                 {props.selectedHotel.hotelDetailedLocation}
               </Typography>
             </Stack>
@@ -179,8 +179,8 @@ const SummaryContent = (props: { title: string; data: string }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   if (!isHandheldDevice) {
     return (
-      <Stack spacing={0.5}>
-        <Typography>{props.title}</Typography>
+      <Stack spacing={0.5} width={"100%"}>
+        <Typography width={"90%"}>{props.title}</Typography>
         <Typography fontWeight={700}>{props.data}</Typography>
       </Stack>
     );

@@ -54,6 +54,7 @@ const DetailSection = (props: {
   consentSigned: boolean;
   handleConsentSignChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleAddPromotion: (promotionName: string, promotionAmount: string) => void;
+  handleSubmit: VoidFunction;
 }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
@@ -96,6 +97,7 @@ const DetailSection = (props: {
       <ProceedPaymentSection
         consentSigned={props.consentSigned}
         formik={props.formik}
+        handleSubmit={props.handleSubmit}
       />
     </>
   );
@@ -371,12 +373,13 @@ const DetailPageFooter = (props: {
 const ProceedPaymentSection = (props: {
   consentSigned: boolean;
   formik: FormikProps<IGuestDetail>;
+  handleSubmit: VoidFunction;
 }) => {
   const theme = useTheme();
   return (
     <form onSubmit={props.formik.handleSubmit}>
       <ButtonBase
-        type="submit"
+        onClick={props.handleSubmit}
         disabled={!props.consentSigned}
         sx={{ width: "100%", marginTop: 10 }}
       >
