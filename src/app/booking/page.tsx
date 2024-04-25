@@ -32,6 +32,7 @@ import {
   GuestDetailInitial,
   IBookingLocation,
   IBookingSchedule,
+  ICountry,
   IGuestDetail,
   IPaymentInfo,
   IRoomBooking,
@@ -67,6 +68,8 @@ const BookingPage = () => {
   const [taxPercentage, setTaxPercentage] = useState<string>("0%");
   const [serviceChargePercentage, setServiceChargePercentage] =
     useState<string>("0%");
+
+  const [countries, setCountries] = useState<ICountry[]>([]);
 
   const [consentSigned, setConsentSigned] = useState<boolean>(false);
   const handleConsentSignChange = (
@@ -203,6 +206,23 @@ const BookingPage = () => {
   }, [roomBookings, taxPercentage, paymentInfo.promotion]);
 
   useEffect(() => {
+    const fetchCountry = () => {
+      axios.get(`${BASE_API}/guests/country`).then((response) => {
+        const sortedCountry: ICountry[] = response.data.data
+          .sort((prev: ICountry, curr: ICountry) =>
+            prev.countryName.localeCompare(curr.countryName)
+          )
+          .sort((prev: ICountry, curr: ICountry) =>
+            prev.favorite === curr.favorite ? 0 : prev.favorite ? -1 : 1
+          );
+        setCountries(sortedCountry);
+      });
+    };
+
+    fetchCountry();
+  }, []);
+
+  useEffect(() => {
     if (selectedHotel.hotelName) {
       const lotNumber = getLotNumber(selectedHotel.hotelName);
       const detailedHotelApiUrl = `${BASE_API}/landing-page/lot-info/${lotNumber}`;
@@ -247,33 +267,65 @@ const BookingPage = () => {
       phone: Yup.string().required("Phone Number is Required"),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      if (bookingSchedule.date && bookingSchedule.duration) {
+        const apiUrl = `${BASE_API}/landing-page/booking/`;
+
+        const formattedRoomBooking = roomBookings.map((roomBooking) => ({
+          roomTypeName: roomBooking.roomType,
+          quantity: roomBooking.quantity,
+          roomPrice: roomBooking.price,
+        }));
+
+        const selectedCountry = countries.filter(
+          (country) => country.countryName === values.nationality
+        );
+
+        const formData = {
+          lotId: getLotNumber(selectedHotel.hotelName),
+          checkinDatetime: bookingSchedule.date.getTime() / 1000,
+          duration: bookingSchedule.duration,
+          roomTypes: formattedRoomBooking,
+          promotionAmount: paymentInfo.promotionAmount,
+          sum: paymentInfo.sum,
+          creditAmount: paymentInfo.debitAmount,
+          countryCode: selectedCountry[0].countryCode,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          idType: values.identification,
+          idNo: values.idNumber,
+          email: values.email,
+          phoneNumber: values.phone,
+          gender: values.gender,
+        };
+
+        axios.post(apiUrl, formData).then((result) => console.log(result));
+      }
     },
   });
 
-  useEffect(() => {
-    const apiUrl = "https://payment.ipay88.com.my/epayment/entry.asp";
+  // useEffect(() => {
+  //   const apiUrl = "https://payment.ipay88.com.my/epayment/entry.asp";
 
-    const encryptStringToSha256 = (input: string) => {
-      const hash = crypto.createHash("sha256");
-      hash.update(input);
-      return hash.digest("hex");
-    };
+  //   const encryptStringToSha256 = (input: string) => {
+  //     const hash = crypto.createHash("sha256");
+  //     hash.update(input);
+  //     return hash.digest("hex");
+  //   };
 
-    const formData = {
-      MerchantCode: "M05633",
-      RefNo: "KLIA12312321",
-      Amount: "1.00",
-      Curreny: "MYR",
-      ProdDesc: "Airside Capsule Transit",
-      UserName: "TEST",
-      UserEmail: "TEST@test.com",
-      UserContact: "+6023123123",
-      SignatureType: "SHA256",
-    };
+  //   const formData = {
+  //     MerchantCode: "M05633",
+  //     RefNo: "KLIA12312321",
+  //     Amount: "1.00",
+  //     Curreny: "MYR",
+  //     ProdDesc: "Airside Capsule Transit",
+  //     UserName: "TEST",
+  //     UserEmail: "TEST@test.com",
+  //     UserContact: "+6023123123",
+  //     SignatureType: "SHA256",
+  //   };
 
-    axios.post(apiUrl).then((result) => console.log(result));
-  }, []);
+  //   axios.post(apiUrl).then((result) => console.log(result));
+  // }, []);
 
   return (
     <Box
@@ -323,6 +375,7 @@ const BookingPage = () => {
         <DetailSection
           paymentInfo={paymentInfo}
           roomBookings={roomBookings}
+          countries={countries}
           taxPercentage={taxPercentage}
           serviceChargePercentage={serviceChargePercentage}
           formik={formik}

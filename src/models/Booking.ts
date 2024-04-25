@@ -89,3 +89,11 @@ export const GuestDetailInitial: IGuestDetail = {
   nationality: "",
   phone: "",
 };
+
+export interface ICountry {
+  countryId: string;
+  countryName: string;
+  favorite: boolean;
+  countryCode: string;
+  prefix: string;
+}

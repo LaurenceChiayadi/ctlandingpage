@@ -1,5 +1,6 @@
 import {
   GuestDetailInitial,
+  ICountry,
   IGuestDetail,
   IPaymentInfo,
   IRoomBooking,
@@ -24,7 +25,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { FormikProps, useFormik } from "formik";
-import countries from "./CountryList";
 import MuiPhoneNumber from "material-ui-phone-number";
 import PaymentOverview from "./PaymentOverview";
 import Image from "next/image";
@@ -47,6 +47,7 @@ const identifications = ["MyKad", "Passport"];
 const DetailSection = (props: {
   roomBookings: IRoomBooking[];
   paymentInfo: IPaymentInfo;
+  countries: ICountry[];
   taxPercentage: string;
   serviceChargePercentage: string;
   formik: FormikProps<IGuestDetail>;
@@ -73,7 +74,7 @@ const DetailSection = (props: {
         >
           <Typography variant="h4">Guest Information</Typography>
         </Box>
-        <GuestDetailForm formik={props.formik} />
+        <GuestDetailForm formik={props.formik} countries={props.countries} />
         <Box
           display={"flex"}
           flexDirection={"column"}
@@ -92,206 +93,209 @@ const DetailSection = (props: {
           handleConsentSignChange={props.handleConsentSignChange}
         />
       </Box>
-      <ProceedPaymentSection consentSigned={props.consentSigned} />
+      <ProceedPaymentSection
+        consentSigned={props.consentSigned}
+        formik={props.formik}
+      />
     </>
   );
 };
 
-const GuestDetailForm = (props: { formik: FormikProps<IGuestDetail> }) => {
+const GuestDetailForm = (props: {
+  formik: FormikProps<IGuestDetail>;
+  countries: ICountry[];
+}) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
-    <form onSubmit={props.formik.handleSubmit}>
-      <Grid
-        container
-        width={isHandheldDevice ? mobileWidth : contentWidth}
-        paddingY={5}
-        columnSpacing={isHandheldDevice ? 0 : 3}
-        rowGap={2}
-      >
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <FormControl fullWidth variant="outlined">
-            <Typography fontWeight={700} marginBottom={1}>
-              First Name (as per IC/Passport)
-            </Typography>
-            <TextField
-              variant="outlined"
-              name="firstName"
-              value={props.formik.values.firstName}
-              onChange={props.formik.handleChange}
-              sx={textFieldProps}
-            />
-            {props.formik.errors.firstName &&
-              props.formik.touched.firstName && (
-                <FormHelperText error id="standard-weight-helper-text-name">
-                  {props.formik.errors.firstName}
-                </FormHelperText>
-              )}
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <FormControl fullWidth variant="outlined">
-            <Typography fontWeight={700} marginBottom={1}>
-              Last Name (as per IC/Passport)
-            </Typography>
-            <TextField
-              name="lastName"
-              value={props.formik.values.lastName}
-              onChange={props.formik.handleChange}
-              sx={textFieldProps}
-            />
-            {props.formik.errors.lastName && props.formik.touched.lastName && (
-              <FormHelperText error id="standard-weight-helper-text-name">
-                {props.formik.errors.lastName}
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <FormControl fullWidth variant="outlined">
-            <Typography fontWeight={700} marginBottom={1}>
-              Gender
-            </Typography>
-            <Select
-              name="gender"
-              value={props.formik.values.gender}
-              onChange={props.formik.handleChange}
-              sx={textFieldProps}
-            >
-              {genders.map((gender, index) => (
-                <MenuItem key={index} value={gender}>
-                  {gender}
-                </MenuItem>
-              ))}
-            </Select>
-            {props.formik.errors.gender && props.formik.touched.gender && (
-              <FormHelperText error id="standard-weight-helper-text-name">
-                {props.formik.errors.gender}
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <FormControl fullWidth variant="outlined">
-            <Typography fontWeight={700} marginBottom={1}>
-              Nationality
-            </Typography>
-            <Autocomplete
-              options={countries}
-              value={props.formik.values.nationality}
-              onChange={(event: any, newValue: string | null) => {
-                props.formik.setFieldValue("nationality", newValue || "");
-              }}
-              ListboxProps={{ style: { maxHeight: "200px" } }}
-              sx={{
-                ".MuiInputBase-root": {
-                  paddingY: "2px",
-                },
-                input: {
-                  paddingY: 0,
-                },
-              }}
-              renderInput={(params) => (
-                <TextField variant="outlined" {...params} />
-              )}
-            />
-            {props.formik.errors.nationality &&
-              props.formik.touched.nationality && (
-                <FormHelperText error id="standard-weight-helper-text-name">
-                  {props.formik.errors.nationality}
-                </FormHelperText>
-              )}
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <FormControl fullWidth variant="outlined">
-            <Typography fontWeight={700} marginBottom={1}>
-              Identification
-            </Typography>
-            <Select
-              name="identification"
-              value={props.formik.values.identification}
-              onChange={props.formik.handleChange}
-              sx={textFieldProps}
-            >
-              {identifications.map((identification, index) => (
-                <MenuItem key={index} value={identification}>
-                  {identification}
-                </MenuItem>
-              ))}
-            </Select>
-            {props.formik.errors.identification &&
-              props.formik.touched.identification && (
-                <FormHelperText error id="standard-weight-helper-text-name">
-                  {props.formik.errors.identification}
-                </FormHelperText>
-              )}
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <FormControl fullWidth variant="outlined">
-            <Typography fontWeight={700} marginBottom={1}>
-              Your{" "}
-              {props.formik.values.identification === "MyKad"
-                ? "MyKad"
-                : "Passport"}{" "}
-              Number
-            </Typography>
-            <TextField
-              name="idNumber"
-              value={props.formik.values.idNumber}
-              onChange={props.formik.handleChange}
-              sx={textFieldProps}
-            />
-            {props.formik.errors.idNumber && props.formik.touched.idNumber && (
-              <FormHelperText error id="standard-weight-helper-text-name">
-                {props.formik.errors.idNumber}
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <FormControl fullWidth variant="outlined">
-            <Typography fontWeight={700} marginBottom={1}>
-              Email
-            </Typography>
-            <TextField
-              name="email"
-              value={props.formik.values.email}
-              onChange={props.formik.handleChange}
-              sx={textFieldProps}
-            />
-            <Typography>
-              We&apos;ll send a confirmation email to this address.
-            </Typography>
-            {props.formik.errors.email && props.formik.touched.email && (
-              <FormHelperText error id="standard-weight-helper-text-name">
-                {props.formik.errors.email}
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <FormControl fullWidth variant="outlined">
-            <Typography fontWeight={700} marginBottom={1}>
-              Phone Number
-            </Typography>
-            <MuiPhoneNumber
-              defaultCountry="my"
-              variant="outlined"
-              onChange={props.formik.handleChange}
-              value={props.formik.values.phone}
-              name="phone"
-              sx={textFieldProps}
-            />
-            {props.formik.errors.phone && props.formik.touched.phone && (
-              <FormHelperText error id="standard-weight-helper-text-name">
-                {props.formik.errors.phone}
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
+    <Grid
+      container
+      width={isHandheldDevice ? mobileWidth : contentWidth}
+      paddingY={5}
+      columnSpacing={isHandheldDevice ? 0 : 3}
+      rowGap={2}
+    >
+      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <FormControl fullWidth variant="outlined">
+          <Typography fontWeight={700} marginBottom={1}>
+            First Name (as per IC/Passport)
+          </Typography>
+          <TextField
+            variant="outlined"
+            name="firstName"
+            value={props.formik.values.firstName}
+            onChange={props.formik.handleChange}
+            sx={textFieldProps}
+          />
+          {props.formik.errors.firstName && props.formik.touched.firstName && (
+            <FormHelperText error id="standard-weight-helper-text-name">
+              {props.formik.errors.firstName}
+            </FormHelperText>
+          )}
+        </FormControl>
       </Grid>
-    </form>
+      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <FormControl fullWidth variant="outlined">
+          <Typography fontWeight={700} marginBottom={1}>
+            Last Name (as per IC/Passport)
+          </Typography>
+          <TextField
+            name="lastName"
+            value={props.formik.values.lastName}
+            onChange={props.formik.handleChange}
+            sx={textFieldProps}
+          />
+          {props.formik.errors.lastName && props.formik.touched.lastName && (
+            <FormHelperText error id="standard-weight-helper-text-name">
+              {props.formik.errors.lastName}
+            </FormHelperText>
+          )}
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <FormControl fullWidth variant="outlined">
+          <Typography fontWeight={700} marginBottom={1}>
+            Gender
+          </Typography>
+          <Select
+            name="gender"
+            value={props.formik.values.gender}
+            onChange={props.formik.handleChange}
+            sx={textFieldProps}
+          >
+            {genders.map((gender, index) => (
+              <MenuItem key={index} value={gender}>
+                {gender}
+              </MenuItem>
+            ))}
+          </Select>
+          {props.formik.errors.gender && props.formik.touched.gender && (
+            <FormHelperText error id="standard-weight-helper-text-name">
+              {props.formik.errors.gender}
+            </FormHelperText>
+          )}
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <FormControl fullWidth variant="outlined">
+          <Typography fontWeight={700} marginBottom={1}>
+            Nationality
+          </Typography>
+          <Autocomplete
+            options={props.countries.map((country) => country.countryName)}
+            value={props.formik.values.nationality}
+            onChange={(event: any, newValue: string | null) => {
+              props.formik.setFieldValue("nationality", newValue || "");
+            }}
+            ListboxProps={{ style: { maxHeight: "200px" } }}
+            sx={{
+              ".MuiInputBase-root": {
+                paddingY: "2px",
+              },
+              input: {
+                paddingY: 0,
+              },
+            }}
+            renderInput={(params) => (
+              <TextField variant="outlined" {...params} />
+            )}
+          />
+          {props.formik.errors.nationality &&
+            props.formik.touched.nationality && (
+              <FormHelperText error id="standard-weight-helper-text-name">
+                {props.formik.errors.nationality}
+              </FormHelperText>
+            )}
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <FormControl fullWidth variant="outlined">
+          <Typography fontWeight={700} marginBottom={1}>
+            Identification
+          </Typography>
+          <Select
+            name="identification"
+            value={props.formik.values.identification}
+            onChange={props.formik.handleChange}
+            sx={textFieldProps}
+          >
+            {identifications.map((identification, index) => (
+              <MenuItem key={index} value={identification}>
+                {identification}
+              </MenuItem>
+            ))}
+          </Select>
+          {props.formik.errors.identification &&
+            props.formik.touched.identification && (
+              <FormHelperText error id="standard-weight-helper-text-name">
+                {props.formik.errors.identification}
+              </FormHelperText>
+            )}
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <FormControl fullWidth variant="outlined">
+          <Typography fontWeight={700} marginBottom={1}>
+            Your{" "}
+            {props.formik.values.identification === "MyKad"
+              ? "MyKad"
+              : "Passport"}{" "}
+            Number
+          </Typography>
+          <TextField
+            name="idNumber"
+            value={props.formik.values.idNumber}
+            onChange={props.formik.handleChange}
+            sx={textFieldProps}
+          />
+          {props.formik.errors.idNumber && props.formik.touched.idNumber && (
+            <FormHelperText error id="standard-weight-helper-text-name">
+              {props.formik.errors.idNumber}
+            </FormHelperText>
+          )}
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <FormControl fullWidth variant="outlined">
+          <Typography fontWeight={700} marginBottom={1}>
+            Email
+          </Typography>
+          <TextField
+            name="email"
+            value={props.formik.values.email}
+            onChange={props.formik.handleChange}
+            sx={textFieldProps}
+          />
+          <Typography>
+            We&apos;ll send a confirmation email to this address.
+          </Typography>
+          {props.formik.errors.email && props.formik.touched.email && (
+            <FormHelperText error id="standard-weight-helper-text-name">
+              {props.formik.errors.email}
+            </FormHelperText>
+          )}
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <FormControl fullWidth variant="outlined">
+          <Typography fontWeight={700} marginBottom={1}>
+            Phone Number
+          </Typography>
+          <MuiPhoneNumber
+            defaultCountry="my"
+            variant="outlined"
+            onChange={props.formik.handleChange}
+            value={props.formik.values.phone}
+            name="phone"
+            sx={textFieldProps}
+          />
+          {props.formik.errors.phone && props.formik.touched.phone && (
+            <FormHelperText error id="standard-weight-helper-text-name">
+              {props.formik.errors.phone}
+            </FormHelperText>
+          )}
+        </FormControl>
+      </Grid>
+    </Grid>
   );
 };
 
@@ -364,41 +368,47 @@ const DetailPageFooter = (props: {
   );
 };
 
-const ProceedPaymentSection = (props: { consentSigned: boolean }) => {
+const ProceedPaymentSection = (props: {
+  consentSigned: boolean;
+  formik: FormikProps<IGuestDetail>;
+}) => {
   const theme = useTheme();
   return (
-    <ButtonBase
-      disabled={!props.consentSigned}
-      sx={{ width: "100%", marginTop: 10 }}
-    >
-      <Box
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        borderTop={1}
-        width={"100%"}
-        height={"80px"}
-        zIndex={10}
-        bottom={0}
-        bgcolor={
-          props.consentSigned
-            ? theme.palette.primary.main
-            : theme.palette.CtColorScheme.grey100
-        }
+    <form onSubmit={props.formik.handleSubmit}>
+      <ButtonBase
+        type="submit"
+        disabled={!props.consentSigned}
+        sx={{ width: "100%", marginTop: 10 }}
       >
-        <Box display={"flex"} justifyContent={"end"} alignItems={"center"}>
-          <Typography variant="h4">All Good, Continue</Typography>
-          <Image
-            src={CTRight}
-            alt="CT-Right-Up"
-            style={{
-              color: "white",
-              width: "60px",
-            }}
-          />
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          borderTop={1}
+          width={"100%"}
+          height={"80px"}
+          zIndex={10}
+          bottom={0}
+          bgcolor={
+            props.consentSigned
+              ? theme.palette.primary.main
+              : theme.palette.CtColorScheme.grey100
+          }
+        >
+          <Box display={"flex"} justifyContent={"end"} alignItems={"center"}>
+            <Typography variant="h4">All Good, Continue</Typography>
+            <Image
+              src={CTRight}
+              alt="CT-Right-Up"
+              style={{
+                color: "white",
+                width: "60px",
+              }}
+            />
+          </Box>
         </Box>
-      </Box>
-    </ButtonBase>
+      </ButtonBase>
+    </form>
   );
 };
 
