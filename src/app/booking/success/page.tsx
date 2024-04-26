@@ -15,11 +15,11 @@ import {
 } from "@mui/material";
 import { format } from "date-fns";
 import Image from "next/image";
-
-import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import { useRouter } from "next/navigation";
 import CTButton from "@/components/global/CTButton";
 import Footer from "@/components/global/Footer";
+
+import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 
 const BookingSuccessPage = () => {
   const { bookingData, setBookingData } = useBookingData();
