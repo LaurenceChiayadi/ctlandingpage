@@ -30,11 +30,13 @@ import {
   BookingLocationInitial,
   BookingScheduleInitial,
   GuestDetailInitial,
+  IBookingInformation,
   IBookingLocation,
   IBookingSchedule,
   ICountry,
   IGuestDetail,
   IPaymentInfo,
+  IPaymentTerminal,
   IRoomBooking,
   PaymentInfoInitial,
 } from "@/models/Booking";
@@ -45,15 +47,19 @@ import { getLotNumber } from "@/utils/functions";
 import DetailSection from "@/components/booking/DetailSection";
 import { FormikProps, useFormik } from "formik";
 import * as Yup from "yup";
-import crypto from "crypto";
 import axios from "axios";
 
 import CTLogo from "../../assets/icons/general/Logo-CT.svg";
 import CTLogoOnly from "@/assets/icons/general/LogoPrimary.svg";
 import CloseIcon from "@/assets/icons/general/icon-menu-close.svg";
 import { BASE_API } from "@/constant/api";
+import Link from "next/link";
+import { useBookingData } from "@/context/BookingContext";
 
 const BookingPage = () => {
+  const router = useRouter();
+  const { bookingData, setBookingData } = useBookingData();
+
   const [stepper, setStepper] = useState<number>(1);
   const [selectedHotel, setSelectedHotel] = useState<IBookingLocation>(
     BookingLocationInitial
@@ -303,8 +309,36 @@ const BookingPage = () => {
         gender: formik.values.gender,
       };
 
-      axios.post(apiUrl, formData).then((result) => console.log(result));
+      axios.post(apiUrl, formData).then((result) => {
+        const iPay88Data: IPaymentTerminal = {
+          amount: paymentInfo.debitAmount,
+          refNo: result.data.bookingNo,
+          userContact: formik.values.phone,
+          userEmail: formik.values.email,
+          userName: formik.values.firstName + " " + formik.values.lastName,
+          lot: selectedHotel.hotelName,
+        };
+
+        router.push(
+          `/booking/checkout?refNo=${iPay88Data.refNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&lot=${iPay88Data.lot}`
+        );
+      });
     }
+  };
+
+  const assignBookingContext = () => {
+    const tempBookingData: IBookingInformation = {
+      guestDetail: formik.values,
+      payment: paymentInfo,
+      roomBookings: roomBookings,
+      selectedHotel: selectedHotel,
+      bookingSchedule: bookingSchedule,
+      bookingNo: "KLIA123123",
+    };
+
+    setBookingData(tempBookingData);
+
+    router.push("/booking/success");
   };
 
   // useEffect(() => {
@@ -391,6 +425,7 @@ const BookingPage = () => {
       ) : (
         <></>
       )}
+      <Button onClick={assignBookingContext}>TEST</Button>
     </Box>
   );
 };

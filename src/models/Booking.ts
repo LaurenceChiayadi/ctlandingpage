@@ -105,3 +105,21 @@ export interface IRoomImages {
   name: string;
   url: string;
 }
+
+export interface IPaymentTerminal {
+  refNo: string;
+  amount: number;
+  userName: string;
+  userContact: string;
+  userEmail: string;
+  lot: string;
+}
+
+export interface IBookingInformation {
+  payment: IPaymentInfo;
+  roomBookings: IRoomBooking[];
+  guestDetail: IGuestDetail;
+  selectedHotel: IBookingLocation;
+  bookingSchedule: IBookingSchedule;
+  bookingNo: string;
+}

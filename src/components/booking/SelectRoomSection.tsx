@@ -274,6 +274,8 @@ const RoomTypesContent = (props: {
         }
       });
       setCompletedRoomData(data);
+    } else {
+      setCompletedRoomData(rooms);
     }
   }, [roomImage, rooms]);
 
