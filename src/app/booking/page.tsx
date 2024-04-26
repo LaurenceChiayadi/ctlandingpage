@@ -310,6 +310,17 @@ const BookingPage = () => {
       };
 
       axios.post(apiUrl, formData).then((result) => {
+        const tempBookingData: IBookingInformation = {
+          guestDetail: formik.values,
+          payment: paymentInfo,
+          roomBookings: roomBookings,
+          selectedHotel: selectedHotel,
+          bookingSchedule: bookingSchedule,
+          bookingNo: "KLIA123123",
+        };
+
+        setBookingData(tempBookingData);
+
         const iPay88Data: IPaymentTerminal = {
           amount: paymentInfo.debitAmount,
           refNo: result.data.bookingNo,
@@ -325,45 +336,6 @@ const BookingPage = () => {
       });
     }
   };
-
-  const assignBookingContext = () => {
-    const tempBookingData: IBookingInformation = {
-      guestDetail: formik.values,
-      payment: paymentInfo,
-      roomBookings: roomBookings,
-      selectedHotel: selectedHotel,
-      bookingSchedule: bookingSchedule,
-      bookingNo: "KLIA123123",
-    };
-
-    setBookingData(tempBookingData);
-
-    router.push("/booking/success");
-  };
-
-  // useEffect(() => {
-  //   const apiUrl = "https://payment.ipay88.com.my/epayment/entry.asp";
-
-  //   const encryptStringToSha256 = (input: string) => {
-  //     const hash = crypto.createHash("sha256");
-  //     hash.update(input);
-  //     return hash.digest("hex");
-  //   };
-
-  //   const formData = {
-  //     MerchantCode: "M05633",
-  //     RefNo: "KLIA12312321",
-  //     Amount: "1.00",
-  //     Curreny: "MYR",
-  //     ProdDesc: "Airside Capsule Transit",
-  //     UserName: "TEST",
-  //     UserEmail: "TEST@test.com",
-  //     UserContact: "+6023123123",
-  //     SignatureType: "SHA256",
-  //   };
-
-  //   axios.post(apiUrl).then((result) => console.log(result));
-  // }, []);
 
   return (
     <Box
@@ -425,7 +397,6 @@ const BookingPage = () => {
       ) : (
         <></>
       )}
-      <Button onClick={assignBookingContext}>TEST</Button>
     </Box>
   );
 };
