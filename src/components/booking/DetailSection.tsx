@@ -25,7 +25,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { FormikProps, useFormik } from "formik";
-import MuiPhoneNumber from "material-ui-phone-number";
+// import MuiPhoneNumber from "material-ui-phone-number";
 import PaymentOverview from "./PaymentOverview";
 import Image from "next/image";
 
@@ -54,6 +54,7 @@ const DetailSection = (props: {
   consentSigned: boolean;
   handleConsentSignChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleAddPromotion: (promotionName: string, promotionAmount: string) => void;
+  handleSubmit: VoidFunction;
 }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
@@ -96,6 +97,7 @@ const DetailSection = (props: {
       <ProceedPaymentSection
         consentSigned={props.consentSigned}
         formik={props.formik}
+        handleSubmit={props.handleSubmit}
       />
     </>
   );
@@ -280,14 +282,21 @@ const GuestDetailForm = (props: {
           <Typography fontWeight={700} marginBottom={1}>
             Phone Number
           </Typography>
-          <MuiPhoneNumber
+          <TextField
+            variant="outlined"
+            onChange={props.formik.handleChange}
+            value={props.formik.values.phone}
+            name="phone"
+            // sx={textFieldProps}
+          />
+          {/* <MuiPhoneNumber
             defaultCountry="my"
             variant="outlined"
             onChange={props.formik.handleChange}
             value={props.formik.values.phone}
             name="phone"
             sx={textFieldProps}
-          />
+          /> */}
           {props.formik.errors.phone && props.formik.touched.phone && (
             <FormHelperText error id="standard-weight-helper-text-name">
               {props.formik.errors.phone}
@@ -371,12 +380,13 @@ const DetailPageFooter = (props: {
 const ProceedPaymentSection = (props: {
   consentSigned: boolean;
   formik: FormikProps<IGuestDetail>;
+  handleSubmit: VoidFunction;
 }) => {
   const theme = useTheme();
   return (
     <form onSubmit={props.formik.handleSubmit}>
       <ButtonBase
-        type="submit"
+        onClick={props.handleSubmit}
         disabled={!props.consentSigned}
         sx={{ width: "100%", marginTop: 10 }}
       >

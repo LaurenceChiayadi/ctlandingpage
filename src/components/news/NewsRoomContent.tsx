@@ -19,6 +19,13 @@ import NewsImage4 from "./images/news-4.jpg";
 import NewsImage5 from "./images/news-5.jpg";
 import NewsImage6 from "./images/news-6.jpg";
 import IconArrowLeft from "@/assets/icons/general/btn-icon-arrow-left.svg";
+import { useEffect, useState } from "react";
+import { STRAPI_BASE } from "@/constant/api";
+import axios from "axios";
+import { handleConvertArticle } from "@/utils/functions";
+import { IArticle } from "@/models/Article";
+import { format } from "date-fns";
+import Link from "next/link";
 
 const contents = [
   {
@@ -65,6 +72,27 @@ const NewsRoomContent = () => {
   const theme = useTheme();
   const router = useRouter();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+
+  const [articles, setArticles] = useState<IArticle[]>([]);
+
+  useEffect(() => {
+    const apiUrl = `${STRAPI_BASE}/api/articles?populate=*`;
+
+    // setIsLoadingImage(true);
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        const data = response.data.data;
+
+        const formattedArticle = data.map((data: any) =>
+          handleConvertArticle(data, false)
+        );
+
+        setArticles(formattedArticle);
+      })
+      .catch((response) => console.log(response));
+    // .finally(() => setIsLoadingImage(false));
+  }, []);
   return (
     <Box
       display={"flex"}
@@ -72,18 +100,18 @@ const NewsRoomContent = () => {
       marginTop={10}
       marginBottom={6}
     >
-      {contents.map((content, index) => (
+      {articles.map((article, index) => (
         <ContentWrapper key={index} noMarginTop>
           <Grid
             container
             borderTop={1}
             paddingTop={3}
             paddingBottom={10}
-            columnSpacing={8}
+            // columnSpacing={8}
             rowSpacing={2}
           >
             <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-              <Image src={content.image} alt={content.title} />
+              <img src={article.thumbnailUrl} alt={article.title} />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={7} xl={7}>
               <Stack
@@ -92,7 +120,7 @@ const NewsRoomContent = () => {
                 spacing={1}
               >
                 <Typography variant="h4" maxWidth={"660px"}>
-                  {content.title}
+                  {article.title}
                 </Typography>
                 <Stack
                   direction={"row"}
@@ -101,28 +129,20 @@ const NewsRoomContent = () => {
                 >
                   <DateRange />
                   <Typography color={theme.palette.CtColorScheme.grey400}>
-                    {content.date}
+                    {format(article.updatedAt, "dd MMM yyyy")}
                   </Typography>
                 </Stack>
               </Stack>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={1} xl={1}>
-              <Box
-                display={"flex"}
-                justifyContent={isHandheldDevice ? "end" : "start"}
-              >
-                <IconButton
-                  onClick={() => router.push(content.url)}
-                  sx={{
-                    transform: "scaleX(-1)",
+              <Box display={"flex"} justifyContent={"end"}>
+                <Link
+                  href={{
+                    pathname: `/news/${article.id}`,
                   }}
                 >
-                  <Image
-                    src={IconArrowLeft}
-                    alt="arrow-left"
-                    style={{ transform: "scaleX(-1)" }}
-                  />
-                </IconButton>
+                  <Image src={IconArrowLeft} alt="arrow-left" />
+                </Link>
               </Box>
             </Grid>
           </Grid>

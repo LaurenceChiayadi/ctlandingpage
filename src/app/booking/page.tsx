@@ -30,30 +30,36 @@ import {
   BookingLocationInitial,
   BookingScheduleInitial,
   GuestDetailInitial,
+  IBookingInformation,
   IBookingLocation,
   IBookingSchedule,
   ICountry,
   IGuestDetail,
   IPaymentInfo,
+  IPaymentTerminal,
   IRoomBooking,
   PaymentInfoInitial,
 } from "@/models/Booking";
 import SelectRoomSection from "@/components/booking/SelectRoomSection";
 import SummarySection from "@/components/booking/SummarySection";
-import BASE_API from "@/constant/api";
 import { lotNumberEnum } from "@/constant/Enums";
 import { getLotNumber } from "@/utils/functions";
 import DetailSection from "@/components/booking/DetailSection";
 import { FormikProps, useFormik } from "formik";
 import * as Yup from "yup";
-import crypto from "crypto";
 import axios from "axios";
 
 import CTLogo from "../../assets/icons/general/Logo-CT.svg";
 import CTLogoOnly from "@/assets/icons/general/LogoPrimary.svg";
 import CloseIcon from "@/assets/icons/general/icon-menu-close.svg";
+import { BASE_API } from "@/constant/api";
+import Link from "next/link";
+import { useBookingData } from "@/context/BookingContext";
 
 const BookingPage = () => {
+  const router = useRouter();
+  const { bookingData, setBookingData } = useBookingData();
+
   const [stepper, setStepper] = useState<number>(1);
   const [selectedHotel, setSelectedHotel] = useState<IBookingLocation>(
     BookingLocationInitial
@@ -234,8 +240,8 @@ const BookingPage = () => {
             const data = result.data;
             return {
               ...prevValue,
-              hotelDetailedLocation: data.address,
-              hotelPhoneNumber: data.tel,
+              hotelDetailedLocation: data.data.address,
+              hotelPhoneNumber: data.data.tel,
             };
           })
         )
@@ -267,65 +273,69 @@ const BookingPage = () => {
       phone: Yup.string().required("Phone Number is Required"),
     }),
     onSubmit: (values) => {
-      if (bookingSchedule.date && bookingSchedule.duration) {
-        const apiUrl = `${BASE_API}/landing-page/booking/`;
-
-        const formattedRoomBooking = roomBookings.map((roomBooking) => ({
-          roomTypeName: roomBooking.roomType,
-          quantity: roomBooking.quantity,
-          roomPrice: roomBooking.price,
-        }));
-
-        const selectedCountry = countries.filter(
-          (country) => country.countryName === values.nationality
-        );
-
-        const formData = {
-          lotId: getLotNumber(selectedHotel.hotelName),
-          checkinDatetime: bookingSchedule.date.getTime() / 1000,
-          duration: bookingSchedule.duration,
-          roomTypes: formattedRoomBooking,
-          promotionAmount: paymentInfo.promotionAmount,
-          sum: paymentInfo.sum,
-          creditAmount: paymentInfo.debitAmount,
-          countryCode: selectedCountry[0].countryCode,
-          firstName: values.firstName,
-          lastName: values.lastName,
-          idType: values.identification,
-          idNo: values.idNumber,
-          email: values.email,
-          phoneNumber: values.phone,
-          gender: values.gender,
-        };
-
-        axios.post(apiUrl, formData).then((result) => console.log(result));
-      }
+      handleSubmit();
     },
   });
 
-  // useEffect(() => {
-  //   const apiUrl = "https://payment.ipay88.com.my/epayment/entry.asp";
+  const handleSubmit = () => {
+    if (bookingSchedule.date && bookingSchedule.duration) {
+      const apiUrl = `${BASE_API}/landing-page/booking/`;
 
-  //   const encryptStringToSha256 = (input: string) => {
-  //     const hash = crypto.createHash("sha256");
-  //     hash.update(input);
-  //     return hash.digest("hex");
-  //   };
+      const formattedRoomBooking = roomBookings.map((roomBooking) => ({
+        roomTypeName: roomBooking.roomType,
+        quantity: roomBooking.quantity,
+        roomPrice: roomBooking.price,
+      }));
 
-  //   const formData = {
-  //     MerchantCode: "M05633",
-  //     RefNo: "KLIA12312321",
-  //     Amount: "1.00",
-  //     Curreny: "MYR",
-  //     ProdDesc: "Airside Capsule Transit",
-  //     UserName: "TEST",
-  //     UserEmail: "TEST@test.com",
-  //     UserContact: "+6023123123",
-  //     SignatureType: "SHA256",
-  //   };
+      const selectedCountry = countries.filter(
+        (country) => country.countryName === formik.values.nationality
+      );
 
-  //   axios.post(apiUrl).then((result) => console.log(result));
-  // }, []);
+      const formData = {
+        lotId: getLotNumber(selectedHotel.hotelName),
+        checkinDatetime: bookingSchedule.date.getTime() / 1000,
+        duration: bookingSchedule.duration,
+        roomTypes: formattedRoomBooking,
+        promotionAmount: paymentInfo.promotionAmount,
+        sum: paymentInfo.sum,
+        creditAmount: paymentInfo.debitAmount,
+        countryCode: selectedCountry[0].countryCode,
+        firstName: formik.values.firstName,
+        lastName: formik.values.lastName,
+        idType: formik.values.identification,
+        idNo: formik.values.idNumber,
+        email: formik.values.email,
+        phoneNumber: formik.values.phone,
+        gender: formik.values.gender,
+      };
+
+      axios.post(apiUrl, formData).then((result) => {
+        const tempBookingData: IBookingInformation = {
+          guestDetail: formik.values,
+          payment: paymentInfo,
+          roomBookings: roomBookings,
+          selectedHotel: selectedHotel,
+          bookingSchedule: bookingSchedule,
+          bookingNo: "KLIA123123",
+        };
+
+        setBookingData(tempBookingData);
+
+        const iPay88Data: IPaymentTerminal = {
+          amount: paymentInfo.debitAmount,
+          refNo: result.data.bookingNo,
+          userContact: formik.values.phone,
+          userEmail: formik.values.email,
+          userName: formik.values.firstName + " " + formik.values.lastName,
+          lot: selectedHotel.hotelName,
+        };
+
+        router.push(
+          `/booking/checkout?refNo=${iPay88Data.refNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&lot=${iPay88Data.lot}`
+        );
+      });
+    }
+  };
 
   return (
     <Box
@@ -382,6 +392,7 @@ const BookingPage = () => {
           consentSigned={consentSigned}
           handleConsentSignChange={handleConsentSignChange}
           handleAddPromotion={handleAddPromotion}
+          handleSubmit={handleSubmit}
         />
       ) : (
         <></>

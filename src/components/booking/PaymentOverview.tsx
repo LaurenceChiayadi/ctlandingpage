@@ -1,4 +1,4 @@
-import BASE_API from "@/constant/api";
+import { BASE_API } from "@/constant/api";
 import { IPaymentInfo, IRoomBooking } from "@/models/Booking";
 import { displayThousands } from "@/utils/functions";
 import {

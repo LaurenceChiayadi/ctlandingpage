@@ -1,4 +1,6 @@
 import { featuresEnum, lotNumberEnum } from "@/constant/Enums";
+import { STRAPI_BASE } from "@/constant/api";
+import { IArticle, IArticleContent, IParagraph } from "@/models/Article";
 
 export const displayThousands = (number: number) => {
   var numberString = number.toString();
@@ -50,5 +52,64 @@ export const predictBedType = (maxPax: string) => {
     return "Queen + Single";
   } else {
     return "Unknown";
+  }
+};
+
+export const handleConvertArticle = (
+  data: any,
+  detailed: boolean
+): IArticle => {
+  const content = data.attributes.Content.map((content: any) =>
+    content.content.map((detailedContent: any): IArticleContent => {
+      if (detailedContent.type === "image") {
+        return {
+          type: detailedContent.type,
+          imageUrl: detailedContent.image.url,
+        };
+      } else {
+        return {
+          type: detailedContent.type,
+          level: detailedContent.level,
+          paragraph: detailedContent.children.map(
+            (texts: any): IParagraph => ({
+              text: texts.text,
+              bold: texts.bold,
+            })
+          ),
+        };
+      }
+    })
+  );
+
+  const convertedArticle: IArticle = {
+    id: data.id,
+    title: data.attributes.title,
+    createdAt: data.attributes.createdAt,
+    updatedAt: data.attributes.updatedAt,
+    thumbnailUrl: detailed
+      ? `${STRAPI_BASE}/uploads${data.attributes.thumbnail.data.attributes.url}`
+      : `${STRAPI_BASE}${data.attributes.thumbnail.data.attributes.url}`,
+    content: content,
+  };
+
+  return convertedArticle;
+};
+
+export const variantCheck = (value: string) => {
+  switch (value) {
+    case "h1":
+      return "h1";
+    case "h2":
+      return "h2";
+    case "h3":
+      return "h3";
+    case "h4":
+      return "h4";
+    case "h5":
+      return "h5";
+    case "h6":
+      return "h6";
+    default:
+      "body1";
   }
 };

@@ -4,10 +4,15 @@ const HeaderTop = (props: {
   title: string;
   children: React.ReactNode;
   marginBottom?: number;
+  paddingBottom?: number;
 }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return !isHandheldDevice ? (
-    <DesktopView title={props.title} marginBottom={props.marginBottom}>
+    <DesktopView
+      title={props.title}
+      marginBottom={props.marginBottom}
+      paddingBottom={props.paddingBottom}
+    >
       {props.children}
     </DesktopView>
   ) : (
@@ -21,6 +26,7 @@ const DesktopView = (props: {
   title: string;
   children: React.ReactNode;
   marginBottom?: number;
+  paddingBottom?: number;
 }) => {
   return (
     <Stack
@@ -30,6 +36,7 @@ const DesktopView = (props: {
       alignItems={"end"}
       borderBottom={1}
       marginBottom={props.marginBottom ? props.marginBottom : 8}
+      paddingBottom={props.paddingBottom}
     >
       <Typography variant="h3" width={"25%"}>
         {props.title}
