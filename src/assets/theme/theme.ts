@@ -18,6 +18,7 @@ declare module "@mui/material/styles" {
       grey400: string;
       black800: string;
       black900: string;
+      pink300: string;
     };
   }
   // allow configuration using `createTheme`
@@ -38,6 +39,7 @@ declare module "@mui/material/styles" {
       grey400: string;
       black800: string;
       black900: string;
+      pink300: string;
     };
   }
 }
@@ -72,6 +74,7 @@ const theme = createTheme({
       grey400: "#87888B",
       black800: "#1A1A1a",
       black900: "#00000A",
+      pink300: "#FA25A8",
     },
     primary: {
       main: "#77FBDE",
