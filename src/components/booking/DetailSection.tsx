@@ -25,7 +25,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { FormikProps, useFormik } from "formik";
-import MuiPhoneNumber from "material-ui-phone-number";
+// import MuiPhoneNumber from "material-ui-phone-number";
 import PaymentOverview from "./PaymentOverview";
 import Image from "next/image";
 
@@ -282,14 +282,21 @@ const GuestDetailForm = (props: {
           <Typography fontWeight={700} marginBottom={1}>
             Phone Number
           </Typography>
-          <MuiPhoneNumber
+          <TextField
+            variant="outlined"
+            onChange={props.formik.handleChange}
+            value={props.formik.values.phone}
+            name="phone"
+            // sx={textFieldProps}
+          />
+          {/* <MuiPhoneNumber
             defaultCountry="my"
             variant="outlined"
             onChange={props.formik.handleChange}
             value={props.formik.values.phone}
             name="phone"
             sx={textFieldProps}
-          />
+          /> */}
           {props.formik.errors.phone && props.formik.touched.phone && (
             <FormHelperText error id="standard-weight-helper-text-name">
               {props.formik.errors.phone}
