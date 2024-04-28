@@ -36,14 +36,19 @@ export const BookingProvider = ({
   children?: React.ReactNode;
 }) => {
   const [bookingData, setBookingData] = useState<IBookingInformation | null>(
-    () => {
-      const savedData = localStorage.getItem("bookingData");
-      return savedData ? JSON.parse(savedData) : null;
-    }
+    null
   );
 
   useEffect(() => {
-    localStorage.setItem("bookingData", JSON.stringify(bookingData));
+    const savedData = localStorage.getItem("bookingData");
+    setBookingData(savedData ? JSON.parse(savedData) : null);
+    console.log(savedData);
+  }, []);
+
+  useEffect(() => {
+    if (bookingData !== null) {
+      localStorage.setItem("bookingData", JSON.stringify(bookingData));
+    }
   }, [bookingData]);
 
   return (
