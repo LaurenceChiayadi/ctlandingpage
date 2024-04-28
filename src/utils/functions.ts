@@ -1,6 +1,7 @@
 import { featuresEnum, lotNumberEnum } from "@/constant/Enums";
 import { STRAPI_BASE } from "@/constant/api";
 import { IArticle, IArticleContent, IParagraph } from "@/models/Article";
+import { IContactUs } from "@/models/Contact";
 
 export const displayThousands = (number: number) => {
   var numberString = number.toString();
@@ -112,4 +113,17 @@ export const variantCheck = (value: string) => {
     default:
       "body1";
   }
+};
+
+export const handleConvertContactUs = (data: any) => {
+  const formattedData: IContactUs = {
+    name: data.attributes.name,
+    email: data.attributes.email,
+    icon: `${STRAPI_BASE}${data.attributes.icon.data.attributes.url}`,
+
+    terminal: data.attributes.terminal,
+    phone: data.attributes.phone,
+    address: data.attributes.address,
+  };
+  return formattedData;
 };
