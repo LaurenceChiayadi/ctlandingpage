@@ -44,9 +44,12 @@ const textContent = [
   {
     title: "REACH US",
     options: [
-      { name: "Contact", link: "" },
-      { name: "Career", link: "" },
-      { name: "Our Instagram", link: "" },
+      { name: "Contact", link: "/contact-us" },
+      { name: "Career", link: "/career" },
+      {
+        name: "Our Instagram",
+        link: "https://www.instagram.com/capsule.transit/",
+      },
     ],
   },
   {
@@ -57,7 +60,7 @@ const textContent = [
     title:
       "© 2024 40FT Container Sdn Bhd & Capsule Transit Sdn Bhd. All rights reserved. / Terms & Privacy",
     options: [
-      { name: "FAQ", link: "" },
+      { name: "FAQ", link: "/faq" },
       { name: "Divider", link: "" },
       { name: "Stay Protocol", link: "" },
       { name: "Divider", link: "" },
@@ -93,6 +96,7 @@ const Footer = () => {
               justifyContent={"space-between"}
             >
               <Button
+                onClick={() => router.push("/booking")}
                 sx={{
                   padding: 0,
                   justifyContent: "flex-start",
@@ -167,6 +171,7 @@ const Footer = () => {
               justifyContent={"space-between"}
             >
               <Button
+                onClick={() => router.push("/booking")}
                 sx={{
                   padding: 0,
                   justifyContent: "flex-start",
@@ -298,6 +303,7 @@ const CTNewsSection = () => {
             {textContent[3].options.map((option, index) => (
               <Button
                 key={index}
+                onClick={() => router.push(option.link)}
                 sx={{
                   padding: 0,
                   justifyContent: "flex-start",

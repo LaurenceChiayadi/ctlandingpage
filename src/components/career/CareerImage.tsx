@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Image from "next/image";
 
-import CareerPhoto from "./images/hero-max.jpg";
+import CareerPhoto from "./images/img-CT-team.jpg";
 const CareerImage = () => {
   return (
     <Box width={"100%"} height={"80vh"} marginY={"100px"}>
