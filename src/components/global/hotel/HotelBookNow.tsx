@@ -24,7 +24,7 @@ const HotelBookNow = (props: { HeroImage: StaticImageData; title: string }) => {
           position: "absolute",
           zIndex: -1,
           maxWidth: "100%",
-          width: "auto",
+          width: "100%",
           height: "100%",
           objectFit: "cover",
         }}
