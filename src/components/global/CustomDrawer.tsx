@@ -47,7 +47,7 @@ const rightSection = {
     { title: "Out Commitment", url: "/our-commitment" },
     { title: "Newsroom", url: "/news" },
     { title: "divider", url: "/" },
-    { title: "FAQ", url: "/FAQ" },
+    { title: "FAQ", url: "/faq" },
     { title: "Stay Protocol", url: "/" },
     { title: "Best Rate Guarantee", url: "/" },
     { title: "Instagram", url: "/" },

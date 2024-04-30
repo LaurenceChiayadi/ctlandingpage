@@ -40,7 +40,7 @@ const AirsideIntro = () => {
       breadCrumbsContent={breadCrumbsContent}
       images={images}
       textContent={title}
-      buttonUrl={"/"}
+      buttonUrl={"/booking"}
       subtitle={
         <Box
           display={"flex"}

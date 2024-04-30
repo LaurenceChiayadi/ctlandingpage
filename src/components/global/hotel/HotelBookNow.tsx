@@ -3,8 +3,10 @@ import Image, { StaticImageData } from "next/image";
 
 import CTLogoWhite from "@/assets/icons/general/LogoWhite.svg";
 import CTRight from "@/assets/icons/general/icon-arrow-top-right-white.svg";
+import { useRouter } from "next/navigation";
 
 const HotelBookNow = (props: { HeroImage: StaticImageData; title: string }) => {
+  const router = useRouter();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Box
@@ -42,6 +44,7 @@ const HotelBookNow = (props: { HeroImage: StaticImageData; title: string }) => {
         </Typography>
         <Divider sx={{ bgcolor: "white", width: "400px", marginTop: "30px" }} />
         <Button
+          onClick={() => router.push("/booking")}
           sx={{
             padding: 0,
             justifyContent: "flex-start",

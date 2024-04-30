@@ -119,7 +119,11 @@ const DesktopView = (props: {
       </Box>
       <Stack direction={"row"} spacing={3} width={"33%"} justifyContent={"end"}>
         <Image src={AccountIcon} alt="Capsule-Account-Icon" />
-        <CTButton onClick={() => {}} text="BOOK YOUR STAY" variant="primary" />
+        <CTButton
+          onClick={() => router.push("/booking")}
+          text="BOOK YOUR STAY"
+          variant="primary"
+        />
       </Stack>
     </Box>
   );
@@ -166,7 +170,11 @@ const HandheldView = (props: {
         </IconButton>
       </Box>
       <Stack direction={"row"} spacing={3} width={"33%"} justifyContent={"end"}>
-        <CTButton onClick={() => {}} text="BOOK" variant="primary" />
+        <CTButton
+          onClick={() => router.push("/booking")}
+          text="BOOK"
+          variant="primary"
+        />
       </Stack>
     </Box>
   );

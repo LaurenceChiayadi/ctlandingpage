@@ -19,7 +19,7 @@ const SleepLoungeIntro = () => {
       breadCrumbsContent={breadCrumbsContent}
       images={images}
       textContent={title}
-      buttonUrl={"/"}
+      buttonUrl={"/booking"}
     />
   );
 };
