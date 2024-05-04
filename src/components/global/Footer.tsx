@@ -257,7 +257,17 @@ const ShortcutSection = () => {
           </Stack>
         </Stack>
       </Stack>
-      <Image src={CTIconPrimary} alt={"ct-icon"} />
+      <Stack
+        direction={"row"}
+        paddingRight={isHandheldDevice ? 0 : "50px"}
+        alignItems={"end"}
+        justifyContent={"space-between"}
+      >
+        <Image src={CTIconPrimary} alt={"ct-icon"} />
+        <Typography fontWeight={600} color={"primary"}>
+          Release: {process.env.NEXT_PUBLIC_VERSION}
+        </Typography>
+      </Stack>
     </Stack>
   );
 };
