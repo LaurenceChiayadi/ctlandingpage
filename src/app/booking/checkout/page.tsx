@@ -27,7 +27,8 @@ const CheckOutPage = () => {
     const formData = {
       MerchantCode: "M05633",
       RefNo: refNo,
-      Amount: amount,
+      // Amount: amount,
+      Amount: "1.00"
       Curreny: "MYR",
       ProdDesc: `${hotelName} Capsule Transit`,
       UserName: userName,
