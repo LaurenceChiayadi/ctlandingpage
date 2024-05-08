@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const CheckOutPage = () => {
   const searchParams = useSearchParams();
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const apiUrl = "https://payment.ipay88.com.my/epayment/entry.asp";
 
@@ -37,8 +37,8 @@ const CheckOutPage = () => {
   };
 
   useEffect(() => {
-    if (buttonRef && buttonRef.current) {
-      buttonRef.current.click();
+    if (formRef && formRef.current) {
+      formRef.current.submit();
     }
   }, []);
 
@@ -63,13 +63,17 @@ const CheckOutPage = () => {
     return (
       <>
         <div>Sending payment request to iPay88...</div>
-        <form method="post" name="ePayment" action={apiUrl}>
+        <form ref={formRef} method="post" name="ePayment" action={apiUrl}>
           <input type="hidden" name="MerchantCode" value={merchantCode} />
           {/* <input type="hidden" name="PaymentId" value={} /> */}
           <input type="hidden" name="RefNo" value={refNo} />
           <input type="hidden" name="Amount" value={amount} />
           <input type="hidden" name="Currency" value={currency} />
-          {/* <input type="hidden" name="ProdDesc" value="Photo Print" /> */}
+          <input
+            type="hidden"
+            name="ProdDesc"
+            value={`${hotelName} Capsule Transit`}
+          />
           <input type="hidden" name="UserName" value={userName} />
           <input type="hidden" name="UserEmail" value={userEmail} />
           <input type="hidden" name="UserContact" value={userContact} />
