@@ -47,7 +47,14 @@ const CheckOutPage = () => {
           "https://capsuletransitprod.southeastasia.cloudapp.azure.com/api/v1/ipay88/manual-confirm/",
       };
 
-      axios.post(apiUrl, formData).then((result) => console.log(result));
+      axios
+        .post(apiUrl, formData, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Sec-Fetch-Mode": "navigate",
+          },
+        })
+        .then((result) => console.log(result));
     }
   }, []);
 
