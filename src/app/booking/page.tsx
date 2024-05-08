@@ -393,7 +393,7 @@ const BookingPage = () => {
           consentSigned={consentSigned}
           handleConsentSignChange={handleConsentSignChange}
           handleAddPromotion={handleAddPromotion}
-          handleSubmit={handleSubmit}
+          handleSubmit={formik.handleSubmit}
         />
       ) : (
         <></>

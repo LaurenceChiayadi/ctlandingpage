@@ -526,7 +526,10 @@ const BookNowButton = (props: {
           <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
             <Box display={"flex"} justifyContent={"end"} alignItems={"center"}>
               <Button
-                onClick={() => props.handleChangeStepper(4)}
+                onClick={() => {
+                  props.handleChangeStepper(4);
+                  window.scrollTo(0, 0);
+                }}
                 sx={{
                   padding: 0,
                 }}
