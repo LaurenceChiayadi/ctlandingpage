@@ -28,7 +28,7 @@ const CheckOutPage = () => {
       MerchantCode: "M05633",
       RefNo: refNo,
       // Amount: amount,
-      Amount: "1.00",
+      Amount: 1,
       Curreny: "MYR",
       ProdDesc: `${hotelName} Capsule Transit`,
       UserName: userName,
