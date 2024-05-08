@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import axios from "axios";
 
 import crypto from "crypto";
@@ -8,7 +8,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const CheckOutPage = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const apiUrl = "https://payment.ipay88.com.my/epayment/entry.asp";
 
   const amount = searchParams.get("amount");
   const refNo = searchParams.get("refNo");
@@ -20,48 +22,13 @@ const CheckOutPage = () => {
   const merchantCode = "M05633";
   const merchantKey = "aCngOtFUyu";
   const currency = "MYR";
-  useEffect(() => {
-    const apiUrl = "https://payment.ipay88.com.my/epayment/entry.asp";
 
-    if (amount) {
-      const signatureBeforeEncrypt =
-        merchantKey +
-        merchantCode +
-        refNo +
-        Number(amount).toFixed(2).replace(/[\.,]/g, "") +
-        currency;
-
-      const formData = {
-        MerchantCode: merchantCode,
-        RefNo: refNo,
-        Amount: Number(amount).toFixed(2),
-        Curreny: currency,
-        ProdDesc: `${hotelName} Capsule Transit`,
-        UserName: userName,
-        UserEmail: userEmail,
-        UserContact: userContact,
-        SignatureType: "SHA256",
-        Signature: encryptStringToSha256(signatureBeforeEncrypt),
-        ResponseUrl:
-          "https://capsuletransitprod.southeastasia.cloudapp.azure.com/api/v1/ipay88/confirmation/",
-        BackendUrl:
-          "https://capsuletransitprod.southeastasia.cloudapp.azure.com/api/v1/ipay88/manual-confirm/",
-      };
-
-      axios
-        .post(apiUrl, formData, {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Sec-Fetch-Mode": "navigate",
-          },
-        })
-        .then((result) => {
-          if (result.status === 200) {
-            router.push(apiUrl);
-          }
-        });
-    }
-  }, []);
+  const signatureBeforeEncrypt =
+    merchantKey +
+    merchantCode +
+    refNo +
+    Number(amount).toFixed(2).replace(/[\.,]/g, "") +
+    currency;
 
   const encryptStringToSha256 = (input: string) => {
     const hash = crypto.createHash("sha256");
@@ -69,7 +36,73 @@ const CheckOutPage = () => {
     return hash.digest("hex");
   };
 
-  return <div>Sending payment request to iPay88...</div>;
+  useEffect(() => {
+    if (buttonRef && buttonRef.current) {
+      buttonRef.current.click();
+    }
+  }, []);
+
+  // const formData = {
+  //   MerchantCode: merchantCode,
+  //   RefNo: refNo,
+  //   Amount: Number(amount).toFixed(2),
+  //   Curreny: currency,
+  //   ProdDesc: `${hotelName} Capsule Transit`,
+  //   UserName: userName,
+  //   UserEmail: userEmail,
+  //   UserContact: userContact,
+  //   SignatureType: "SHA256",
+  //   Signature: encryptStringToSha256(signatureBeforeEncrypt),
+  //   ResponseUrl:
+  //     "https://capsuletransitprod.southeastasia.cloudapp.azure.com/api/v1/ipay88/confirmation/",
+  //   BackendUrl:
+  //     "https://capsuletransitprod.southeastasia.cloudapp.azure.com/api/v1/ipay88/manual-confirm/",
+  // };
+
+  if (refNo && amount && userName && userEmail && userContact) {
+    return (
+      <>
+        <div>Sending payment request to iPay88...</div>
+        <form method="post" name="ePayment" action={apiUrl}>
+          <input type="hidden" name="MerchantCode" value={merchantCode} />
+          {/* <input type="hidden" name="PaymentId" value={} /> */}
+          <input type="hidden" name="RefNo" value={refNo} />
+          <input type="hidden" name="Amount" value={amount} />
+          <input type="hidden" name="Currency" value={currency} />
+          {/* <input type="hidden" name="ProdDesc" value="Photo Print" /> */}
+          <input type="hidden" name="UserName" value={userName} />
+          <input type="hidden" name="UserEmail" value={userEmail} />
+          <input type="hidden" name="UserContact" value={userContact} />
+          {/* <input type="hidden" name="Remark" value="" /> */}
+          <input type="hidden" name="Lang" value="UTF-8" />
+          <input type="hidden" name="SignatureType" value="SHA256" />
+          <input
+            type="hidden"
+            name="Signature"
+            value={encryptStringToSha256(signatureBeforeEncrypt)}
+          />
+          <input
+            type="hidden"
+            name="ResponseURL"
+            value="https://capsuletransitprod.southeastasia.cloudapp.azure.com/api/v1/ipay88/confirmation/"
+          />
+          <input
+            type="hidden"
+            name="BackendURL"
+            value="https://capsuletransitprod.southeastasia.cloudapp.azure.com/api/v1/ipay88/manual-confirm/"
+          />
+          <input
+            type="submit"
+            value="Proceed with Payment"
+            name="Submit"
+            style={{ display: "none" }}
+          />
+        </form>
+      </>
+    );
+  } else {
+    <>...</>;
+  }
 };
 
 export default CheckOutPage;
