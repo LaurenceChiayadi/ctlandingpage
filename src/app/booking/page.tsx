@@ -317,14 +317,14 @@ const BookingPage = () => {
           roomBookings: roomBookings,
           selectedHotel: selectedHotel,
           bookingSchedule: bookingSchedule,
-          bookingNo: "KLIA123123",
+          bookingNo: result.data.data.bookingId,
         };
 
         setBookingData(tempBookingData);
 
         const iPay88Data: IPaymentTerminal = {
           amount: paymentInfo.debitAmount,
-          refNo: result.data.bookingNo,
+          refNo: tempBookingData.bookingNo,
           userContact: formik.values.phone,
           userEmail: formik.values.email,
           userName: formik.values.firstName + " " + formik.values.lastName,
