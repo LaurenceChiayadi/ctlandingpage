@@ -4,10 +4,11 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 import crypto from "crypto";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const CheckOutPage = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const amount = searchParams.get("amount");
   const refNo = searchParams.get("refNo");
@@ -54,7 +55,11 @@ const CheckOutPage = () => {
             "Sec-Fetch-Mode": "navigate",
           },
         })
-        .then((result) => console.log(result));
+        .then((result) => {
+          if (result.status === 200) {
+            router.push(apiUrl);
+          }
+        });
     }
   }, []);
 
