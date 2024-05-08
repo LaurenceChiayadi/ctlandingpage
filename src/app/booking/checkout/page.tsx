@@ -67,7 +67,11 @@ const CheckOutPage = () => {
           <input type="hidden" name="MerchantCode" value={merchantCode} />
           {/* <input type="hidden" name="PaymentId" value={} /> */}
           <input type="hidden" name="RefNo" value={refNo} />
-          <input type="hidden" name="Amount" value={amount} />
+          <input
+            type="hidden"
+            name="Amount"
+            value={Number(amount).toFixed(2)}
+          />
           <input type="hidden" name="Currency" value={currency} />
           <input
             type="hidden"
