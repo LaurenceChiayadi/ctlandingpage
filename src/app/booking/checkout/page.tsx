@@ -92,7 +92,7 @@ const CheckOutPage = () => {
           <input
             type="hidden"
             name="ResponseURL"
-            value={`https://capsule-transit.southeastasia.cloudapp.azure.com/api/payment-status/`}
+            value={`https://capsule-transit.southeastasia.cloudapp.azure.com/booking/payment-status/`}
           />
           <input
             type="hidden"
