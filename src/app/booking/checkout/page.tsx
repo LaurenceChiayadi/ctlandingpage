@@ -92,12 +92,14 @@ const CheckOutPage = () => {
           <input
             type="hidden"
             name="ResponseURL"
-            value="https://capsuletransitprod.southeastasia.cloudapp.azure.com/api/v1/ipay88/confirmation/"
+            value={decodeURIComponent(
+              `https://capsule-transit.southeastasia.cloudapp.azure.com/booking/check-booking`
+            )}
           />
           <input
             type="hidden"
             name="BackendURL"
-            value="https://capsuletransitprod.southeastasia.cloudapp.azure.com/api/v1/ipay88/manual-confirm/"
+            value="http://localhost:8000/api/guests"
           />
           <input
             type="submit"
