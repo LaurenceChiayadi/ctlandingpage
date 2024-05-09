@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 const CheckBooking = () => {
   const { bookingData } = useBookingData();
 
-  console.log(bookingData);
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cancelToken, setCancelToken] = useState<CancelTokenSource | null>(
     null
@@ -69,8 +67,8 @@ const CheckBooking = () => {
         };
       }>(
         axios,
-        // `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/check-booking-status?bookingId=${bookingData?.bookingNo}`,
-        `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/lot-info/1`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/check-booking-status?bookingId=${bookingData?.bookingNo}`,
+        // `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/lot-info/1`,
         150, // Number of retries
         2000, // Timeout between retries in milliseconds
         source.token
@@ -96,9 +94,9 @@ const CheckBooking = () => {
     if (bookingData) {
       checkTransaction();
     }
-  }, []);
+  }, [bookingData]);
 
-  if (bookingData && bookingData.bookingNo) {
+  if (bookingData) {
     return (
       <>
         <div>Test</div>
@@ -107,6 +105,8 @@ const CheckBooking = () => {
   } else {
     return <div>Failed</div>;
   }
+
+  return <></>;
 };
 
 export default CheckBooking;

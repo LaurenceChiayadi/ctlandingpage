@@ -92,14 +92,12 @@ const CheckOutPage = () => {
           <input
             type="hidden"
             name="ResponseURL"
-            value={decodeURIComponent(
-              `https://capsule-transit.southeastasia.cloudapp.azure.com/booking/check-booking`
-            )}
+            value={`https://capsule-transit.southeastasia.cloudapp.azure.com/api/payment-status/`}
           />
           <input
             type="hidden"
             name="BackendURL"
-            value="http://localhost:8000/api/guests"
+            value={`${process.env.NEXT_PUBLIC_BASE_API}/landing-page/confirm-booking/`}
           />
           <input
             type="submit"
