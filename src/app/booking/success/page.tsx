@@ -24,6 +24,7 @@ import axios from "axios";
 
 const BookingSuccessPage = () => {
   const { bookingData, setBookingData } = useBookingData();
+  console.log(bookingData);
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   const router = useRouter();
 
