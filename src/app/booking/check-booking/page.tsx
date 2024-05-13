@@ -75,15 +75,7 @@ const CheckBooking = () => {
       );
 
       setIsLoading(false);
-      if (data.data.status === "Failed") {
-        //   Notification.failed("payment failed");
-        return;
-      }
-
-      if (data.data.status === "Success") {
-        router.push("/booking/success");
-        return;
-      }
+      router.push("/booking/success");
     } catch (error: any) {
       // Notification.failed(error.message);
     }
