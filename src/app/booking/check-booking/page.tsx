@@ -67,7 +67,7 @@ const CheckBooking = () => {
         };
       }>(
         axios,
-        `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/check-booking-status?bookingId=${bookingData?.bookingNo}`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/check-booking-status?bookingId=${bookingData?.bookingId}`,
         // `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/lot-info/1`,
         150, // Number of retries
         2000, // Timeout between retries in milliseconds

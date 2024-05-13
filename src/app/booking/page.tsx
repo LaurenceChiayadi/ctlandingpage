@@ -317,26 +317,36 @@ const BookingPage = () => {
           roomBookings: roomBookings,
           selectedHotel: selectedHotel,
           bookingSchedule: bookingSchedule,
-          bookingNo: result.data.data.bookingId,
+          bookingNo: result.data.data.bookingNo,
+          bookingId: result.data.data.bookingId,
         };
 
         setBookingData(tempBookingData);
 
         const iPay88Data: IPaymentTerminal = {
           amount: paymentInfo.debitAmount,
-          refNo: tempBookingData.bookingNo,
+          refNo: tempBookingData.bookingId,
+          bookingNo: tempBookingData.bookingNo,
           userContact: formik.values.phone,
           userEmail: formik.values.email,
           userName: formik.values.firstName + " " + formik.values.lastName,
           lot: selectedHotel.hotelName,
         };
 
+        const roomDescriptions = roomBookings.map(formatRoomBooking).join(", ");
+
+        const productDescription = `${iPay88Data.lot} Capsule Transit: ${roomDescriptions}`;
+
         router.push(
-          `/booking/checkout?refNo=${iPay88Data.refNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&lot=${iPay88Data.lot}`
+          `/booking/checkout?refNo=${iPay88Data.refNo}&bookingNo=${iPay88Data.bookingNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&prodDesc=${productDescription}`
         );
       });
     }
   };
+
+  function formatRoomBooking(roomBooking: IRoomBooking): string {
+    return `${roomBooking.quantity}x ${roomBooking.roomType}`;
+  }
 
   return (
     <Box
