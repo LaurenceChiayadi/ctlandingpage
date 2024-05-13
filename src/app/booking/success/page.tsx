@@ -235,6 +235,7 @@ const SummarySection = (props: { bookingData: IBookingInformation }) => {
 
 const SummaryContent = (props: { title: string; data: string | string[] }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+  console.log(typeof props.data);
   if (!isHandheldDevice) {
     return (
       <Stack spacing={0.5} width={"100%"}>
