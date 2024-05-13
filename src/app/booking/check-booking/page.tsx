@@ -75,11 +75,11 @@ const CheckBooking = () => {
       );
 
       setIsLoading(false);
-      if (data.data.status === "Failed") {
+      if (data.status === "Failed") {
         return;
       }
 
-      if (data.data.status === "success") {
+      if (data.status === "success") {
         router.push("/booking/success");
         return;
       }
