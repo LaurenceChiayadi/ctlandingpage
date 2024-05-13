@@ -2,12 +2,12 @@
 
 import { useBookingData } from "@/context/BookingContext";
 import axios, { AxiosInstance, CancelToken, CancelTokenSource } from "axios";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const CheckBooking = () => {
   const { bookingData } = useBookingData();
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cancelToken, setCancelToken] = useState<CancelTokenSource | null>(
@@ -81,8 +81,7 @@ const CheckBooking = () => {
       }
 
       if (data.data.status === "Success") {
-        //   navigate("/pos");
-        //   Notification.success("payment success");
+        router.push("/booking/success");
         return;
       }
     } catch (error: any) {
