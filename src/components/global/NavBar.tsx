@@ -117,7 +117,13 @@ const DesktopView = (props: {
           <Image src={CTLogo} alt="CapsuleTransit-Logo" />
         </IconButton>
       </Box>
-      <Stack direction={"row"} spacing={3} width={"33%"} justifyContent={"end"}>
+      <Stack
+        direction={"row"}
+        spacing={3}
+        width={"33%"}
+        justifyContent={"end"}
+        alignItems={"center"}
+      >
         <Image src={AccountIcon} alt="Capsule-Account-Icon" />
         <CTButton
           onClick={() => router.push("/booking")}
