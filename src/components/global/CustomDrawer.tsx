@@ -112,9 +112,11 @@ const DesktopDrawer = (props: {
       bgcolor={theme.palette.CtColorScheme.blue800}
       overflow={"hidden"}
     >
-      <IconButton onClick={props.handleClose} sx={{ alignSelf: "end" }}>
-        <Image src={CloseIcon} alt="close-icon" />
-      </IconButton>
+      <Box display={"flex"} justifyContent={"flex-end"} width={"100%"}>
+        <IconButton onClick={props.handleClose}>
+          <Image src={CloseIcon} alt="close-icon" />
+        </IconButton>
+      </Box>
       <Grid container alignItems={"center"} height={"100%"}>
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           {hotels.map((terminal, index) => (

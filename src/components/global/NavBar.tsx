@@ -121,7 +121,7 @@ const DesktopView = (props: {
         direction={"row"}
         spacing={3}
         width={"33%"}
-        justifyContent={"end"}
+        justifyContent={"flex-end"}
         alignItems={"center"}
       >
         <Image src={AccountIcon} alt="Capsule-Account-Icon" />
