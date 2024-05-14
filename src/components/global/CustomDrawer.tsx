@@ -3,6 +3,7 @@ import {
   Button,
   Divider,
   Drawer,
+  Fade,
   Grid,
   IconButton,
   Slide,
@@ -163,8 +164,7 @@ const DesktopDrawer = (props: {
               alt="capsule-transit"
               style={{ width: "70%", height: "auto", zIndex: 0 }}
             />
-            <Slide
-              direction={"up"}
+            <Fade
               in={props.hovered === "Airside"}
               mountOnEnter
               unmountOnExit
@@ -175,9 +175,8 @@ const DesktopDrawer = (props: {
                 alt="capsule-transit"
                 style={{ width: "70%", height: "auto", zIndex: 0 }}
               />
-            </Slide>
-            <Slide
-              direction={"up"}
+            </Fade>
+            <Fade
               in={props.hovered === "Landside"}
               mountOnEnter
               unmountOnExit
@@ -188,9 +187,8 @@ const DesktopDrawer = (props: {
                 alt="capsule-transit"
                 style={{ width: "70%", height: "auto", zIndex: 0 }}
               />
-            </Slide>
-            <Slide
-              direction={"up"}
+            </Fade>
+            <Fade
               in={props.hovered === "MAX"}
               mountOnEnter
               unmountOnExit
@@ -201,9 +199,8 @@ const DesktopDrawer = (props: {
                 alt="capsule-transit"
                 style={{ width: "70%", height: "auto", zIndex: 0 }}
               />
-            </Slide>
-            <Slide
-              direction={"up"}
+            </Fade>
+            <Fade
               in={props.hovered === "Sleep Lounge"}
               mountOnEnter
               unmountOnExit
@@ -214,7 +211,7 @@ const DesktopDrawer = (props: {
                 alt="capsule-transit"
                 style={{ width: "70%", height: "auto", zIndex: 0 }}
               />
-            </Slide>
+            </Fade>
           </Box>
         </Grid>
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
