@@ -76,7 +76,7 @@ const DesktopView = (props: { handleHighlightButtonPress: VoidFunction }) => {
         marginTop={4}
         marginBottom={"200px"}
       >
-        <Typography variant="body2" width={"48vw"}>
+        <Typography variant="body2" maxWidth={"800px"}>
           {textContents[2].text}
         </Typography>
         <Typography variant="body2" color={theme.palette.CtColorScheme.neon300}>
