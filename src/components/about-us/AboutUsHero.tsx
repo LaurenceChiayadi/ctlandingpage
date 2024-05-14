@@ -21,7 +21,7 @@ const DesktopView = () => {
       display={"flex"}
       flexDirection={"column"}
       height={"60vh"}
-      justifyContent={"end"}
+      justifyContent={"flex-end"}
       paddingX={7}
     >
       <div
