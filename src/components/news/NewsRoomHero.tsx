@@ -48,7 +48,7 @@ const DesktopView = () => {
             variant="h6"
             display="inline"
             bgcolor={theme.palette.primary.main}
-            padding="5px"
+            padding="7px"
           >
             {textContent[1]} <b>{textContent[2]}</b>
           </Typography>
