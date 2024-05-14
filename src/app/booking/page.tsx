@@ -210,12 +210,23 @@ const BookingPage = () => {
     setPaymentInfo(paymentInfoObject);
   }, [roomBookings, taxPercentage, paymentInfo.promotion]);
 
+  const filterDuplicateCountries = (countries: ICountry[]): ICountry[] => {
+    const seen = new Set<string>();
+    return countries.filter((country) => {
+      const duplicate = seen.has(country.countryName);
+      seen.add(country.countryName);
+      return !duplicate;
+    });
+  };
+
   useEffect(() => {
     const fetchCountry = () => {
       axios
         .get(`${process.env.NEXT_PUBLIC_BASE_API}/guests/country`)
         .then((response) => {
-          const sortedCountry: ICountry[] = response.data.data
+          const sortedCountry: ICountry[] = filterDuplicateCountries(
+            response.data.data
+          )
             .sort((prev: ICountry, curr: ICountry) =>
               prev.countryName.localeCompare(curr.countryName)
             )
