@@ -34,12 +34,13 @@ const DesktopView = () => {
         display={"flex"}
         height={"100%"}
         flexDirection={"column"}
-        justifyContent={"end"}
+        justifyContent={"flex-end"}
         width={"50%"}
         sx={{
           position: "absolute",
           paddingX: 7,
           paddingBottom: 2,
+          bottom: 0,
         }}
       >
         <Stack direction={"row"} spacing={1}>

@@ -103,7 +103,7 @@ const DesktopView = (props: { handleHighlightButtonPress: VoidFunction }) => {
       </Stack> */}
       <Box
         display={"flex"}
-        alignItems={"end"}
+        alignItems={"flex-end"}
         // position={"absolute"}
       >
         <Image
@@ -112,8 +112,6 @@ const DesktopView = (props: { handleHighlightButtonPress: VoidFunction }) => {
           style={{
             position: "absolute",
             right: 100,
-            // transform: "scale(1)",
-            // marginRight: 30,
           }}
         />
       </Box>
