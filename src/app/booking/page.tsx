@@ -528,7 +528,8 @@ const BookingStepper = (props: {
       width={"100%"}
       justifyContent={"center"}
       alignItems={"center"}
-      paddingY={3}
+      paddingTop={3}
+      paddingBottom={3}
       spacing={isHandheldDevice ? 0 : 5}
       borderBottom={2}
     >
