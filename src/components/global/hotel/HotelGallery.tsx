@@ -187,9 +187,8 @@ const HotelGallery = (props: {
                   alt={`airside-${index}`}
                   style={{
                     maxWidth: "600px",
-                    maxHeight: "100%",
                     width: "auto",
-                    height: "auto",
+                    height: "100%",
                     // width: "30vw",
                     // height: "100%",
                   }}
