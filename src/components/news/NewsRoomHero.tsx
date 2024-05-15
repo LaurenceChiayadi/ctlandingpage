@@ -19,9 +19,10 @@ const DesktopView = () => {
       width="100%"
       justifyContent={"center"}
       alignItems={"center"}
+      paddingTop={"5rem"}
       sx={{
         position: "relative",
-        height: "65vh",
+        height: "55vh",
         overflow: "hidden",
       }}
     >
