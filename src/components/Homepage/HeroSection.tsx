@@ -84,7 +84,7 @@ const HandheldView = () => {
         display={"flex"}
         height={"100%"}
         flexDirection={"column"}
-        justifyContent={"end"}
+        justifyContent={"flex-end"}
         width={"370px"}
         sx={{
           position: "absolute",

@@ -170,7 +170,7 @@ const HandheldView = (props: { handleHighlightButtonPress: VoidFunction }) => {
         </Typography>
       </Box>
 
-      <Box display={"flex"} justifyContent={"end"} height={"300px"}>
+      <Box display={"flex"} justifyContent={"flex-end"} height={"300px"}>
         <Image
           src={IllustrationCloudMan}
           alt="cloud-man-walkin"

@@ -453,7 +453,7 @@ const BookingHeader = () => {
         display={"flex"}
         width={"33%"}
         height={"100%"}
-        justifyContent={"end"}
+        justifyContent={"flex-end"}
         alignItems={"center"}
       >
         <IconButton onClick={() => router.back()} sx={{ alignSelf: "end" }}>

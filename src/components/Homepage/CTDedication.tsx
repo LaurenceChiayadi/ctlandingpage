@@ -62,7 +62,7 @@ const DesktopView = (props: { handleCommitmentClick: VoidFunction }) => {
           variant="secondary"
         />
       </Box>
-      <Box display={"flex"} alignItems={"end"}>
+      <Box display={"flex"} alignItems={"flex-end"}>
         <Image
           src={IllustrationRestingLady}
           alt="cloud-man-walkin"
@@ -112,7 +112,7 @@ const HandheldView = (props: { handleCommitmentClick: VoidFunction }) => {
           variant="secondary"
         />
       </Box>
-      <Box display={"flex"} alignItems={"end"} width={"100%"}>
+      <Box display={"flex"} alignItems={"flex-end"} width={"100%"}>
         <Image
           src={IllustrationRestingLady}
           alt="cloud-man-walkin"

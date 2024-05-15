@@ -321,7 +321,7 @@ const HandheldDrawer = (props: { handleClose: VoidFunction }) => {
         width={"100%"}
       >
         <Image src={CTIcon} alt="close-icon" />
-        <IconButton onClick={props.handleClose} sx={{ alignSelf: "end" }}>
+        <IconButton onClick={props.handleClose} sx={{ alignSelf: "flex-end" }}>
           <Image src={CloseIcon} alt="close-icon" />
         </IconButton>
       </Stack>

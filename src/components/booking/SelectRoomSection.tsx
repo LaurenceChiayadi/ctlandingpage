@@ -151,7 +151,7 @@ const BookingSummary = (props: {
           <Box
             display={"flex"}
             height={"100%"}
-            justifyContent={"end"}
+            justifyContent={"flex-end"}
             alignItems={"center"}
           >
             <CTButton onClick={() => {}} text="Change" variant="secondary" />
@@ -338,7 +338,11 @@ const RoomTypesContent = (props: {
                       marginTop={1}
                       justifyContent={"space-between"}
                     >
-                      <Stack direction={"row"} alignItems={"end"} spacing={1}>
+                      <Stack
+                        direction={"row"}
+                        alignItems={"flex-end"}
+                        spacing={1}
+                      >
                         <Typography variant="h5">RM{room.price}</Typography>
                         <Typography variant="subtitle2">
                           for {props.bookingSchedule.duration}h
@@ -514,7 +518,7 @@ const BookNowButton = (props: {
             <Typography variant="h4">{amountOfRooms} rooms selected</Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-            <Stack direction={"row"} alignItems={"end"} spacing={1}>
+            <Stack direction={"row"} alignItems={"flex-end"} spacing={1}>
               <Typography variant="h4">
                 RM{displayThousands(parseFloat(totalAmount))}
               </Typography>
@@ -524,7 +528,11 @@ const BookNowButton = (props: {
             </Stack>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
-            <Box display={"flex"} justifyContent={"end"} alignItems={"center"}>
+            <Box
+              display={"flex"}
+              justifyContent={"flex-end"}
+              alignItems={"center"}
+            >
               <Button
                 onClick={() => {
                   props.handleChangeStepper(4);

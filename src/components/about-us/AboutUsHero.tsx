@@ -52,7 +52,7 @@ const HandheldView = () => {
       display={"flex"}
       flexDirection={"column"}
       height={"60vh"}
-      justifyContent={"end"}
+      justifyContent={"flex-end"}
       paddingX={3}
     >
       <div

@@ -175,7 +175,12 @@ const HandheldView = (props: {
           <Image src={CTLogoMobile} alt="CapsuleTransit-Logo" />
         </IconButton>
       </Box>
-      <Stack direction={"row"} spacing={3} width={"33%"} justifyContent={"end"}>
+      <Stack
+        direction={"row"}
+        spacing={3}
+        width={"33%"}
+        justifyContent={"flex-end"}
+      >
         <CTButton
           onClick={() => router.push("/booking")}
           text="BOOK"

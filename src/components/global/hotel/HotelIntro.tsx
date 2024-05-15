@@ -82,7 +82,7 @@ const DesktopView = (props: {
       <Box
         display={"flex"}
         flexDirection={"row"}
-        alignItems={"end"}
+        alignItems={"flex-end"}
         justifyContent={"space-between"}
       >
         <Box height={"1000px"} width={"35%"} paddingX={7} marginTop={10}>

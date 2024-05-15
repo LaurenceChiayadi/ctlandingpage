@@ -260,7 +260,7 @@ const ShortcutSection = () => {
       <Stack
         direction={"row"}
         paddingRight={isHandheldDevice ? 0 : "50px"}
-        alignItems={"end"}
+        alignItems={"flex-end"}
         justifyContent={"space-between"}
       >
         <Image src={CTIconPrimary} alt={"ct-icon"} />

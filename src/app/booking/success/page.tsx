@@ -96,7 +96,7 @@ const BookingSuccessPage = () => {
             <ButtonBase onClick={() => router.push("/")}>
               <Box
                 display={"flex"}
-                justifyContent={"end"}
+                justifyContent={"flex-end"}
                 alignItems={"center"}
               >
                 <Image
@@ -153,7 +153,7 @@ const SummarySection = (props: { bookingData: IBookingInformation }) => {
       <Grid item xs={0} sm={0} md={0} lg={1} xl={1}>
         <Box
           display={"flex"}
-          justifyContent={"end"}
+          justifyContent={"flex-end"}
           alignItems={"center"}
           height={"100%"}
         >
@@ -195,7 +195,7 @@ const SummarySection = (props: { bookingData: IBookingInformation }) => {
       <Grid item xs={0} sm={0} md={0} lg={1} xl={1}>
         <Box
           display={"flex"}
-          justifyContent={"end"}
+          justifyContent={"flex-end"}
           alignItems={"center"}
           height={"100%"}
         >
