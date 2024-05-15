@@ -471,7 +471,7 @@ const RoomTypesContent = (props: {
                             marginTop: isHandheldDevice ? 1 : 0,
                           }}
                         >
-                          ADD ROOM
+                          SELECT ROOM
                         </Button>
                       )}
                     </Stack>
