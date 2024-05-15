@@ -53,7 +53,13 @@ const theme = createTheme({
           borderRadius: 0,
           boxShadow: "none",
           textTransform: "none",
+          "&:hover": {
+            backgroundColor: "transparent",
+          },
         },
+      },
+      defaultProps: {
+        disableRipple: true,
       },
     },
   },
