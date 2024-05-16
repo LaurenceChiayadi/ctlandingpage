@@ -311,7 +311,11 @@ const RoomTypesContent = (props: {
               );
               return (
                 <Grid key={index} item xs={12} sm={12} md={6} lg={6} xl={6}>
-                  <Box display={"flex"} flexDirection={"column"}>
+                  <Box
+                    display={"flex"}
+                    flexDirection={"column"}
+                    sx={{ opacity: room.availableCount < 1 ? 0.5 : 1 }}
+                  >
                     {room.imageUrl ? (
                       <img
                         src={room.imageUrl}
@@ -364,7 +368,27 @@ const RoomTypesContent = (props: {
                             </Stack>
                           )}
                       </Stack>
-                      {roomSelected ? (
+                      {room.availableCount < 1 ? (
+                        <Button
+                          variant="outlined"
+                          disabled={room.availableCount < 1}
+                          sx={{
+                            color: "black",
+                            borderColor: "black",
+                            width: isHandheldDevice ? "100%" : "180px",
+                            height: "40px",
+                            marginTop: isHandheldDevice ? 1 : 0,
+                            "&.Mui-disabled": {
+                              opacity: 1, // Set your desired opacity
+                              color: "black", // Ensure text color remains the same
+                              bgcolor: theme.palette.CtColorScheme.grey100,
+                              borderColor: "black", // Ensure border color remains the same
+                            },
+                          }}
+                        >
+                          FULLY BOOKED
+                        </Button>
+                      ) : roomSelected ? (
                         <Stack
                           direction={"row"}
                           width={isHandheldDevice ? "100%" : "180px"}
@@ -471,7 +495,7 @@ const RoomTypesContent = (props: {
                             marginTop: isHandheldDevice ? 1 : 0,
                           }}
                         >
-                          ADD ROOM
+                          SELECT ROOM
                         </Button>
                       )}
                     </Stack>
