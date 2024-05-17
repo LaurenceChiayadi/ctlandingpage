@@ -14,6 +14,7 @@ import BernamaIcon from "./images/featured_on/logo-featured-bernama-bw@2x.png";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import styles from "./HighlightedText.module.css";
+import { useRouter } from "next/navigation";
 
 const contentTexts = {
   text: "We ensure the best experience for our guests with , flexible cancellation, and dedication to cleanliness.",
@@ -38,9 +39,12 @@ const featuredOn = [
 const staticText = ["Featured On"];
 
 const CTDedication = () => {
-  const handleCommitmentClick = () => {};
+  const router = useRouter();
   const theme = useTheme();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+
+  const highlightColor = theme.palette.primary.main;
+  const defaultColor = theme.palette.CtColorScheme.black800;
 
   const [count, setCount] = useState<number>(0);
   const [updateCount, setUpdateCount] = useState<number>(0);
@@ -61,8 +65,9 @@ const CTDedication = () => {
     }
   }, [updateCount]);
 
-  const highlightColor = theme.palette.primary.main;
-  const defaultColor = theme.palette.CtColorScheme.black800;
+  const handleCommitmentClick = () => {
+    router.push("/our-commitment");
+  };
 
   return (
     <ContentWrapper>
