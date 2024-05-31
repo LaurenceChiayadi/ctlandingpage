@@ -17,7 +17,7 @@ import styles from "./HighlightedText.module.css";
 import { useRouter } from "next/navigation";
 
 const contentTexts = {
-  text: "We ensure the best experience for our guests with , flexible cancellation, and dedication to cleanliness.",
+  text: "We ensure the best experience for our guests with ",
 };
 
 const items = [
@@ -102,7 +102,7 @@ const DesktopView = (props: {
         display={"flex"}
         flexDirection={"column"}
         marginY={4}
-        maxWidth={"900px"}
+        maxWidth={"780px"}
       >
         <Typography variant="h3">
           {contentTexts.text}{" "}
