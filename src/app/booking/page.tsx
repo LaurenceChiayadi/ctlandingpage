@@ -234,6 +234,12 @@ const BookingPage = () => {
               prev.favorite === curr.favorite ? 0 : prev.favorite ? -1 : 1
             );
           setCountries(sortedCountry);
+
+          const malaysia = sortedCountry.filter(
+            (country) => country.countryName.toLowerCase() === "malaysia"
+          );
+
+          formik.setFieldValue("nationality", malaysia[0].countryName);
         });
     };
 
