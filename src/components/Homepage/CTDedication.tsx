@@ -160,14 +160,22 @@ const DesktopView = (props: {
         </Grid>
         {featuredOn.map((icon, index) => (
           <Grid item key={index} xs={6} sm={6} md={1.5} lg={1.5} xl={1.5}>
-            <Image
-              src={icon}
-              alt={"featured-on"}
-              style={{
-                height: "50px",
-                width: "80px",
-              }}
-            />
+            <Box
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Image
+                src={icon}
+                alt={"featured-on"}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "60px",
+                  width: "auto",
+                  height: "auto",
+                }}
+              />
+            </Box>
           </Grid>
         ))}
       </Grid>
