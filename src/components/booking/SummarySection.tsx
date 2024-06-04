@@ -233,7 +233,8 @@ const RoomBookingSection = (props: {
               <Stack>
                 <Stack direction={"row"} justifyContent={"space-between"}>
                   <Typography variant="h6" fontWeight={700}>
-                    {roomBooking.roomType} {`(${roomBooking.zone})`}
+                    {roomBooking.roomType}
+                    {/* {`(${roomBooking.zone})`} */}
                   </Typography>
                   <Button
                     onClick={() => {
