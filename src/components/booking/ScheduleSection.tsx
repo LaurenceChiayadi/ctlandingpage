@@ -72,7 +72,7 @@ const ScheduleSection = (props: {
             flexDirection={"column"}
             justifyContent={"center"}
             width={isHandheldDevice ? "100%" : "350px"}
-            height={isHandheldDevice ? "100px" : "400px"}
+            height={isHandheldDevice ? "100px" : "300px"}
             spacing={2}
           >
             <Typography fontWeight={"600"}>Date</Typography>
@@ -89,7 +89,7 @@ const ScheduleSection = (props: {
             flexDirection={"column"}
             justifyContent={"center"}
             width={isHandheldDevice ? "100%" : "350px"}
-            height={isHandheldDevice ? "100px" : "400px"}
+            height={isHandheldDevice ? "100px" : "300px"}
             spacing={2}
           >
             <Typography fontWeight={"600"}>Time</Typography>
@@ -108,7 +108,7 @@ const ScheduleSection = (props: {
             flexDirection={"column"}
             justifyContent={"center"}
             width={isHandheldDevice ? "100%" : "350px"}
-            height={isHandheldDevice ? "100px" : "400px"}
+            height={isHandheldDevice ? "100px" : "300px"}
             spacing={2}
           >
             <Typography fontWeight={"600"}>Duration</Typography>
@@ -150,7 +150,7 @@ const ScheduleSection = (props: {
         </Stack>
         <Box
           display={"flex"}
-          marginTop={"120px"}
+          marginTop={"80px"}
           justifyContent={"space-between"}
           width={isHandheldDevice ? "100%" : "800px"}
         >
