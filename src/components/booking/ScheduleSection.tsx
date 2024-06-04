@@ -95,7 +95,8 @@ const ScheduleSection = (props: {
             <TimePicker
               value={props.bookingSchedule.date}
               onChange={(newValue) => handleDateOnChange(newValue as Date)}
-              format={"hh:mm a"}
+              format={"HH:mm"}
+              ampm={false}
               slots={{
                 openPickerIcon: ArrowDropDownIcon,
               }}
