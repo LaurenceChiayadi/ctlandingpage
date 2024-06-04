@@ -169,7 +169,9 @@ const BookingPage = () => {
       0
     );
 
-    const sumBeforeDiscount = parseFloat(sum.toFixed(2));
+    sum = parseFloat(sum.toFixed(2));
+
+    const sumBeforeDiscount = sum;
 
     let promotionAmount = 0;
 
