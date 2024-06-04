@@ -326,7 +326,8 @@ const RoomTypesContent = (props: {
                       <Box bgcolor={"grey"} width={"100%"} height={550} />
                     )}
                     <Typography variant="h6" fontWeight={700} marginTop={2}>
-                      {room.name} {room.zone ? `(${room.zone})` : ""}
+                      {room.name}
+                      {/* {room.zone ? `(${room.zone})` : ""} */}
                     </Typography>
                     <Stack direction={"row"} spacing={1} marginTop={1}>
                       <Typography color={theme.palette.CtColorScheme.grey400}>
