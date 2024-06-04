@@ -58,7 +58,7 @@ const SummarySection = (props: {
         <SummaryHeader {...props} />
         <RoomBookingSection {...props} />
         <FacilitiesSection {...props} />
-        <AddRoomsSection {...props} />
+        {/* <AddRoomsSection {...props} /> */}
         <PaymentOverview {...props} />
         <PaymentPolicySection />
         <ImportantInformationSection />
