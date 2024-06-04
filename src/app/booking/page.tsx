@@ -379,6 +379,7 @@ const BookingPage = () => {
       ) : stepper === 2 ? (
         <ScheduleSection
           bookingSchedule={bookingSchedule}
+          bookingLocation={selectedHotel}
           handleChangeDatePromotion={handleChangeDatePromotion}
           handleChangeStepper={handleChangeStepper}
           handleEmptyRoomBooking={handleEmptyRoomBooking}

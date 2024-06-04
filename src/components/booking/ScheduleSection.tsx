@@ -1,4 +1,4 @@
-import { IBookingSchedule } from "@/models/Booking";
+import { IBookingLocation, IBookingSchedule } from "@/models/Booking";
 import {
   Box,
   Button,
@@ -22,9 +22,10 @@ import Image from "next/image";
 
 const title = "When would you like to check in?";
 
-const durations = [3, 6, 12, 24];
+const durations = [1, 3, 6, 12, 24];
 
 const ScheduleSection = (props: {
+  bookingLocation: IBookingLocation;
   bookingSchedule: IBookingSchedule;
   handleChangeDatePromotion: (value: IBookingSchedule) => void;
   handleChangeStepper: (value: number) => void;
@@ -125,17 +126,25 @@ const ScheduleSection = (props: {
               }}
               sx={{ fontWeight: 600 }}
             >
-              {durations.map((duration, index) => (
-                <MenuItem
-                  key={index}
-                  value={duration}
-                  sx={{
-                    fontWeight: 600,
-                  }}
-                >
-                  {duration} hours
-                </MenuItem>
-              ))}
+              {durations
+                .filter((duration) => {
+                  if (props.bookingLocation.hotelName !== "Airside") {
+                    return duration !== 1;
+                  } else {
+                    return true;
+                  }
+                })
+                .map((duration, index) => (
+                  <MenuItem
+                    key={index}
+                    value={duration}
+                    sx={{
+                      fontWeight: 600,
+                    }}
+                  >
+                    {duration} hours
+                  </MenuItem>
+                ))}
             </Select>
           </Stack>
         </Stack>
