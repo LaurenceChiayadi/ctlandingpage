@@ -457,7 +457,7 @@ const BookingHeader = () => {
         alignItems={"center"}
       >
         <IconButton onClick={() => router.back()} sx={{ alignSelf: "end" }}>
-          <Image src={CloseIcon} alt="close-icon" />
+          <Image src={CloseIcon} alt="close-icon" width={35} height={35} />
         </IconButton>
       </Box>
     </Box>
