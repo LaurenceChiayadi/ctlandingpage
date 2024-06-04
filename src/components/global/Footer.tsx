@@ -39,6 +39,8 @@ const textContent = [
       { name: "Capsule Highlight", link: "/highlight" },
       { name: "Out Commitment", link: "/our-commitment" },
       { name: "Newsroom", link: "/news" },
+      { name: "FAQ", link: "/faq" },
+      { name: "CSR", link: "/csr" },
     ],
   },
   {
@@ -65,6 +67,14 @@ const textContent = [
       { name: "CSR", link: "/csr" },
       { name: "Divider", link: "" },
       { name: "Best Rate Guarantee", link: "" },
+    ],
+  },
+  {
+    title: "Best Rate Guarantee",
+    options: [
+      { name: "FAQ", link: "/faq" },
+      { name: "CSR", link: "/csr" },
+      // { name: "Best Rate Guarantee", link: "" },
     ],
   },
 ];
@@ -124,7 +134,7 @@ const Footer = () => {
                 >
                   {textContent[5].title}
                 </Typography>
-                <Stack direction={"row"} width={"100%"} height={"40px"}>
+                {/* <Stack direction={"row"} width={"100%"} height={"40px"}>
                   {textContent[5].options.map((option, index) => {
                     return option.name !== "Divider" ? (
                       <Button
@@ -147,7 +157,7 @@ const Footer = () => {
                       />
                     );
                   })}
-                </Stack>
+                </Stack> */}
               </Stack>
             </Stack>
           </Grid>
@@ -204,56 +214,69 @@ const ShortcutSection = () => {
   const router = useRouter();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
-    <Stack direction={"column"} spacing={6}>
-      <Stack
-        direction={"column"}
-        width={"100%"}
-        spacing={6}
-        justifyContent={"space-between"}
-      >
-        <Stack direction={"column"} spacing={2}>
-          <Typography variant="h4" color={theme.palette.CtColorScheme.neon200}>
-            {textContent[0].title}
-          </Typography>
-          <Stack direction={"row"} width={"100%"}>
-            {textContent[0].options.map((option, index) => {
-              return option.name !== "Divider" ? (
-                <Button
-                  key={index}
-                  onClick={() => router.push(option.link)}
-                  sx={{ color: "white", paddingX: 0 }}
-                >
-                  {option.name}
-                </Button>
-              ) : (
-                <Divider key={index} />
-              );
-            })}
+    <Stack
+      direction={"column"}
+      spacing={6}
+      justifyContent={"space-between"}
+      height={"100%"}
+    >
+      <Stack>
+        <Stack
+          direction={"column"}
+          width={"100%"}
+          spacing={6}
+          justifyContent={"space-between"}
+        >
+          <Stack direction={"column"} spacing={2}>
+            <Typography
+              variant="h4"
+              color={theme.palette.CtColorScheme.neon200}
+            >
+              {textContent[0].title}
+            </Typography>
+            <Stack direction={"row"} width={"100%"}>
+              {textContent[0].options.map((option, index) => {
+                return option.name !== "Divider" ? (
+                  <Button
+                    key={index}
+                    onClick={() => router.push(option.link)}
+                    sx={{ color: "white", paddingX: 0 }}
+                  >
+                    {option.name}
+                  </Button>
+                ) : (
+                  <Divider key={index} />
+                );
+              })}
+            </Stack>
           </Stack>
-        </Stack>
-        <Stack direction={"column"} spacing={2}>
-          <Typography variant="h4" color={theme.palette.CtColorScheme.neon200}>
-            {textContent[1].title}
-          </Typography>
-          <Stack direction={"row"} width={"100%"} spacing={2}>
-            {textContent[1].options.map((option, index) => {
-              return option.name !== "Divider" ? (
-                <Button key={index} sx={{ color: "white", paddingX: 0 }}>
-                  {option.name}
-                </Button>
-              ) : (
-                <Divider
-                  key={index}
-                  orientation="vertical"
-                  variant="middle"
-                  flexItem
-                  sx={{
-                    backgroundColor: theme.palette.CtColorScheme.neon200,
-                    marginRight: 2,
-                  }}
-                />
-              );
-            })}
+          <Stack direction={"column"} spacing={2}>
+            <Typography
+              variant="h4"
+              color={theme.palette.CtColorScheme.neon200}
+            >
+              {textContent[1].title}
+            </Typography>
+            <Stack direction={"row"} width={"100%"} spacing={2}>
+              {textContent[1].options.map((option, index) => {
+                return option.name !== "Divider" ? (
+                  <Button key={index} sx={{ color: "white", paddingX: 0 }}>
+                    {option.name}
+                  </Button>
+                ) : (
+                  <Divider
+                    key={index}
+                    orientation="vertical"
+                    variant="middle"
+                    flexItem
+                    sx={{
+                      backgroundColor: theme.palette.CtColorScheme.neon200,
+                      marginRight: 2,
+                    }}
+                  />
+                );
+              })}
+            </Stack>
           </Stack>
         </Stack>
       </Stack>
