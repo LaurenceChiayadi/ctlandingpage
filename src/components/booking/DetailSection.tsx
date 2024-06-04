@@ -361,9 +361,9 @@ const DetailPageFooter = (props: {
             value={props.consentSigned}
             onChange={props.handleConsentSignChange}
             sx={{
-              color: theme.palette.CtColorScheme.yellow500,
+              color: theme.palette.CtColorScheme.pink300,
               "&.Mui-checked": {
-                color: theme.palette.CtColorScheme.yellow500,
+                color: theme.palette.CtColorScheme.pink300,
               },
               "&.MuiCheckbox-root": {
                 padding: 0,
