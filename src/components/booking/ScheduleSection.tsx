@@ -154,7 +154,7 @@ const ScheduleSection = (props: {
           justifyContent={"space-between"}
           width={isHandheldDevice ? "100%" : "800px"}
         >
-          <Button onClick={() => props.handleChangeStepper(3)}>
+          <Button onClick={() => props.handleChangeStepper(1)}>
             <Image
               src={IconArrowRight}
               alt="CT-Right-Up"
