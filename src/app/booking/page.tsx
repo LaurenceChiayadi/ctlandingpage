@@ -141,7 +141,11 @@ const BookingPage = () => {
     if (selectedRoom && selectedRoom.quantity > 1) {
       setRoomBookings([
         ...filteredRoomBookings,
-        { ...selectedRoom, quantity: selectedRoom.quantity - 1 },
+        {
+          ...selectedRoom,
+          quantity: selectedRoom.quantity - 1,
+          sum: selectedRoom.sum - selectedRoom.price,
+        },
       ]);
     } else {
       setRoomBookings(filteredRoomBookings);
@@ -165,7 +169,7 @@ const BookingPage = () => {
       0
     );
 
-    const sumBeforeDiscount = sum;
+    const sumBeforeDiscount = parseFloat(sum.toFixed(2));
 
     let promotionAmount = 0;
 
@@ -195,6 +199,8 @@ const BookingPage = () => {
     const debitAmount = parseFloat(
       (sum + (sum * parseFloat(taxPercentage)) / 100).toFixed(2)
     );
+
+    console.log(sum);
 
     const paymentInfoObject = {
       ...paymentInfo,
