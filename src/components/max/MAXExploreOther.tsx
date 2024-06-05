@@ -10,7 +10,7 @@ const title = "Explore other stays";
 const otherHotels: IOtherHotels[] = [
   {
     title: "Capsule Transit Airside",
-    location: "KLIA Terminal 2, Public Area",
+    location: "KLIA Terminal 2, Restricted Area",
     backgroundUrl: AirSideImage,
     url: "klia-2/airside",
   },

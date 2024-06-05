@@ -115,7 +115,7 @@ const DesktopDrawer = (props: {
     >
       <Box display={"flex"} justifyContent={"flex-end"} width={"100%"}>
         <IconButton onClick={props.handleClose}>
-          <Image src={CloseIcon} alt="close-icon" />
+          <Image src={CloseIcon} alt="close-icon" width={35} height={35} />
         </IconButton>
       </Box>
       <Grid container alignItems={"center"} height={"100%"}>

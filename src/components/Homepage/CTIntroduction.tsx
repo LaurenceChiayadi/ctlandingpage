@@ -58,7 +58,7 @@ const DesktopView = (props: { handleHighlightButtonPress: VoidFunction }) => {
       <Stack
         direction={"row"}
         padding={"5px"}
-        bgcolor={theme.palette.CtColorScheme.neon200}
+        // bgcolor={theme.palette.CtColorScheme.neon200}
         spacing={1}
         marginY={2}
         display={"inline-flex"}

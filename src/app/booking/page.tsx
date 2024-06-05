@@ -141,7 +141,11 @@ const BookingPage = () => {
     if (selectedRoom && selectedRoom.quantity > 1) {
       setRoomBookings([
         ...filteredRoomBookings,
-        { ...selectedRoom, quantity: selectedRoom.quantity - 1 },
+        {
+          ...selectedRoom,
+          quantity: selectedRoom.quantity - 1,
+          sum: selectedRoom.sum - selectedRoom.price,
+        },
       ]);
     } else {
       setRoomBookings(filteredRoomBookings);
@@ -164,6 +168,8 @@ const BookingPage = () => {
       (total, curr) => (total = total + curr.price * curr.quantity),
       0
     );
+
+    sum = parseFloat(sum.toFixed(2));
 
     const sumBeforeDiscount = sum;
 
@@ -195,6 +201,8 @@ const BookingPage = () => {
     const debitAmount = parseFloat(
       (sum + (sum * parseFloat(taxPercentage)) / 100).toFixed(2)
     );
+
+    console.log(sum);
 
     const paymentInfoObject = {
       ...paymentInfo,
@@ -234,6 +242,12 @@ const BookingPage = () => {
               prev.favorite === curr.favorite ? 0 : prev.favorite ? -1 : 1
             );
           setCountries(sortedCountry);
+
+          const malaysia = sortedCountry.filter(
+            (country) => country.countryName.toLowerCase() === "malaysia"
+          );
+
+          formik.setFieldValue("nationality", malaysia[0].countryName);
         });
     };
 
@@ -379,6 +393,7 @@ const BookingPage = () => {
       ) : stepper === 2 ? (
         <ScheduleSection
           bookingSchedule={bookingSchedule}
+          bookingLocation={selectedHotel}
           handleChangeDatePromotion={handleChangeDatePromotion}
           handleChangeStepper={handleChangeStepper}
           handleEmptyRoomBooking={handleEmptyRoomBooking}
@@ -457,7 +472,7 @@ const BookingHeader = () => {
         alignItems={"center"}
       >
         <IconButton onClick={() => router.back()} sx={{ alignSelf: "end" }}>
-          <Image src={CloseIcon} alt="close-icon" />
+          <Image src={CloseIcon} alt="close-icon" width={35} height={35} />
         </IconButton>
       </Box>
     </Box>
