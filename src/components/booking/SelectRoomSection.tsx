@@ -34,6 +34,7 @@ import FemaleSingleImage from "../landside/images/room-single-female@2x.jpg";
 import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { APIHeader } from "@/api/Header";
 const title = "Select Your Room";
 
 const sampleHotel = [
@@ -236,7 +237,7 @@ const RoomTypesContent = (props: {
 
     setIsLoadingImage(true);
     axios
-      .get(apiUrl)
+      .get(apiUrl, APIHeader)
       .then((response) => {
         const data = response.data.data;
 
