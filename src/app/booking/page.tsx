@@ -77,6 +77,9 @@ const BookingPage = () => {
   const [countries, setCountries] = useState<ICountry[]>([]);
 
   const [consentSigned, setConsentSigned] = useState<boolean>(false);
+
+  const [csrfToken, setCsrfToken] = useState<string>("");
+
   const handleConsentSignChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -202,8 +205,6 @@ const BookingPage = () => {
       (sum + (sum * parseFloat(taxPercentage)) / 100).toFixed(2)
     );
 
-    console.log(sum);
-
     const paymentInfoObject = {
       ...paymentInfo,
       sum: sum,
@@ -287,6 +288,20 @@ const BookingPage = () => {
     }
   }, [selectedHotel.hotelName]);
 
+  useEffect(() => {
+    const fetchCSRFToken = () => {
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/csrf/generate-csrf-token/`
+        )
+        .then((response) => {
+          setCsrfToken(response.data.csrfToken);
+        });
+    };
+
+    fetchCSRFToken();
+  }, []);
+
   const formik: FormikProps<IGuestDetail> = useFormik({
     initialValues: GuestDetailInitial,
     validationSchema: Yup.object().shape({
@@ -335,37 +350,46 @@ const BookingPage = () => {
         gender: formik.values.gender,
       };
 
-      axios.post(apiUrl, formData).then((result) => {
-        const tempBookingData: IBookingInformation = {
-          guestDetail: formik.values,
-          payment: paymentInfo,
-          roomBookings: roomBookings,
-          selectedHotel: selectedHotel,
-          bookingSchedule: bookingSchedule,
-          bookingNo: result.data.data.bookingNo,
-          bookingId: result.data.data.bookingId,
-        };
+      axios
+        .post(apiUrl, formData, {
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken,
+          },
+        })
+        .then((result) => {
+          const tempBookingData: IBookingInformation = {
+            guestDetail: formik.values,
+            payment: paymentInfo,
+            roomBookings: roomBookings,
+            selectedHotel: selectedHotel,
+            bookingSchedule: bookingSchedule,
+            bookingNo: result.data.data.bookingNo,
+            bookingId: result.data.data.bookingId,
+          };
 
-        setBookingData(tempBookingData);
+          setBookingData(tempBookingData);
 
-        const iPay88Data: IPaymentTerminal = {
-          amount: paymentInfo.debitAmount,
-          refNo: tempBookingData.bookingId,
-          bookingNo: tempBookingData.bookingNo,
-          userContact: formik.values.phone,
-          userEmail: formik.values.email,
-          userName: formik.values.firstName + " " + formik.values.lastName,
-          lot: selectedHotel.hotelName,
-        };
+          const iPay88Data: IPaymentTerminal = {
+            amount: paymentInfo.debitAmount,
+            refNo: tempBookingData.bookingId,
+            bookingNo: tempBookingData.bookingNo,
+            userContact: formik.values.phone,
+            userEmail: formik.values.email,
+            userName: formik.values.firstName + " " + formik.values.lastName,
+            lot: selectedHotel.hotelName,
+          };
 
-        const roomDescriptions = roomBookings.map(formatRoomBooking).join(", ");
+          const roomDescriptions = roomBookings
+            .map(formatRoomBooking)
+            .join(", ");
 
-        const productDescription = `${iPay88Data.lot} Capsule Transit: ${roomDescriptions}`;
+          const productDescription = `${iPay88Data.lot} Capsule Transit: ${roomDescriptions}`;
 
-        router.push(
-          `/booking/checkout?refNo=${iPay88Data.refNo}&bookingNo=${iPay88Data.bookingNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&prodDesc=${productDescription}`
-        );
-      });
+          router.push(
+            `/booking/checkout?refNo=${iPay88Data.refNo}&bookingNo=${iPay88Data.bookingNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&prodDesc=${productDescription}`
+          );
+        });
     }
   };
 
