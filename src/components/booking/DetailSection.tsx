@@ -283,11 +283,11 @@ const GuestDetailForm = (props: {
             Phone Number
           </Typography>
           <TextField
-            variant="outlined"
+            // variant="outlined"
             onChange={props.formik.handleChange}
             value={props.formik.values.phone}
             name="phone"
-            // sx={textFieldProps}
+            sx={textFieldProps}
           />
           {/* <MuiPhoneNumber
             defaultCountry="my"
