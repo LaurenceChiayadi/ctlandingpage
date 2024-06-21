@@ -22,7 +22,7 @@ import Image from "next/image";
 
 const title = "When would you like to check in?";
 
-const durations = [1, 3, 6, 12, 24];
+const durations = [3, 6, 12, 24];
 
 const ScheduleSection = (props: {
   bookingLocation: IBookingLocation;
@@ -130,25 +130,17 @@ const ScheduleSection = (props: {
               }}
               sx={{ fontWeight: 600 }}
             >
-              {durations
-                .filter((duration) => {
-                  if (props.bookingLocation.hotelName !== "Airside") {
-                    return duration !== 1;
-                  } else {
-                    return true;
-                  }
-                })
-                .map((duration, index) => (
-                  <MenuItem
-                    key={index}
-                    value={duration}
-                    sx={{
-                      fontWeight: 600,
-                    }}
-                  >
-                    {duration} hours
-                  </MenuItem>
-                ))}
+              {durations.map((duration, index) => (
+                <MenuItem
+                  key={index}
+                  value={duration}
+                  sx={{
+                    fontWeight: 600,
+                  }}
+                >
+                  {duration} hours
+                </MenuItem>
+              ))}
             </Select>
           </Stack>
         </Stack>
