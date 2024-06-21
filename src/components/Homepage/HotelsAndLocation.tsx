@@ -398,11 +398,20 @@ const KLIA1Hotels = (props: {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
     <Grid container direction={"row"} columnSpacing={3}>
-      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={4}
+        lg={4}
+        xl={4}
+        onMouseOver={() => props.handleHoverImage(terminal1Hotels.title)}
+        onMouseOut={() => props.handleHoverImage("")}
+      >
         {props.hovered === terminal1Hotels.title ? (
           <Box
             width="100%"
-            height={isHandheldDevice ? "500px" : "700px"}
+            height={isHandheldDevice ? "500px" : "65vh"}
             display="flex"
             flexDirection={"column"}
             justifyContent="center"
@@ -494,11 +503,7 @@ const KLIA1Hotels = (props: {
             </Stack>
           </Box>
         ) : (
-          <Box
-            width={"100%"}
-            height={isHandheldDevice ? "500px" : "700px"}
-            onMouseOver={() => props.handleHoverImage(terminal1Hotels.title)}
-          >
+          <Box width={"100%"} height={isHandheldDevice ? "500px" : "65vh"}>
             <Image
               src={terminal1Hotels.backgroundUrl}
               alt={terminal1Hotels.title}
@@ -564,7 +569,7 @@ const KLIA1Hotels = (props: {
       </Grid>
       {!isHandheldDevice && (
         <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-          <Box width={"100%"} height={"700px"}>
+          <Box width={"100%"} height={"65vh"}>
             <Image
               src={SleepLoungImage}
               alt={"capsule-transit-sleep-lounge"}
