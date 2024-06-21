@@ -34,6 +34,8 @@ const ScheduleSection = (props: {
   const theme = useTheme();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
 
+  const currentDateTime = new Date();
+
   const handleDateOnChange = (date: Date): void => {
     const newValue = { ...props.bookingSchedule, date: date };
     props.handleChangeDatePromotion(newValue);
@@ -82,6 +84,7 @@ const ScheduleSection = (props: {
               slots={{
                 openPickerIcon: ArrowDropDownIcon,
               }}
+              minDate={currentDateTime}
               sx={{ fontWeight: 600 }}
             />
           </Stack>
@@ -101,6 +104,7 @@ const ScheduleSection = (props: {
               slots={{
                 openPickerIcon: ArrowDropDownIcon,
               }}
+              minTime={currentDateTime}
               sx={{ fontWeight: 600 }}
             />
           </Stack>
