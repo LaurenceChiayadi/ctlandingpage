@@ -29,7 +29,7 @@ const DesktopView = () => {
         alignItems={"center"}
         marginTop={"200px"}
       >
-        <div
+        {/* <div
           style={{
             display: "inline-block",
           }}
@@ -42,7 +42,7 @@ const DesktopView = () => {
           >
             <b>{textContent[1]}</b> {textContent[2]}
           </Typography>
-        </div>
+        </div> */}
         <Typography
           variant={"h2"}
           color={"black"}
@@ -84,7 +84,7 @@ const HandheldView = () => {
         alignItems={"center"}
         marginTop={"120px"}
       >
-        <div
+        {/* <div
           style={{
             display: "inline-block",
           }}
@@ -97,7 +97,7 @@ const HandheldView = () => {
           >
             <b>{textContent[1]}</b> {textContent[2]}
           </Typography>
-        </div>
+        </div> */}
         <Typography
           fontSize={"46px"}
           fontWeight={700}
