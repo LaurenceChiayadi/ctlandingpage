@@ -14,12 +14,6 @@ import SpecialRequestIcon from "./images/icon-faq-special-requests.svg";
 
 export const FAQs = [
   {
-    title: "CT Member",
-    description: "All member enquiries",
-    icon: MemberIcon,
-    qna: [],
-  },
-  {
     title: "General",
     description: "Announcements, General Hotel Informations, FAQs",
     icon: GeneralIcon,
