@@ -232,7 +232,7 @@ const StaySectionHome = (props: {
             {informationHovered && (
               <Box
                 position={"fixed"}
-                marginTop={"200px"}
+                marginTop={"20vh"}
                 display={"flex"}
                 border={1}
                 width={"300px"}
