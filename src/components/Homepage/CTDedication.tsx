@@ -101,7 +101,7 @@ const DesktopView = (props: {
       <Box
         display={"flex"}
         flexDirection={"column"}
-        marginY={4}
+        marginTop={2}
         maxWidth={"780px"}
       >
         <Typography variant="h3">
@@ -148,7 +148,8 @@ const DesktopView = (props: {
           }}
         />
       </Box>
-      <Grid
+      <Box borderBottom={1}></Box>
+      {/* <Grid
         container
         borderTop={1}
         borderBottom={1}
@@ -178,7 +179,7 @@ const DesktopView = (props: {
             </Box>
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
     </>
   );
 };
@@ -233,7 +234,7 @@ const HandheldView = (props: {
           style={{ width: "100%", height: "auto" }}
         />
       </Box>
-      <Grid
+      {/* <Grid
         container
         borderTop={1}
         borderBottom={1}
@@ -331,7 +332,7 @@ const HandheldView = (props: {
             </motion.div>
           </div>
         </Grid>
-      </Grid>
+      </Grid> */}
     </>
   );
 };
