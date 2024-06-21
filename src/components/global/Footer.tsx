@@ -60,7 +60,7 @@ const textContent = [
   },
   {
     title:
-      "© 2024 40FT Container Sdn Bhd & Capsule Transit Sdn Bhd. All rights reserved. / Terms & Privacy",
+      "© 2024 40FT Container Sdn Bhd. All rights reserved. / Terms & Privacy",
     options: [
       { name: "FAQ", link: "/faq" },
       { name: "Divider", link: "" },
