@@ -321,7 +321,11 @@ const RoomTypesContent = (props: {
                       <img
                         src={room.imageUrl}
                         alt={room.name}
-                        style={{ width: "100%", height: 550 }}
+                        style={{
+                          width: "100%",
+                          height: 550,
+                          objectFit: "cover",
+                        }}
                       />
                     ) : (
                       <Box bgcolor={"grey"} width={"100%"} height={550} />
