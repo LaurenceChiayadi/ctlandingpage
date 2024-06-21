@@ -45,7 +45,7 @@ const rightSection = {
   links: [
     { title: "About Us", url: "/about-us" },
     { title: "Capsule Highlight", url: "/highlight" },
-    { title: "Out Commitment", url: "/our-commitment" },
+    { title: "Our Commitment", url: "/our-commitment" },
     { title: "Newsroom", url: "/news" },
     { title: "divider", url: "/" },
     { title: "FAQ", url: "/faq" },
