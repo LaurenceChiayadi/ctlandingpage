@@ -72,6 +72,7 @@ const SummaryHeader = (props: {
   selectedHotel: IBookingLocation;
   bookingSchedule: IBookingSchedule;
   roomBookings: IRoomBooking[];
+  handleChangeStepper: (value: number) => void;
 }) => {
   const theme = useTheme();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
@@ -167,7 +168,13 @@ const SummaryHeader = (props: {
             alignItems={"center"}
             height={"100%"}
           >
-            <CTButton onClick={() => {}} text="Change" variant="secondary" />
+            <CTButton
+              onClick={() => {
+                props.handleChangeStepper(2);
+              }}
+              text="Change"
+              variant="secondary"
+            />
           </Box>
         </Grid>
       </Grid>

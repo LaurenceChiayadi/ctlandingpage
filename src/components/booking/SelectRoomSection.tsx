@@ -93,6 +93,7 @@ const SelectRoomSection = (props: {
 const BookingSummary = (props: {
   selectedHotel: IBookingLocation;
   bookingSchedule: IBookingSchedule;
+  handleChangeStepper: (value: number) => void;
 }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   return (
@@ -155,7 +156,13 @@ const BookingSummary = (props: {
             justifyContent={"flex-end"}
             alignItems={"center"}
           >
-            <CTButton onClick={() => {}} text="Change" variant="secondary" />
+            <CTButton
+              onClick={() => {
+                props.handleChangeStepper(2);
+              }}
+              text="Change"
+              variant="secondary"
+            />
           </Box>
         </Grid>
       </Grid>
