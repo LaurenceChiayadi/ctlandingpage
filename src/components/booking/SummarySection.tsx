@@ -163,7 +163,7 @@ const SummaryHeader = (props: {
         <Grid item xs={12} sm={12} md={12} lg={1} xl={1}>
           <Box
             display={"flex"}
-            justifyContent={"center"}
+            justifyContent={"end"}
             alignItems={"center"}
             height={"100%"}
           >
@@ -239,6 +239,12 @@ const RoomBookingSection = (props: {
                   <Button
                     onClick={() => {
                       props.handleChangeStepper(3);
+                    }}
+                    sx={{
+                      padding: 0,
+                      textAlign: "end",
+                      width: "auto",
+                      minWidth: "auto",
                     }}
                   >
                     Edit
