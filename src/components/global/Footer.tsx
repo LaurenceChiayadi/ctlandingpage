@@ -37,7 +37,7 @@ const textContent = [
     options: [
       { name: "About Us", link: "/about-us" },
       { name: "Capsule Highlight", link: "/highlight" },
-      { name: "Out Commitment", link: "/our-commitment" },
+      { name: "Our Commitment", link: "/our-commitment" },
       { name: "Newsroom", link: "/news" },
       { name: "FAQ", link: "/faq" },
       { name: "CSR", link: "/csr" },
