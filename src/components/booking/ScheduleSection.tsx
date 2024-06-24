@@ -14,6 +14,7 @@ import {
   DatePicker,
   LocalizationProvider,
   TimePicker,
+  multiSectionDigitalClockSectionClasses,
 } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 
@@ -105,7 +106,21 @@ const ScheduleSection = (props: {
                 openPickerIcon: ArrowDropDownIcon,
               }}
               minTime={currentDateTime}
-              sx={{ fontWeight: 600 }}
+              slotProps={{
+                layout: {
+                  sx: {
+                    [`.${multiSectionDigitalClockSectionClasses.root}:after`]: {
+                      display: "none",
+                    },
+                  },
+                },
+              }}
+              sx={{
+                fontWeight: 600,
+                "&::after": {
+                  display: "none", // Hide the ::after pseudo-element if it's causing issues
+                },
+              }}
             />
           </Stack>
           <Stack
