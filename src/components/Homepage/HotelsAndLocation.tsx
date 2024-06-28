@@ -5,6 +5,8 @@ import {
   Divider,
   Grid,
   IconButton,
+  MenuItem,
+  Select,
   Stack,
   Typography,
   useMediaQuery,
@@ -133,10 +135,17 @@ const terminal2Hotels = [
   },
 ];
 
+enum kliaTerminals {
+  klia1 = "klia1",
+  klia2 = "klia2",
+}
+
 const HotelAndLocation = () => {
   const theme = useTheme();
 
-  const [KLIA2Selected, setKLIA2Selected] = useState<boolean>(true);
+  const [KLIA2Selected, setKLIA2Selected] = useState<string>(
+    kliaTerminals.klia2
+  );
 
   const [hovered, setHovered] = useState<string>("");
 
@@ -149,7 +158,7 @@ const HotelAndLocation = () => {
   return (
     <ContentWrapper>
       <HeaderTop title={textContent[0].title}>
-        <Stack
+        {/* <Stack
           direction={"row"}
           spacing={2}
           justifyContent={isHandheldDevice ? "space-between" : "start"}
@@ -176,9 +185,32 @@ const HotelAndLocation = () => {
               <Image src={EyeIcon} alt={"eye-icon"} style={{ marginLeft: 5 }} />
             )}
           </Button>
-        </Stack>
+        </Stack> */}
+        <Select
+          size="small"
+          value={KLIA2Selected}
+          onChange={(event) => setKLIA2Selected(event.target.value)}
+          startAdornment={
+            <Box
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              marginX={1}
+            >
+              <Image
+                src={LocationIcon}
+                alt="location-icon"
+                style={{ marginLeft: 1, marginRight: 1 }}
+              />
+            </Box>
+          }
+          sx={{ borderRadius: 0 }}
+        >
+          <MenuItem value={kliaTerminals.klia1}>KLIA Terminal 1</MenuItem>
+          <MenuItem value={kliaTerminals.klia2}>KLIA Terminal 2</MenuItem>
+        </Select>
       </HeaderTop>
-      {KLIA2Selected ? (
+      {KLIA2Selected === kliaTerminals.klia2 ? (
         <KLIA2Hotels hovered={hovered} handleHoverImage={handleHoverImage} />
       ) : (
         <KLIA1Hotels hovered={hovered} handleHoverImage={handleHoverImage} />
