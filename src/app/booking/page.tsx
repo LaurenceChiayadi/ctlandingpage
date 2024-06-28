@@ -239,9 +239,18 @@ const BookingPage = () => {
             .sort((prev: ICountry, curr: ICountry) =>
               prev.countryName.localeCompare(curr.countryName)
             )
-            .sort((prev: ICountry, curr: ICountry) =>
-              prev.favorite === curr.favorite ? 0 : prev.favorite ? -1 : 1
-            );
+            // .sort((prev: ICountry, curr: ICountry) =>
+            //   prev.favorite === curr.favorite ? 0 : prev.favorite ? -1 : 1
+            // )
+            .sort((prev: ICountry, curr: ICountry) => {
+              if (prev.countryName === "Malaysia") {
+                return -1; // 'Malaysia' comes before all other countries
+              } else if (curr.countryName === "Malaysia") {
+                return 1; // 'Malaysia' comes before all other countries
+              } else {
+                return 0; // Maintain the existing order for other countries
+              }
+            });
           setCountries(sortedCountry);
 
           const malaysia = sortedCountry.filter(
@@ -296,6 +305,7 @@ const BookingPage = () => {
         )
         .then((response) => {
           setCsrfToken(response.data.csrfToken);
+          // document.cookie = `csrfToken=${response.data.csrfToken}`;
         });
     };
 
@@ -351,44 +361,59 @@ const BookingPage = () => {
       };
 
       axios
-        .post(apiUrl, formData, {
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": csrfToken,
-          },
-        })
-        .then((result) => {
-          const tempBookingData: IBookingInformation = {
-            guestDetail: formik.values,
-            payment: paymentInfo,
-            roomBookings: roomBookings,
-            selectedHotel: selectedHotel,
-            bookingSchedule: bookingSchedule,
-            bookingNo: result.data.data.bookingNo,
-            bookingId: result.data.data.bookingId,
-          };
+        .get(
+          `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/csrf/generate-csrf-token/`,
+          { withCredentials: true }
+        )
+        .then((response) => {
+          axios
+            .post(
+              `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/booking/`,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  "X-CSRFToken": response.data.csrfToken,
+                  Cookie: `csrftoken=${response.data.csrfToken}`,
+                },
+                withCredentials: true,
+              }
+            )
+            .then((result) => {
+              const tempBookingData = {
+                guestDetail: formik.values,
+                payment: paymentInfo,
+                roomBookings: roomBookings,
+                selectedHotel: selectedHotel,
+                bookingSchedule: bookingSchedule,
+                bookingNo: result.data.data.bookingNo,
+                bookingId: result.data.data.bookingId,
+              };
 
-          setBookingData(tempBookingData);
+              setBookingData(tempBookingData);
 
-          const iPay88Data: IPaymentTerminal = {
-            amount: paymentInfo.debitAmount,
-            refNo: tempBookingData.bookingId,
-            bookingNo: tempBookingData.bookingNo,
-            userContact: formik.values.phone,
-            userEmail: formik.values.email,
-            userName: formik.values.firstName + " " + formik.values.lastName,
-            lot: selectedHotel.hotelName,
-          };
+              const iPay88Data = {
+                amount: paymentInfo.debitAmount,
+                refNo: tempBookingData.bookingId,
+                bookingNo: tempBookingData.bookingNo,
+                userContact: formik.values.phone,
+                userEmail: formik.values.email,
+                userName:
+                  formik.values.firstName + " " + formik.values.lastName,
+                lot: selectedHotel.hotelName,
+              };
 
-          const roomDescriptions = roomBookings
-            .map(formatRoomBooking)
-            .join(", ");
+              const roomDescriptions = roomBookings
+                .map(formatRoomBooking)
+                .join(", ");
 
-          const productDescription = `${iPay88Data.lot} Capsule Transit: ${roomDescriptions}`;
+              const productDescription = `${iPay88Data.lot} Capsule Transit: ${roomDescriptions}`;
 
-          router.push(
-            `/booking/checkout?refNo=${iPay88Data.refNo}&bookingNo=${iPay88Data.bookingNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&prodDesc=${productDescription}`
-          );
+              router.push(
+                `/booking/checkout?refNo=${iPay88Data.refNo}&bookingNo=${iPay88Data.bookingNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&prodDesc=${productDescription}`
+              );
+            });
         });
     }
   };

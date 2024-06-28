@@ -14,6 +14,7 @@ import {
   DatePicker,
   LocalizationProvider,
   TimePicker,
+  multiSectionDigitalClockSectionClasses,
 } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 
@@ -22,7 +23,7 @@ import Image from "next/image";
 
 const title = "When would you like to check in?";
 
-const durations = [1, 3, 6, 12, 24];
+const durations = [3, 6, 12, 24];
 
 const ScheduleSection = (props: {
   bookingLocation: IBookingLocation;
@@ -33,6 +34,8 @@ const ScheduleSection = (props: {
 }) => {
   const theme = useTheme();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+
+  const currentDateTime = new Date();
 
   const handleDateOnChange = (date: Date): void => {
     const newValue = { ...props.bookingSchedule, date: date };
@@ -82,6 +85,7 @@ const ScheduleSection = (props: {
               slots={{
                 openPickerIcon: ArrowDropDownIcon,
               }}
+              minDate={currentDateTime}
               sx={{ fontWeight: 600 }}
             />
           </Stack>
@@ -101,7 +105,22 @@ const ScheduleSection = (props: {
               slots={{
                 openPickerIcon: ArrowDropDownIcon,
               }}
-              sx={{ fontWeight: 600 }}
+              minTime={currentDateTime}
+              slotProps={{
+                layout: {
+                  sx: {
+                    [`.${multiSectionDigitalClockSectionClasses.root}:after`]: {
+                      display: "none",
+                    },
+                  },
+                },
+              }}
+              sx={{
+                fontWeight: 600,
+                "&::after": {
+                  display: "none", // Hide the ::after pseudo-element if it's causing issues
+                },
+              }}
             />
           </Stack>
           <Stack
@@ -126,25 +145,17 @@ const ScheduleSection = (props: {
               }}
               sx={{ fontWeight: 600 }}
             >
-              {durations
-                .filter((duration) => {
-                  if (props.bookingLocation.hotelName !== "Airside") {
-                    return duration !== 1;
-                  } else {
-                    return true;
-                  }
-                })
-                .map((duration, index) => (
-                  <MenuItem
-                    key={index}
-                    value={duration}
-                    sx={{
-                      fontWeight: 600,
-                    }}
-                  >
-                    {duration} hours
-                  </MenuItem>
-                ))}
+              {durations.map((duration, index) => (
+                <MenuItem
+                  key={index}
+                  value={duration}
+                  sx={{
+                    fontWeight: 600,
+                  }}
+                >
+                  {duration} hours
+                </MenuItem>
+              ))}
             </Select>
           </Stack>
         </Stack>

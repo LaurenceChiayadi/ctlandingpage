@@ -3,6 +3,7 @@ import {
   Button,
   Divider,
   Grid,
+  IconButton,
   Stack,
   Typography,
   useMediaQuery,
@@ -11,11 +12,12 @@ import {
 import Image from "next/image";
 
 //To Change to New Image
-import CTIcon from "@/assets/icons/general/LogoWhite.svg";
-import CTIconPrimary from "@/assets/icons/general/LogoPrimary.svg";
-import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import ArrowTopRight from "@/assets/icons/general/icon-arrow-top-right-primary.svg";
 import { useRouter } from "next/navigation";
+import FacebookIcon from "@/assets/icons/social-media/icon-facebook.svg";
+import InstagramIcon from "@/assets/icons/social-media/icon-instagram.svg";
+import LinkedInIcon from "@/assets/icons/social-media/icon-linkedin.svg";
+import TiktokIcon from "@/assets/icons/social-media/icon-tiktok.svg";
 
 const textContent = [
   {
@@ -37,7 +39,7 @@ const textContent = [
     options: [
       { name: "About Us", link: "/about-us" },
       { name: "Capsule Highlight", link: "/highlight" },
-      { name: "Out Commitment", link: "/our-commitment" },
+      { name: "Our Commitment", link: "/our-commitment" },
       { name: "Newsroom", link: "/news" },
       { name: "FAQ", link: "/faq" },
       { name: "CSR", link: "/csr" },
@@ -49,8 +51,8 @@ const textContent = [
       { name: "Contact", link: "/contact-us" },
       { name: "Career", link: "/career" },
       {
-        name: "Our Instagram",
-        link: "https://www.instagram.com/capsule.transit/",
+        name: "Social Media",
+        link: "",
       },
     ],
   },
@@ -59,8 +61,7 @@ const textContent = [
     options: [],
   },
   {
-    title:
-      "© 2024 40FT Container Sdn Bhd & Capsule Transit Sdn Bhd. All rights reserved. / Terms & Privacy",
+    title: "© 2024 40FT Container Sdn Bhd.",
     options: [
       { name: "FAQ", link: "/faq" },
       { name: "Divider", link: "" },
@@ -70,12 +71,27 @@ const textContent = [
     ],
   },
   {
-    title: "Best Rate Guarantee",
-    options: [
-      { name: "FAQ", link: "/faq" },
-      { name: "CSR", link: "/csr" },
-      // { name: "Best Rate Guarantee", link: "" },
-    ],
+    title: "All rights reserved. / Terms & Privacy",
+    options: [],
+  },
+];
+
+const socialMedias = [
+  {
+    icon: InstagramIcon,
+    link: "https://www.instagram.com/capsule.transit/",
+  },
+  {
+    icon: TiktokIcon,
+    link: "https://www.tiktok.com/@capsuletransit",
+  },
+  {
+    icon: FacebookIcon,
+    link: "https://www.facebook.com/capsuletransit/",
+  },
+  {
+    icon: LinkedInIcon,
+    link: "https://www.linkedin.com/company/capsule-hotel-group/?originalSubdomain=my",
   },
 ];
 
@@ -96,43 +112,33 @@ const Footer = () => {
           <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
             <ShortcutSection />
           </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+          <Grid item xs={12} sm={12} md={6} lg={5} xl={4}>
             <CTNewsSection />
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+          <Grid item xs={12} sm={12} md={12} lg={3} xl={4}>
             <Stack
               direction={"column"}
               height={"100%"}
-              justifyContent={"space-between"}
+              justifyContent={"flex-end"}
             >
-              <Button
-                onClick={() => router.push("/booking")}
-                sx={{
-                  padding: 0,
-                  justifyContent: "flex-start",
-                  color: "white",
-                }}
-              >
-                <Stack
-                  direction={"row"}
-                  width={"100%"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                >
-                  <Typography variant="h3" color={"primary"}>
-                    {textContent[4].title}
-                  </Typography>
-                  <Image src={ArrowTopRight} alt="CT-Right-Up" />
-                </Stack>
-              </Button>
-              <Stack direction={"column"} spacing={4}>
+              <Stack direction={"column"} alignItems={"center"}>
                 <Typography
                   variant="button"
                   color={theme.palette.CtColorScheme.grey100}
                   width={"85%"}
                   fontWeight={400}
+                  textAlign={"center"}
                 >
                   {textContent[5].title}
+                </Typography>
+                <Typography
+                  variant="button"
+                  color={theme.palette.CtColorScheme.grey100}
+                  width={"85%"}
+                  fontWeight={400}
+                  textAlign={"center"}
+                >
+                  {textContent[6].title}
                 </Typography>
                 {/* <Stack direction={"row"} width={"100%"} height={"40px"}>
                   {textContent[5].options.map((option, index) => {
@@ -174,29 +180,6 @@ const Footer = () => {
         paddingY={8}
       >
         <Grid container spacing={4}>
-          <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-            <Stack
-              direction={"column"}
-              height={"100%"}
-              justifyContent={"space-between"}
-            >
-              <Button
-                onClick={() => router.push("/booking")}
-                sx={{
-                  padding: 0,
-                  justifyContent: "flex-start",
-                  color: "white",
-                }}
-              >
-                <Stack direction={"row"} width={"100%"} alignItems={"center"}>
-                  <Typography variant="h1" color={"primary"}>
-                    {textContent[4].title}
-                  </Typography>
-                  <Image src={ArrowTopRight} alt="CT-Right-Up" />
-                </Stack>
-              </Button>
-            </Stack>
-          </Grid>
           <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
             <ShortcutSection />
           </Grid>
@@ -280,7 +263,7 @@ const ShortcutSection = () => {
           </Stack>
         </Stack>
       </Stack>
-      <Stack
+      {/* <Stack
         direction={"row"}
         paddingRight={isHandheldDevice ? 0 : "50px"}
         alignItems={"flex-end"}
@@ -290,7 +273,7 @@ const ShortcutSection = () => {
         <Typography fontWeight={600} color={"primary"}>
           Release: {process.env.NEXT_PUBLIC_VERSION}
         </Typography>
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 };
@@ -310,12 +293,42 @@ const CTNewsSection = () => {
             backgroundColor: theme.palette.CtColorScheme.neon200,
           }}
         />
-        <Stack direction={"column"} spacing={5}>
-          <Stack direction={"column"} spacing={1.5}>
-            <Typography variant="button" color={"primary"}>
-              {textContent[2].title}
-            </Typography>
-            {textContent[2].options.map((option, index) => (
+        <Stack direction={"column"} spacing={1.5} width={"200px"}>
+          <Typography variant="button" color={"primary"}>
+            {textContent[2].title}
+          </Typography>
+          {textContent[2].options.map((option, index) => (
+            <Button
+              key={index}
+              onClick={() => router.push(option.link)}
+              sx={{
+                padding: 0,
+                justifyContent: "flex-start",
+                color: "white",
+              }}
+            >
+              {option.name}
+            </Button>
+          ))}
+        </Stack>
+        <Stack direction={"column"} spacing={1.5}>
+          <Typography variant="button" color={"primary"}>
+            {textContent[3].title}
+          </Typography>
+          {textContent[3].options.map((option, index) =>
+            option.name === "Social Media" ? (
+              <Stack key={index} direction={"row"} spacing={3} paddingTop={1}>
+                {socialMedias.map((socialMedia, index1) => (
+                  <IconButton
+                    key={index1}
+                    onClick={() => router.push(socialMedia.link)}
+                    sx={{ padding: 0 }}
+                  >
+                    <Image src={socialMedia.icon} alt={socialMedia.link} />
+                  </IconButton>
+                ))}
+              </Stack>
+            ) : (
               <Button
                 key={index}
                 onClick={() => router.push(option.link)}
@@ -327,26 +340,8 @@ const CTNewsSection = () => {
               >
                 {option.name}
               </Button>
-            ))}
-          </Stack>
-          <Stack direction={"column"} spacing={1.5}>
-            <Typography variant="button" color={"primary"}>
-              {textContent[3].title}
-            </Typography>
-            {textContent[3].options.map((option, index) => (
-              <Button
-                key={index}
-                onClick={() => router.push(option.link)}
-                sx={{
-                  padding: 0,
-                  justifyContent: "flex-start",
-                  color: "white",
-                }}
-              >
-                {option.name}
-              </Button>
-            ))}
-          </Stack>
+            )
+          )}
         </Stack>
       </Stack>
     );
@@ -387,18 +382,33 @@ const CTNewsSection = () => {
             <Typography variant="button" color={"primary"}>
               {textContent[3].title}
             </Typography>
-            {textContent[3].options.map((option, index) => (
-              <Button
-                key={index}
-                sx={{
-                  padding: 0,
-                  justifyContent: "flex-start",
-                  color: "white",
-                }}
-              >
-                {option.name}
-              </Button>
-            ))}
+            {textContent[3].options.map((option, index) =>
+              option.name === "Social Media" ? (
+                <Stack key={index} direction={"row"} spacing={3} paddingTop={1}>
+                  {socialMedias.map((socialMedia, index1) => (
+                    <IconButton
+                      key={index1}
+                      onClick={() => router.push(socialMedia.link)}
+                      sx={{ padding: 0 }}
+                    >
+                      <Image src={socialMedia.icon} alt={socialMedia.link} />
+                    </IconButton>
+                  ))}
+                </Stack>
+              ) : (
+                <Button
+                  key={index}
+                  onClick={() => router.push(option.link)}
+                  sx={{
+                    padding: 0,
+                    justifyContent: "flex-start",
+                    color: "white",
+                  }}
+                >
+                  {option.name}
+                </Button>
+              )
+            )}
           </Stack>
         </Stack>
         <Stack direction={"column"} spacing={4}>
@@ -410,7 +420,7 @@ const CTNewsSection = () => {
           >
             {textContent[5].title}
           </Typography>
-          <Stack
+          {/* <Stack
             direction={"row"}
             width={"100%"}
             height={"40px"}
@@ -438,7 +448,7 @@ const CTNewsSection = () => {
                 />
               );
             })}
-          </Stack>
+          </Stack> */}
         </Stack>
       </Stack>
     );
