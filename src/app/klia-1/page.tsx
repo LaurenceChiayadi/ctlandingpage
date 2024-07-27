@@ -2,6 +2,7 @@
 
 import Footer from "@/components/global/Footer";
 import NavBar from "@/components/global/NavBar";
+import UnderMaintenance from "@/components/global/UnderMaintenance";
 import KLIA1Hero from "@/components/klia-1/KLIA1Hero";
 import SleepLoungeOverviewKLIA2 from "@/components/klia-1/SleepLoungeOverviewKLIA1";
 import AirsideOverviewKLIA2 from "@/components/klia-2/AirsideOverviewKLIA2";
@@ -27,4 +28,4 @@ const KLIA1Page = () => {
   );
 };
 
-export default KLIA1Page;
+export default UnderMaintenance;

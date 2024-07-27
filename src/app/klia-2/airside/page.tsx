@@ -10,6 +10,7 @@ import AirsideRoomTypesShowcase from "@/components/airside/AirsideRoomTypesShowc
 import AirsideBookNow from "@/components/airside/AirsideBookNow";
 import AirsideExploreOther from "@/components/airside/AirsideExploreOther";
 import Footer from "@/components/global/Footer";
+import UnderMaintenance from "@/components/global/UnderMaintenance";
 
 const Airside = () => {
   return (
@@ -27,4 +28,4 @@ const Airside = () => {
   );
 };
 
-export default Airside;
+export default UnderMaintenance;

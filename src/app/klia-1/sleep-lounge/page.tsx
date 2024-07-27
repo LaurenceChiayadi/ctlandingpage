@@ -10,6 +10,7 @@ import SleepLoungeRoomTypes from "@/components/sleep-lounge/SleepLoungeRoomTypes
 import SleepLoungeRoomTypesShowcase from "@/components/sleep-lounge/SleepLoungeRoomTypesShowcase";
 import SleepLoungeBookNow from "@/components/sleep-lounge/SleepLoungeBookNow";
 import SleepLoungeExploreOther from "@/components/sleep-lounge/SleepLoungeExploreOther";
+import UnderMaintenance from "@/components/global/UnderMaintenance";
 
 const SleepLoungePage = () => {
   return (
@@ -27,4 +28,4 @@ const SleepLoungePage = () => {
   );
 };
 
-export default SleepLoungePage;
+export default UnderMaintenance;

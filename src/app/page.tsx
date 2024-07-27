@@ -21,12 +21,13 @@ import OTADivider from "@/components/Homepage/OTADivider";
 import CTDedication from "@/components/Homepage/CTDedication";
 import ImageFooter from "@/components/Homepage/ImageFooter";
 import Footer from "@/components/global/Footer";
+import UnderMaintenance from "@/components/global/UnderMaintenance";
 
 export default function Home() {
   const theme = useTheme();
   return (
     <main>
-      <Box
+      {/* <Box
         display={"flex"}
         // width={"100vw"}
         flexDirection={"column"}
@@ -40,7 +41,8 @@ export default function Home() {
         <CTDedication />
         <ImageFooter />
         <Footer />
-      </Box>
+      </Box> */}
+      <UnderMaintenance />
     </main>
   );
 }
