@@ -7,6 +7,7 @@ import CSRKecharaDetails from "@/components/csr/CSRKecharaDetails";
 import ContentWrapper from "@/components/global/ContentWrapper";
 import Footer from "@/components/global/Footer";
 import NavBar from "@/components/global/NavBar";
+import UnderMaintenance from "@/components/global/UnderMaintenance";
 
 const CSRPage = () => {
   return (
@@ -23,4 +24,4 @@ const CSRPage = () => {
   );
 };
 
-export default CSRPage;
+export default UnderMaintenance;

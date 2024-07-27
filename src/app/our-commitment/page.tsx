@@ -3,6 +3,7 @@
 import NavBar from "@/components/global/NavBar";
 import CommitmentContent from "@/components/our-commitment/CommitmentContent";
 import CommitmentHero from "@/components/our-commitment/CommitmentHero";
+import UnderMaintenance from "../news/page";
 
 const Commitment = () => {
   return (
@@ -14,4 +15,4 @@ const Commitment = () => {
   );
 };
 
-export default Commitment;
+export default UnderMaintenance;

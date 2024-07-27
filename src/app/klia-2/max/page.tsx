@@ -11,6 +11,7 @@ import MAXRoomTypes from "@/components/max/MAXRoomTypes";
 import MAXRoomTypesShowcase from "@/components/max/MAXRoomTypesShowcase";
 import MAXBookNow from "@/components/max/MAXBookNow";
 import MAXExploreOther from "@/components/max/MAXExploreOther";
+import UnderMaintenance from "../landside/page";
 
 const Max = () => {
   return (
@@ -28,4 +29,4 @@ const Max = () => {
   );
 };
 
-export default Max;
+export default UnderMaintenance;

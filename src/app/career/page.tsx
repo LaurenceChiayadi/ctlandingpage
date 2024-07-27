@@ -7,6 +7,7 @@ import CareerIntro from "@/components/career/CareerIntro";
 import ContentWrapper from "@/components/global/ContentWrapper";
 import Footer from "@/components/global/Footer";
 import NavBar from "@/components/global/NavBar";
+import UnderMaintenance from "@/components/global/UnderMaintenance";
 
 const CareerPage = () => {
   return (
@@ -23,4 +24,4 @@ const CareerPage = () => {
   );
 };
 
-export default CareerPage;
+export default UnderMaintenance;

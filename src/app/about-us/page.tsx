@@ -7,6 +7,7 @@ import AboutUsCollections from "@/components/about-us/AboutUsCollections";
 import AboutUsAchievements from "@/components/about-us/AboutUsAchievements";
 import AboutUsAwards from "@/components/about-us/AboutUsAwards";
 import Footer from "@/components/global/Footer";
+import UnderMaintenance from "@/components/global/UnderMaintenance";
 
 const AboutUs = () => {
   return (
@@ -22,4 +23,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+export default UnderMaintenance;

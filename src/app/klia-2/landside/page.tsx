@@ -11,6 +11,7 @@ import LandsideRoomTypes from "@/components/landside/LandsideRoomTypes";
 import LandsideRoomTypesShowcase from "@/components/landside/LandsideRoomTypesShowcase";
 import LandsideBookNow from "@/components/landside/LandsideBookNow";
 import LandsideExploreOther from "@/components/landside/LandsideExploreOther";
+import UnderMaintenance from "@/components/global/UnderMaintenance";
 
 const Landside = () => {
   return (
@@ -28,4 +29,4 @@ const Landside = () => {
   );
 };
 
-export default Landside;
+export default UnderMaintenance;
