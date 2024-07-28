@@ -1,11 +1,13 @@
 import { Engineering } from "@mui/icons-material";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 
 import MaintenanceSVG from "@/assets/icons/general/maintenance.svg";
 
 const UnderMaintenance = () => {
   const theme = useTheme();
+
+  const isPhoneDevice = useMediaQuery("(max-width:800px)");
   return (
     <Box
       display={"flex"}
@@ -18,15 +20,26 @@ const UnderMaintenance = () => {
       <Image
         src={MaintenanceSVG}
         alt="capsule-under-maintenance"
-        style={{ width: "30vw", height: "auto" }}
+        style={{ width: isPhoneDevice ? "45vw" : "30vw", height: "auto" }}
       />
-      <Typography variant="h5" marginTop={2}>
+      <Typography
+        fontWeight={700}
+        fontSize={isPhoneDevice ? "1.4rem" : "2rem"}
+        marginTop={2}
+      >
         Website Under Maintenance...
       </Typography>
-      <Typography color={theme.palette.CtColorScheme.grey400} marginTop={2}>
+      <Typography
+        fontSize={isPhoneDevice ? "0.8rem" : "1rem"}
+        color={theme.palette.CtColorScheme.grey400}
+        marginTop={2}
+      >
         Our website is currently undergoing maintenance process.
       </Typography>
-      <Typography color={theme.palette.CtColorScheme.grey400}>
+      <Typography
+        fontSize={isPhoneDevice ? "0.8rem" : "1rem"}
+        color={theme.palette.CtColorScheme.grey400}
+      >
         We should be back shortly. Thank you for your patience
       </Typography>
     </Box>
