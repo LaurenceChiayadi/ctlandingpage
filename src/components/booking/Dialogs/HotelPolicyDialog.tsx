@@ -12,6 +12,7 @@ import {
 
 import CloseIcon from "@/assets/icons/general/icon-menu-close.svg";
 import Image from "next/image";
+import { RefObject, useEffect, useRef } from "react";
 
 const paymentCancellationPolicy = {
   title: "PAYMENT AND CANCELLATION POLICY",
@@ -36,17 +37,31 @@ const HotelPolicyDialog = (props: {
   open: boolean;
   handleClose: VoidFunction;
 }) => {
+  const dialogContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (props.open) {
+      const timer = setTimeout(() => {
+        if (dialogContentRef.current) {
+          dialogContentRef.current.scrollTo(0, 0);
+        }
+      }, 0);
+
+      return () => clearTimeout(timer);
+    }
+  }, [props.open]);
+
   return (
     <Dialog open={props.open} onClose={props.handleClose}>
       <Stack direction={"row"} justifyContent={"space-between"}>
         <DialogTitle fontSize={"1.5rem"} fontWeight={700}>
           Hotel Policy
         </DialogTitle>
-        <Button sx={{ paddingX: "24px" }}>
+        <Button onClick={props.handleClose} sx={{ paddingX: "24px" }}>
           <Image src={CloseIcon} alt="close-icon" style={{ width: "30px" }} />
         </Button>
       </Stack>
-      <DialogContent sx={{ maxHeight: "60vh" }}>
+      <DialogContent ref={dialogContentRef} sx={{ maxHeight: "60vh" }}>
         <Typography variant="h6">{paymentCancellationPolicy.title}</Typography>
         {paymentCancellationPolicy.contents.map((content, index) => (
           <DialogContentText key={index}>{content}</DialogContentText>
