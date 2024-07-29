@@ -6,4 +6,6 @@ export interface IContactUs {
   terminal?: string;
   phone?: string;
   address?: string;
+  companyName?: string;
+  regNo?: string;
 }

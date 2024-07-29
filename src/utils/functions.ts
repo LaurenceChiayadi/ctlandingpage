@@ -123,6 +123,8 @@ export const handleConvertContactUs = (data: any) => {
     terminal: data.attributes.terminal,
     phone: data.attributes.phone,
     address: data.attributes.address,
+    companyName: data.attributes.companyName,
+    regNo: data.attributes.regNo,
   };
   return formattedData;
 };
