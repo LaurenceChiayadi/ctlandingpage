@@ -19,4 +19,4 @@ const ContactUsPage = () => {
   );
 };
 
-export default UnderMaintenance;
+export default ContactUsPage;
