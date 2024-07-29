@@ -16,6 +16,7 @@ import {
   FormControlLabel,
   FormHelperText,
   Grid,
+  Link,
   MenuItem,
   Select,
   Stack,
@@ -31,6 +32,10 @@ import Image from "next/image";
 
 import IPay88Image from "./images/ipay88.png";
 import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
+import HotelPolicyDialog from "./Dialogs/HotelPolicyDialog";
+import { useState } from "react";
+import TermsConditionDialog from "./Dialogs/TermsConditionDialog";
+import PrivacyDialog from "./Dialogs/PrivacyDialog";
 
 const contentWidth = "900px";
 const mobileWidth = "100%";
@@ -312,9 +317,15 @@ const footerTitle = "Important Information about Your Booking";
 const footerDetail =
   "This special discounted rate is non-refundable. If you choose to change or cancel this booking, you will not be refunded any of the payment.";
 const footerSelectLabel =
-  "By checking this box, I acknowledge that I have read and accept the Rules & Restrictions, Terms of Use, Privacy Policy.";
+  "By checking this box, I acknowledge that I have read and accept the ";
 
 const iPay88Title = "Secure Payment with ipay88";
+
+enum dialogType {
+  hotelPolicy = "hotelPolicy",
+  termsCondition = "termsCondition",
+  privacy = "privacy",
+}
 
 const DetailPageFooter = (props: {
   consentSigned: boolean;
@@ -322,6 +333,39 @@ const DetailPageFooter = (props: {
 }) => {
   const theme = useTheme();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
+
+  const [openHotelPolicy, setOpenHotelPolicy] = useState<boolean>(false);
+  const [openTermsCondition, setOpenTermsCondition] = useState<boolean>(false);
+  const [openPrivacyPolicy, setOpenPrivacyPolicy] = useState<boolean>(false);
+
+  const handleOpenDialog = (
+    type:
+      | dialogType.hotelPolicy
+      | dialogType.termsCondition
+      | dialogType.privacy
+  ) => {
+    if (type === dialogType.hotelPolicy) {
+      setOpenHotelPolicy(true);
+    }
+    if (type === dialogType.termsCondition) {
+      setOpenTermsCondition(true);
+    }
+    if (type === dialogType.privacy) {
+      setOpenPrivacyPolicy(true);
+    }
+  };
+
+  const handleCloseHotelPolicyDialog = () => {
+    setOpenHotelPolicy(false);
+  };
+
+  const handleCloseTermsConditionDialog = () => {
+    setOpenTermsCondition(false);
+  };
+
+  const handleClosePrivacyDialog = () => {
+    setOpenPrivacyPolicy(false);
+  };
 
   return (
     <Grid
@@ -370,9 +414,49 @@ const DetailPageFooter = (props: {
               },
             }}
           />
-          <Typography>{footerSelectLabel}</Typography>
+          <Box display={"inline"} flexDirection={"row"}>
+            <Typography display={"inline-block"}>
+              {footerSelectLabel}{" "}
+              <Link
+                component={"button"}
+                onClick={() => handleOpenDialog(dialogType.hotelPolicy)}
+                variant="body1"
+                sx={{ color: "black" }}
+              >
+                Rules and Restrictions,
+              </Link>{" "}
+              <Link
+                component={"button"}
+                onClick={() => handleOpenDialog(dialogType.termsCondition)}
+                variant="body1"
+                sx={{ color: "black" }}
+              >
+                Terms of Use,
+              </Link>{" "}
+              <Link
+                component={"button"}
+                onClick={() => handleOpenDialog(dialogType.privacy)}
+                variant="body1"
+                sx={{ color: "black" }}
+              >
+                Privacy Policy,
+              </Link>
+            </Typography>
+          </Box>
         </Stack>
       </Grid>
+      <HotelPolicyDialog
+        open={openHotelPolicy}
+        handleClose={handleCloseHotelPolicyDialog}
+      />
+      <TermsConditionDialog
+        open={openTermsCondition}
+        handleClose={handleCloseTermsConditionDialog}
+      />
+      <PrivacyDialog
+        open={openPrivacyPolicy}
+        handleClose={handleClosePrivacyDialog}
+      />
     </Grid>
   );
 };
