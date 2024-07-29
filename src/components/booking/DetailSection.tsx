@@ -33,7 +33,7 @@ import Image from "next/image";
 import IPay88Image from "./images/ipay88.png";
 import CTRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import HotelPolicyDialog from "./Dialogs/HotelPolicyDialog";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import TermsConditionDialog from "./Dialogs/TermsConditionDialog";
 import PrivacyDialog from "./Dialogs/PrivacyDialog";
 

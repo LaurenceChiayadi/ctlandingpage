@@ -12,6 +12,7 @@ import {
 
 import CloseIcon from "@/assets/icons/general/icon-menu-close.svg";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 const termsOfUse = {
   title: "Capsule Transit Hotel Personal Data Protection Act",
@@ -66,17 +67,30 @@ const termsOfUse = {
 };
 
 const PrivacyDialog = (props: { open: boolean; handleClose: VoidFunction }) => {
+  const dialogContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (props.open) {
+      const timer = setTimeout(() => {
+        if (dialogContentRef.current) {
+          dialogContentRef.current.scrollTo(0, 0);
+        }
+      }, 0);
+
+      return () => clearTimeout(timer);
+    }
+  }, [props.open]);
   return (
     <Dialog open={props.open} onClose={props.handleClose}>
       <Stack direction={"row"} justifyContent={"space-between"}>
         <DialogTitle fontSize={"1.5rem"} fontWeight={700}>
           Privacy Policy
         </DialogTitle>
-        <Button sx={{ paddingX: "24px" }}>
+        <Button onClick={props.handleClose} sx={{ paddingX: "24px" }}>
           <Image src={CloseIcon} alt="close-icon" style={{ width: "30px" }} />
         </Button>
       </Stack>
-      <DialogContent sx={{ maxHeight: "60vh" }}>
+      <DialogContent sx={{ maxHeight: "60vh" }} ref={dialogContentRef}>
         <Typography variant="h6">{termsOfUse.title}</Typography>
         <ol style={{ paddingLeft: "20px" }}>
           {termsOfUse.contents.map((content, index) => (
