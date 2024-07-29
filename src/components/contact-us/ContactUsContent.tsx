@@ -5,6 +5,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ContentWrapper from "../global/ContentWrapper";
 import {
+  ApartmentOutlined,
+  BrandingWatermarkOutlined,
   Call,
   CallOutlined,
   EmailOutlined,
@@ -73,6 +75,18 @@ const ContactUsComponent = (props: {
                 {contact.name} {contact.terminal ? `@ ${contact.terminal}` : ""}
               </Typography>
               <Stack spacing={1} marginY={2}>
+                {contact.companyName && (
+                  <Stack direction={"row"} spacing={1}>
+                    <ApartmentOutlined />{" "}
+                    <Typography>{contact.companyName}</Typography>
+                  </Stack>
+                )}
+                {contact.regNo && (
+                  <Stack direction={"row"} spacing={1}>
+                    <BrandingWatermarkOutlined />{" "}
+                    <Typography>{contact.regNo}</Typography>
+                  </Stack>
+                )}
                 {contact.phone && (
                   <Stack direction={"row"} spacing={1}>
                     <CallOutlined /> <Typography>{contact.phone}</Typography>
