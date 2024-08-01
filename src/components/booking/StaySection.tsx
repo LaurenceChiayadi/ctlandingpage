@@ -1,6 +1,10 @@
 import {
   Box,
   Button,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
   IconButton,
   Stack,
@@ -287,6 +291,18 @@ const KLIAStaySection = (props: {
 }) => {
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
   const [hover, setHovered] = useState<string>("");
+
+  const [unavailableDialogOpen, setUnavailableDialogOpen] =
+    useState<boolean>(false);
+
+  const handleOpenUnavailableDialog = () => {
+    setUnavailableDialogOpen(true);
+  };
+
+  const handleCloseUnavailableDialog = () => {
+    setUnavailableDialogOpen(false);
+  };
+
   return (
     <Box
       display={"flex"}
@@ -357,13 +373,17 @@ const KLIAStaySection = (props: {
             <Stack spacing={3} marginTop={isHandheldDevice ? 6 : 10}>
               {location.hotels.map((hotel, index) => (
                 <Button
-                  onClick={() =>
-                    props.handleChangeSelectedHotel({
-                      hotelLocation: props.content.terminalName,
-                      hotelName: hotel.name,
-                      hotelDetailedLocation: hotel.detailedLocation,
-                    })
-                  }
+                  onClick={() => {
+                    if (hotel.name != "Sleep Lounge") {
+                      props.handleChangeSelectedHotel({
+                        hotelLocation: props.content.terminalName,
+                        hotelName: hotel.name,
+                        hotelDetailedLocation: hotel.detailedLocation,
+                      });
+                    } else {
+                      handleOpenUnavailableDialog();
+                    }
+                  }}
                   key={index}
                 >
                   <Typography variant="h4" marginRight={3}>
@@ -386,7 +406,35 @@ const KLIAStaySection = (props: {
           </Box>
         ))}
       </Stack>
+      <UnavailableBookingDialog
+        open={unavailableDialogOpen}
+        handleClose={handleCloseUnavailableDialog}
+      />
     </Box>
+  );
+};
+
+const UnavailableBookingDialog = (props: {
+  open: boolean;
+  handleClose: VoidFunction;
+}) => {
+  return (
+    <Dialog open={props.open} onClose={props.handleClose}>
+      <DialogTitle fontSize={"1.5rem"} fontWeight={700}>
+        Unavailable for Booking
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          We are putting on our final touches for Terminal 1.
+        </DialogContentText>
+        <DialogContentText>
+          Please email us at{" "}
+          <a href="mailto:klia1@capsuletransit.com">klia1@capsuletransit.com</a>{" "}
+          for assistance with your reservations. Thank you for
+          your understanding.
+        </DialogContentText>
+      </DialogContent>
+    </Dialog>
   );
 };
 
