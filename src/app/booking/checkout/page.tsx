@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import axios from "axios";
 
 import crypto from "crypto";
 import { useRouter, useSearchParams } from "next/navigation";
+import { returnMerchantCodeKey } from "@/utils/functions";
 
 const CheckOutPage = () => {
   const searchParams = useSearchParams();
@@ -20,8 +20,9 @@ const CheckOutPage = () => {
   const userName = searchParams.get("name");
   const prodDesc = searchParams.get("prodDesc");
 
-  const merchantCode = "M05633";
-  const merchantKey = "aCngOtFUyu";
+  const lotId = searchParams.get("lot");
+
+  const [merchantCode, merchantKey] = returnMerchantCodeKey(lotId);
   const currency = "MYR";
 
   const signatureBeforeEncrypt =
@@ -97,7 +98,7 @@ const CheckOutPage = () => {
           <input
             type="hidden"
             name="ResponseURL"
-            value={`https://capsule-transit.southeastasia.cloudapp.azure.com/booking/payment-status/`}
+            value={`https://capsuletransit.com/booking/payment-status/`}
           />
           <input
             type="hidden"
