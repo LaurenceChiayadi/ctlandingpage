@@ -297,20 +297,20 @@ const BookingPage = () => {
     }
   }, [selectedHotel.hotelName]);
 
-  useEffect(() => {
-    const fetchCSRFToken = () => {
-      axios
-        .get(
-          `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/csrf/generate-csrf-token/`
-        )
-        .then((response) => {
-          setCsrfToken(response.data.csrfToken);
-          // document.cookie = `csrfToken=${response.data.csrfToken}`;
-        });
-    };
+  // useEffect(() => {
+  //   const fetchCSRFToken = () => {
+  //     axios
+  //       .get(
+  //         `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/csrf/generate-csrf-token/`
+  //       )
+  //       .then((response) => {
+  //         setCsrfToken(response.data.csrfToken);
+  //         // document.cookie = `csrfToken=${response.data.csrfToken}`;
+  //       });
+  //   };
 
-    fetchCSRFToken();
-  }, []);
+  //   fetchCSRFToken();
+  // }, []);
 
   const formik: FormikProps<IGuestDetail> = useFormik({
     initialValues: GuestDetailInitial,
@@ -361,59 +361,49 @@ const BookingPage = () => {
       };
 
       axios
-        .get(
-          `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/csrf/generate-csrf-token/`,
-          { withCredentials: true }
+        .post(
+          `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/booking/`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
         )
-        .then((response) => {
-          axios
-            .post(
-              `${process.env.NEXT_PUBLIC_BASE_API}/landing-page/booking/`,
-              formData,
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                  "X-CSRFToken": response.data.csrfToken,
-                  Cookie: `csrftoken=${response.data.csrfToken}`,
-                },
-                withCredentials: true,
-              }
-            )
-            .then((result) => {
-              const tempBookingData = {
-                guestDetail: formik.values,
-                payment: paymentInfo,
-                roomBookings: roomBookings,
-                selectedHotel: selectedHotel,
-                bookingSchedule: bookingSchedule,
-                bookingNo: result.data.data.bookingNo,
-                bookingId: result.data.data.bookingId,
-              };
+        .then((result) => {
+          const tempBookingData = {
+            guestDetail: formik.values,
+            payment: paymentInfo,
+            roomBookings: roomBookings,
+            selectedHotel: selectedHotel,
+            bookingSchedule: bookingSchedule,
+            bookingNo: result.data.data.bookingNo,
+            bookingId: result.data.data.bookingId,
+          };
 
-              setBookingData(tempBookingData);
+          setBookingData(tempBookingData);
 
-              const iPay88Data = {
-                amount: paymentInfo.debitAmount,
-                refNo: tempBookingData.bookingId,
-                bookingNo: tempBookingData.bookingNo,
-                userContact: formik.values.phone,
-                userEmail: formik.values.email,
-                userName:
-                  formik.values.firstName + " " + formik.values.lastName,
-                lot: selectedHotel.hotelName,
-              };
+          const iPay88Data = {
+            amount: paymentInfo.debitAmount,
+            refNo: tempBookingData.bookingId,
+            bookingNo: tempBookingData.bookingNo,
+            userContact: formik.values.phone,
+            userEmail: formik.values.email,
+            userName: formik.values.firstName + " " + formik.values.lastName,
+            lot: selectedHotel.hotelName,
+          };
 
-              const roomDescriptions = roomBookings
-                .map(formatRoomBooking)
-                .join(", ");
+          const roomDescriptions = roomBookings
+            .map(formatRoomBooking)
+            .join(", ");
 
-              const productDescription = `${iPay88Data.lot} Capsule Transit: ${roomDescriptions}`;
+          const productDescription = `${iPay88Data.lot} Capsule Transit: ${roomDescriptions}`;
+          const lotNumber = getLotNumber(selectedHotel.hotelName);
 
-              router.push(
-                `/booking/checkout?refNo=${iPay88Data.refNo}&bookingNo=${iPay88Data.bookingNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&prodDesc=${productDescription}`
-              );
-            });
+          router.push(
+            `/booking/checkout?refNo=${iPay88Data.refNo}&bookingNo=${iPay88Data.bookingNo}&amount=${iPay88Data.amount}&contact=${iPay88Data.userContact}&email=${iPay88Data.userEmail}&name=${iPay88Data.userName}&prodDesc=${productDescription}&lot=${lotNumber}`
+          );
         });
     }
   };

@@ -128,3 +128,38 @@ export const handleConvertContactUs = (data: any) => {
   };
   return formattedData;
 };
+
+export const returnMerchantCodeKey = (
+  lotIdString: string | null
+): [string, string] => {
+  if (lotIdString) {
+    const lotId = parseInt(lotIdString);
+    if (lotId === lotNumberEnum.airside) {
+      return [
+        process.env.NEXT_PUBLIC_AIRSIDE_MERCHANT_CODE || "",
+        process.env.NEXT_PUBLIC_AIRSIDE_MERCHANT_KEY || "",
+      ];
+    }
+    if (lotId === lotNumberEnum.landside) {
+      return [
+        process.env.NEXT_PUBLIC_LANDSIDE_MERCHANT_CODE || "",
+        process.env.NEXT_PUBLIC_LANDSIDE_MERCHANT_KEY || "",
+      ];
+    }
+    if (lotId === lotNumberEnum.max) {
+      return [
+        process.env.NEXT_PUBLIC_MAX_MERCHANT_CODE || "",
+        process.env.NEXT_PUBLIC_MAX_MERCHANT_KEY || "",
+      ];
+    }
+    if (lotId === lotNumberEnum.sleepLounge) {
+      return [
+        process.env.NEXT_PUBLIC_SLEEPLOUNGE_MERCHANT_CODE || "",
+        process.env.NEXT_PUBLIC_SLEEPLOUNGE_MERCHANT_KEY || "",
+      ];
+    }
+  } else {
+    return ["-", "-"];
+  }
+  return ["-", "-"];
+};
