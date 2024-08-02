@@ -62,7 +62,7 @@ const RoomPricingSection = (props: { roomBookings: IRoomBooking[] }) => {
               {roomBooking.duration} hours
             </Typography>
             <Typography>
-              {roomBooking.quantity} X RM{roomBooking.price}
+              {roomBooking.quantity} X RM{roomBooking.price.toFixed(2)}
             </Typography>
           </Stack>
           <Typography variant="h6" fontWeight={700}>
