@@ -421,12 +421,9 @@ const UnavailableBookingDialog = (props: {
   return (
     <Dialog open={props.open} onClose={props.handleClose}>
       <DialogTitle fontSize={"1.5rem"} fontWeight={700}>
-        Unavailable for Booking
+        We are putting on our final touches for Terminal 1.
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          We are putting on our final touches for Terminal 1.
-        </DialogContentText>
         <DialogContentText>
           Please email us at{" "}
           <a href="mailto:klia1@capsuletransit.com">klia1@capsuletransit.com</a>{" "}
