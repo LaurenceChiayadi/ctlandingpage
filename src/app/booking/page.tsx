@@ -442,6 +442,7 @@ const BookingPage = () => {
           bookingSchedule={bookingSchedule}
           selectedHotel={selectedHotel}
           roomBookings={roomBookings}
+          taxPercentage={taxPercentage}
           handleAddRoomBooking={handleAddRoomBooking}
           handleDeductRoomBooking={handleDeductRoomBooking}
           handleChangeStepper={handleChangeStepper}

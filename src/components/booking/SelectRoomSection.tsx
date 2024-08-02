@@ -37,37 +37,11 @@ import axios from "axios";
 import { APIHeader } from "@/api/Header";
 const title = "Select Your Room";
 
-const sampleHotel = [
-  {
-    image: FemaleSingleImage,
-    name: "Female Single",
-    zone: "Female-Only Zone",
-    bedType: "Single Bed",
-    capacity: "1 Adult",
-    price: 155,
-  },
-  {
-    image: FemaleSingleImage,
-    name: "Male Single",
-    zone: "Male-Only Zone",
-    bedType: "Single Bed",
-    capacity: "1 Adult",
-    price: 155,
-  },
-  {
-    image: FemaleSingleImage,
-    name: "Queen",
-    bedType: "Queen Bed",
-    capacity: "2 Adult",
-    price: 185,
-  },
-];
-
 interface IApiResponseRoom {
   roomTypeName: string;
   roomZoneNames: string;
   maxPax: string;
-  price: number;
+  price: string;
   availableCount: number;
 }
 
@@ -75,6 +49,7 @@ const SelectRoomSection = (props: {
   selectedHotel: IBookingLocation;
   bookingSchedule: IBookingSchedule;
   roomBookings: IRoomBooking[];
+  taxPercentage: string;
   handleAddRoomBooking: (value: IRoomBooking) => void;
   handleDeductRoomBooking: (value: IRoomBooking) => void;
   handleChangeStepper: (value: number) => void;
@@ -193,6 +168,7 @@ const RoomTypesContent = (props: {
   bookingSchedule: IBookingSchedule;
   roomBookings: IRoomBooking[];
   selectedHotel: IBookingLocation;
+  taxPercentage: string;
   handleAddRoomBooking: (value: IRoomBooking) => void;
   handleDeductRoomBooking: (value: IRoomBooking) => void;
 }) => {
@@ -228,7 +204,7 @@ const RoomTypesContent = (props: {
             zone: data.roomZoneNames,
             bedType: predictBedType(data.maxPax),
             capacity: data.maxPax + " Adult",
-            price: data.price,
+            price: parseFloat(data.price),
             availableCount: data.availableCount,
           }));
 
@@ -360,7 +336,13 @@ const RoomTypesContent = (props: {
                         alignItems={"flex-end"}
                         spacing={1}
                       >
-                        <Typography variant="h5">RM{room.price}</Typography>
+                        <Typography variant="h5">
+                          RM
+                          {(
+                            room.price +
+                            (room.price * parseInt(props.taxPercentage)) / 100
+                          ).toFixed(2)}
+                        </Typography>
                         <Typography variant="subtitle2">
                           for {props.bookingSchedule.duration}h
                         </Typography>
