@@ -3,7 +3,7 @@ import { IArticle, IArticleContent, IParagraph } from "@/models/Article";
 import { IContactUs } from "@/models/Contact";
 
 export const displayThousands = (number: number) => {
-  var numberString = number.toString();
+  var numberString = number.toFixed(2);
 
   var parts = numberString.split(".");
 
