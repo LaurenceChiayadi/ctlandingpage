@@ -82,7 +82,7 @@ const ScheduleSection = (props: {
             <DatePicker
               value={props.bookingSchedule.date}
               onChange={(newValue) => handleDateOnChange(newValue as Date)}
-              format="dd MMMM yyyy"
+              format="dd/MM/yyyy"
               slots={{
                 openPickerIcon: ArrowDropDownIcon,
               }}
