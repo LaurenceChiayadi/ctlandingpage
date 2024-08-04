@@ -43,7 +43,7 @@ import {
 import SelectRoomSection from "@/components/booking/SelectRoomSection";
 import SummarySection from "@/components/booking/SummarySection";
 import { lotNumberEnum } from "@/constant/Enums";
-import { getLotNumber } from "@/utils/functions";
+import { getLotNumber, roundingFunction } from "@/utils/functions";
 import DetailSection from "@/components/booking/DetailSection";
 import { FormikProps, useFormik } from "formik";
 import * as Yup from "yup";
@@ -201,8 +201,8 @@ const BookingPage = () => {
       ((sum * parseFloat(serviceChargePercentage)) / 100).toFixed(2)
     );
 
-    const debitAmount = parseFloat(
-      (sum + (sum * parseFloat(taxPercentage)) / 100).toFixed(2)
+    const pricesAfterRounding = roundingFunction(
+      parseFloat((sum + (sum * parseFloat(taxPercentage)) / 100).toFixed(2))
     );
 
     const paymentInfoObject = {
@@ -210,8 +210,10 @@ const BookingPage = () => {
       sum: sum,
       sumBeforeDiscount: sumBeforeDiscount,
       taxAmount: taxAmount,
-      debitAmount: debitAmount,
+      debitAmount: pricesAfterRounding.roundedValue,
       serviceChargeAmount: serviceChargeAmount,
+
+      rounding: pricesAfterRounding.roundingValue,
 
       promotionAmount: promotionAmount,
     };
@@ -350,6 +352,7 @@ const BookingPage = () => {
         promotionAmount: paymentInfo.promotionAmount,
         sum: paymentInfo.sum,
         creditAmount: paymentInfo.debitAmount,
+        rounding: paymentInfo.rounding,
         countryCode: selectedCountry[0].countryCode,
         firstName: formik.values.firstName,
         lastName: formik.values.lastName,
