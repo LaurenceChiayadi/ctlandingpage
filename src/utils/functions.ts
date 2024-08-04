@@ -163,3 +163,9 @@ export const returnMerchantCodeKey = (
   }
   return ["-", "-"];
 };
+
+export function roundingFunction(number: number) {
+  const roundedValue = Math.round(number / 0.05) * 0.05;
+  const roundingValue = parseFloat(Math.abs(number - roundedValue).toFixed(2));
+  return { roundedValue, roundingValue };
+}

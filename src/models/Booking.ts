@@ -58,6 +58,7 @@ export interface IPaymentInfo {
 
   sumBeforeDiscount: number;
 
+  rounding?: number;
   promotion?: string;
   promotionAmount?: number;
   promotionDeduct?: string;
