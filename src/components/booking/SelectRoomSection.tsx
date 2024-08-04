@@ -289,18 +289,19 @@ const RoomTypesContent = (props: {
                 </Box>
               </Grid>
             ))
-          : completedRoomData.map((room, index) => {
-              const roomSelected = props.roomBookings.find(
-                (roomBooking) => roomBooking.roomTypeId === room.name
-              );
-              return (
-                <Grid key={index} item xs={12} sm={12} md={6} lg={6} xl={6}>
-                  <Box
-                    display={"flex"}
-                    flexDirection={"column"}
-                    sx={{ opacity: room.availableCount < 1 ? 0.5 : 1 }}
-                  >
-                    {room.imageUrl ? (
+          : completedRoomData
+              .filter((room) => room.imageUrl)
+              .map((room, index) => {
+                const roomSelected = props.roomBookings.find(
+                  (roomBooking) => roomBooking.roomTypeId === room.name
+                );
+                return (
+                  <Grid key={index} item xs={12} sm={12} md={6} lg={6} xl={6}>
+                    <Box
+                      display={"flex"}
+                      flexDirection={"column"}
+                      sx={{ opacity: room.availableCount < 1 ? 0.5 : 1 }}
+                    >
                       <img
                         src={room.imageUrl}
                         alt={room.name}
@@ -310,133 +311,160 @@ const RoomTypesContent = (props: {
                           objectFit: "cover",
                         }}
                       />
-                    ) : (
-                      <Box bgcolor={"grey"} width={"100%"} height={550} />
-                    )}
-                    <Typography variant="h6" fontWeight={700} marginTop={2}>
-                      {room.name}
-                      {/* {room.zone ? `(${room.zone})` : ""} */}
-                    </Typography>
-                    <Stack direction={"row"} spacing={1} marginTop={1}>
-                      <Typography color={theme.palette.CtColorScheme.grey400}>
-                        {room.bedType}
+
+                      <Typography variant="h6" fontWeight={700} marginTop={2}>
+                        {room.name}
+                        {/* {room.zone ? `(${room.zone})` : ""} */}
                       </Typography>
-                      <Typography color={"primary"}>/</Typography>
-                      <Typography color={theme.palette.CtColorScheme.grey400}>
-                        {room.capacity}
-                      </Typography>
-                    </Stack>
-                    <Stack
-                      direction={isHandheldDevice ? "column" : "row"}
-                      marginTop={1}
-                      justifyContent={"space-between"}
-                    >
-                      <Stack
-                        direction={"row"}
-                        alignItems={"flex-end"}
-                        spacing={1}
-                      >
-                        <Typography variant="h5">
-                          RM
-                          {(
-                            room.price +
-                            (room.price * parseInt(props.taxPercentage)) / 100
-                          ).toFixed(2)}
+                      <Stack direction={"row"} spacing={1} marginTop={1}>
+                        <Typography color={theme.palette.CtColorScheme.grey400}>
+                          {room.bedType}
                         </Typography>
-                        <Typography variant="subtitle2">
-                          for {props.bookingSchedule.duration}h
+                        <Typography color={"primary"}>/</Typography>
+                        <Typography color={theme.palette.CtColorScheme.grey400}>
+                          {room.capacity}
                         </Typography>
-                        {props.bookingSchedule.duration &&
-                          DurationIcons.duration(
-                            matchDurationEnum(props.bookingSchedule.duration)
-                          ) !== "" && (
-                            <Stack direction={"row"} alignItems={"center"}>
-                              <Image
-                                src={DurationIcons.duration(
-                                  matchDurationEnum(
-                                    props.bookingSchedule.duration
-                                  )
-                                )}
-                                alt="feature"
-                                style={{ marginBottom: 3 }}
-                              />
-                            </Stack>
-                          )}
                       </Stack>
-                      {room.availableCount < 1 ? (
-                        <Button
-                          variant="outlined"
-                          disabled={room.availableCount < 1}
-                          sx={{
-                            color: "black",
-                            borderColor: "black",
-                            width: isHandheldDevice ? "100%" : "180px",
-                            height: "40px",
-                            marginTop: isHandheldDevice ? 1 : 0,
-                            "&.Mui-disabled": {
-                              opacity: 1, // Set your desired opacity
-                              color: "black", // Ensure text color remains the same
-                              bgcolor: theme.palette.CtColorScheme.grey100,
-                              borderColor: "black", // Ensure border color remains the same
-                            },
-                          }}
-                        >
-                          FULLY BOOKED
-                        </Button>
-                      ) : roomSelected ? (
+                      <Stack
+                        direction={isHandheldDevice ? "column" : "row"}
+                        marginTop={1}
+                        justifyContent={"space-between"}
+                      >
                         <Stack
                           direction={"row"}
-                          width={isHandheldDevice ? "100%" : "180px"}
-                          marginTop={isHandheldDevice ? 1 : 0}
-                          height={"40px"}
+                          alignItems={"flex-end"}
+                          spacing={1}
                         >
+                          <Typography variant="h5">
+                            RM
+                            {(
+                              room.price +
+                              (room.price * parseInt(props.taxPercentage)) / 100
+                            ).toFixed(2)}
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            for {props.bookingSchedule.duration}h
+                          </Typography>
+                          {props.bookingSchedule.duration &&
+                            DurationIcons.duration(
+                              matchDurationEnum(props.bookingSchedule.duration)
+                            ) !== "" && (
+                              <Stack direction={"row"} alignItems={"center"}>
+                                <Image
+                                  src={DurationIcons.duration(
+                                    matchDurationEnum(
+                                      props.bookingSchedule.duration
+                                    )
+                                  )}
+                                  alt="feature"
+                                  style={{ marginBottom: 3 }}
+                                />
+                              </Stack>
+                            )}
+                        </Stack>
+                        {room.availableCount < 1 ? (
                           <Button
                             variant="outlined"
-                            onClick={() =>
-                              props.bookingSchedule.duration &&
-                              props.handleDeductRoomBooking({
-                                roomTypeId: room.name,
-                                roomType: room.name,
-                                duration: props.bookingSchedule.duration,
-                                price: room.price,
-                                quantity: 1,
-                                bedType: room.bedType,
-                                capacity: room.capacity,
-                                zone: room.zone,
-
-                                sum: 0,
-                              })
-                            }
+                            disabled={room.availableCount < 1}
                             sx={{
-                              width: "10%",
-                              padding: 0,
-                              border: 1,
                               color: "black",
-                              bgcolor: theme.palette.primary.main,
+                              borderColor: "black",
+                              width: isHandheldDevice ? "100%" : "180px",
+                              height: "40px",
+                              marginTop: isHandheldDevice ? 1 : 0,
+                              "&.Mui-disabled": {
+                                opacity: 1, // Set your desired opacity
+                                color: "black", // Ensure text color remains the same
+                                bgcolor: theme.palette.CtColorScheme.grey100,
+                                borderColor: "black", // Ensure border color remains the same
+                              },
                             }}
                           >
-                            <Remove />
+                            FULLY BOOKED
                           </Button>
-                          <Box
-                            display={"flex"}
-                            justifyContent={"center"}
-                            alignItems={"center"}
-                            width={"80%"}
-                            borderTop={1}
-                            borderBottom={1}
+                        ) : roomSelected ? (
+                          <Stack
+                            direction={"row"}
+                            width={isHandheldDevice ? "100%" : "180px"}
+                            marginTop={isHandheldDevice ? 1 : 0}
+                            height={"40px"}
                           >
-                            {roomSelected
-                              ? props.roomBookings.find(
-                                  (roomBooking) =>
-                                    roomBooking.roomTypeId === room.name
-                                )?.quantity
-                              : 0}
-                          </Box>
+                            <Button
+                              variant="outlined"
+                              onClick={() =>
+                                props.bookingSchedule.duration &&
+                                props.handleDeductRoomBooking({
+                                  roomTypeId: room.name,
+                                  roomType: room.name,
+                                  duration: props.bookingSchedule.duration,
+                                  price: room.price,
+                                  quantity: 1,
+                                  bedType: room.bedType,
+                                  capacity: room.capacity,
+                                  zone: room.zone,
+
+                                  sum: 0,
+                                })
+                              }
+                              sx={{
+                                width: "10%",
+                                padding: 0,
+                                border: 1,
+                                color: "black",
+                                bgcolor: theme.palette.primary.main,
+                              }}
+                            >
+                              <Remove />
+                            </Button>
+                            <Box
+                              display={"flex"}
+                              justifyContent={"center"}
+                              alignItems={"center"}
+                              width={"80%"}
+                              borderTop={1}
+                              borderBottom={1}
+                            >
+                              {roomSelected
+                                ? props.roomBookings.find(
+                                    (roomBooking) =>
+                                      roomBooking.roomTypeId === room.name
+                                  )?.quantity
+                                : 0}
+                            </Box>
+                            <Button
+                              variant="outlined"
+                              disabled={
+                                roomSelected.quantity >= room.availableCount
+                              }
+                              onClick={() =>
+                                props.bookingSchedule.duration &&
+                                props.handleAddRoomBooking({
+                                  roomTypeId: room.name,
+                                  roomType: room.name,
+                                  duration: props.bookingSchedule.duration,
+                                  price: room.price,
+                                  quantity: 1,
+                                  bedType: room.bedType,
+                                  capacity: room.capacity,
+                                  zone: room.zone,
+
+                                  sum: 0,
+                                })
+                              }
+                              sx={{
+                                width: "10%",
+                                padding: 0,
+                                border: 1,
+                                color: "black",
+                                bgcolor: theme.palette.primary.main,
+                              }}
+                            >
+                              <Add />
+                            </Button>
+                          </Stack>
+                        ) : (
                           <Button
                             variant="outlined"
-                            disabled={
-                              roomSelected.quantity >= room.availableCount
-                            }
                             onClick={() =>
                               props.bookingSchedule.duration &&
                               props.handleAddRoomBooking({
@@ -448,56 +476,27 @@ const RoomTypesContent = (props: {
                                 bedType: room.bedType,
                                 capacity: room.capacity,
                                 zone: room.zone,
+                                imageUrl: room.imageUrl,
 
                                 sum: 0,
                               })
                             }
                             sx={{
-                              width: "10%",
-                              padding: 0,
-                              border: 1,
                               color: "black",
-                              bgcolor: theme.palette.primary.main,
+                              borderColor: "black",
+                              width: isHandheldDevice ? "100%" : "180px",
+                              height: "40px",
+                              marginTop: isHandheldDevice ? 1 : 0,
                             }}
                           >
-                            <Add />
+                            SELECT ROOM
                           </Button>
-                        </Stack>
-                      ) : (
-                        <Button
-                          variant="outlined"
-                          onClick={() =>
-                            props.bookingSchedule.duration &&
-                            props.handleAddRoomBooking({
-                              roomTypeId: room.name,
-                              roomType: room.name,
-                              duration: props.bookingSchedule.duration,
-                              price: room.price,
-                              quantity: 1,
-                              bedType: room.bedType,
-                              capacity: room.capacity,
-                              zone: room.zone,
-                              imageUrl: room.imageUrl,
-
-                              sum: 0,
-                            })
-                          }
-                          sx={{
-                            color: "black",
-                            borderColor: "black",
-                            width: isHandheldDevice ? "100%" : "180px",
-                            height: "40px",
-                            marginTop: isHandheldDevice ? 1 : 0,
-                          }}
-                        >
-                          SELECT ROOM
-                        </Button>
-                      )}
-                    </Stack>
-                  </Box>
-                </Grid>
-              );
-            })}
+                        )}
+                      </Stack>
+                    </Box>
+                  </Grid>
+                );
+              })}
       </Grid>
     </Box>
   );
