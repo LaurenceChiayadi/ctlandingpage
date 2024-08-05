@@ -100,7 +100,7 @@ const DesktopView = (props: {
             <Image
               src={props.images[0]}
               alt="airside-display-1"
-              style={{ height: "80vh", width: "100%" }}
+              style={{ height: "80vh", width: "100%", objectFit: "cover" }}
             />
           </div>
         </Box>
@@ -114,7 +114,7 @@ const DesktopView = (props: {
             <Image
               src={props.images[1]}
               alt="airside-display-1"
-              style={{ height: "80vh", width: "100%" }}
+              style={{ height: "80vh", width: "100%", objectFit: "cover" }}
             />
           </div>
         </Box>
@@ -128,7 +128,7 @@ const DesktopView = (props: {
             <Image
               src={props.images[2]}
               alt="airside-display-1"
-              style={{ height: "80vh", width: "100%" }}
+              style={{ height: "80vh", width: "100%", objectFit: "cover" }}
             />
           </div>
         </Box>

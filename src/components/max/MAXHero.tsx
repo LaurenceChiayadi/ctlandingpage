@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import HotelHero from "../global/hotel/HotelHero";
 
-const textContent = "CapsuleTransit Landside";
+const textContent = "CapsuleTransit MAX";
 
 const MAXHero = () => {
   const [scrollPosition, setScrollPosition] = useState(0);

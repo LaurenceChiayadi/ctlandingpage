@@ -29,4 +29,4 @@ const Max = () => {
   );
 };
 
-export default UnderMaintenance;
+export default Max;
