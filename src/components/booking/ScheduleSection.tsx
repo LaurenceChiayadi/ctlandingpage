@@ -23,7 +23,7 @@ import Image from "next/image";
 
 const title = "When would you like to check in?";
 
-const durations = [3, 6, 12, 24];
+const durations = [3, 6, 12];
 
 const ScheduleSection = (props: {
   bookingLocation: IBookingLocation;
