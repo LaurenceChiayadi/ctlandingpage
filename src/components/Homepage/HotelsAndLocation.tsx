@@ -46,7 +46,8 @@ const terminal1Hotels = {
   location: "KLIA Terminal 1, Public Area",
   backgroundUrl: SleepLoungeRoomImage,
   logo: PublicAreaIcon,
-  description: "-",
+  description:
+    "For globetrotters with early flights, Late arrivals, Missed flights or last minute flight cancellations.",
   link: "/klia-1/sleep-lounge",
   features: [
     featuresEnum.amMin3Hour,
