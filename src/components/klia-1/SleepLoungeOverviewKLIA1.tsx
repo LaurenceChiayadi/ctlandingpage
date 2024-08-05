@@ -3,7 +3,7 @@ import HotelOverview from "../global/hotel/HotelOverview";
 
 const headerContent = ["02", "/03", "Public Area"];
 
-const textContent = ["Sleep Lounge", "Lorem Ipsum.", "/klia-1/sleep-lounge"];
+const textContent = ["Sleep Lounge", "", "/klia-1/sleep-lounge"];
 
 const SleepLoungeOverviewKLIA2 = () => {
   return (

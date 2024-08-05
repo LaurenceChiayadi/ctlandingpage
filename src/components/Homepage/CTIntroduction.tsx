@@ -130,7 +130,7 @@ const DesktopView = (props: { handleHighlightButtonPress: VoidFunction }) => {
               marginRight={index % 2 === 0 ? 5 : 0}
             >
               <Typography variant="h4">{content.title}</Typography>
-              <Typography variant="h6">{content.description}</Typography>
+              {/* <Typography variant="h6">{content.description}</Typography> */}
             </Box>
           </Grid>
         ))}
