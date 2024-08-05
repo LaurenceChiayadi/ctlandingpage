@@ -68,7 +68,7 @@ const terminal2Hotels = [
     backgroundUrl: AirsideImage,
     logo: RestrictedAreaIcon,
     description:
-      "For early flights, Late arrivals, Missed flights or last minute flight cancellations.",
+      "Suitable for transiting within KLIA2 International Departure area.",
     link: "/klia-2/airside",
     features: [
       featuresEnum.OneHourStay,
@@ -89,7 +89,7 @@ const terminal2Hotels = [
     title: "Capsule Transit Landside",
     location: "KLIA Terminal 2, Public Area",
     description:
-      "Suitable for transiting within KLIA2 International Departure area.",
+      "For early flights, Late arrivals, Missed flights or last minute flight cancellations.",
     backgroundUrl: LandSideImage,
     logo: PublicAreaIcon,
     link: "/klia-2/landside",
