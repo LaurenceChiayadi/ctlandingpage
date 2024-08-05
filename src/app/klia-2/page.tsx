@@ -11,21 +11,20 @@ import { Box } from "@mui/material";
 
 const KLIA2Page = () => {
   return (
-    // <Box
-    //   display={"flex"}
-    //   width={"100vw"}
-    //   flexDirection={"column"}
-    //   sx={{ overflowX: "hidden" }}
-    // >
-    //   <NavBar />
-    //   <KLIA2Hero />
-    //   <AirsideOverviewKLIA2 />
-    //   <LandsideOverviewKLIA2 />
-    //   <MaxOverviewKLIA2 />
-    //   <Box marginY={3} />
-    //   <Footer />
-    // </Box>
-    <UnderMaintenance />
+    <Box
+      display={"flex"}
+      width={"100vw"}
+      flexDirection={"column"}
+      sx={{ overflowX: "hidden" }}
+    >
+      <NavBar />
+      <KLIA2Hero />
+      <AirsideOverviewKLIA2 />
+      <LandsideOverviewKLIA2 />
+      <MaxOverviewKLIA2 />
+      <Box marginY={3} />
+      <Footer />
+    </Box>
   );
 };
 

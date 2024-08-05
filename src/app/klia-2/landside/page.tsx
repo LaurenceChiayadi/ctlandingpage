@@ -29,4 +29,4 @@ const Landside = () => {
   );
 };
 
-export default UnderMaintenance;
+export default Landside;

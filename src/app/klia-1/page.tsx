@@ -28,4 +28,4 @@ const KLIA1Page = () => {
   );
 };
 
-export default UnderMaintenance;
+export default KLIA1Page;

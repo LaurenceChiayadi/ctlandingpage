@@ -24,4 +24,4 @@ const CSRPage = () => {
   );
 };
 
-export default UnderMaintenance;
+export default CSRPage;

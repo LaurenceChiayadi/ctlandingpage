@@ -28,4 +28,4 @@ const SleepLoungePage = () => {
   );
 };
 
-export default UnderMaintenance;
+export default SleepLoungePage;

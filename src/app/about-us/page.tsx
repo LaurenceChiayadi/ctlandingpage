@@ -23,4 +23,4 @@ const AboutUs = () => {
   );
 };
 
-export default UnderMaintenance;
+export default AboutUs;

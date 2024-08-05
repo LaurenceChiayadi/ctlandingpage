@@ -24,4 +24,4 @@ const CareerPage = () => {
   );
 };
 
-export default UnderMaintenance;
+export default CareerPage;

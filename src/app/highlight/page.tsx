@@ -15,4 +15,4 @@ const Highlight = () => {
   );
 };
 
-export default UnderMaintenance;
+export default Highlight;

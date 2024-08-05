@@ -17,4 +17,4 @@ const NewsPage = () => {
   );
 };
 
-export default UnderMaintenance;
+export default NewsPage;

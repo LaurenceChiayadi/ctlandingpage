@@ -27,7 +27,7 @@ export default function Home() {
   const theme = useTheme();
   return (
     <main>
-      {/* <Box
+      <Box
         display={"flex"}
         // width={"100vw"}
         flexDirection={"column"}
@@ -41,8 +41,7 @@ export default function Home() {
         <CTDedication />
         <ImageFooter />
         <Footer />
-      </Box> */}
-      <UnderMaintenance />
+      </Box>
     </main>
   );
 }
