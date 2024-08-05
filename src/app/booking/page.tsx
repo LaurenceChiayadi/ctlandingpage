@@ -352,7 +352,7 @@ const BookingPage = () => {
         promotionAmount: paymentInfo.promotionAmount,
         sum: paymentInfo.sum,
         creditAmount: paymentInfo.debitAmount,
-        rounding: paymentInfo.rounding,
+        roundings: paymentInfo.rounding,
         countryCode: selectedCountry[0].countryCode,
         firstName: formik.values.firstName,
         lastName: formik.values.lastName,
