@@ -78,8 +78,8 @@ const BestLocationSection = () => {
                 Airside at Satellite Building, International Departure Hall,
                 Level 2 (towards Gate Q).
               </li>
-              <li>Landside at gatewat@klia2, Level 1.</li>
-              <li>MAX at lorem ipsum.</li>
+              <li>Landside at gateway@klia2, Level 1.</li>
+              <li>MAX at gateway@klia2, Level 2M.</li>
             </ul>
           </Stack>
         </Grid>

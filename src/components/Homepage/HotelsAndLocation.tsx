@@ -47,7 +47,7 @@ const terminal1Hotels = {
   backgroundUrl: SleepLoungeRoomImage,
   logo: PublicAreaIcon,
   description:
-    "Lorem ipsum dolor sit amet, consectetuer adipis cing elit, sed diam nonummy nibh euismod tinci dunt ut laoreet dolore.",
+    "For globetrotters with early flights, Late arrivals, Missed flights or last minute flight cancellations.",
   link: "/klia-1/sleep-lounge",
   features: [
     featuresEnum.amMin3Hour,
@@ -68,7 +68,7 @@ const terminal2Hotels = [
     backgroundUrl: AirsideImage,
     logo: RestrictedAreaIcon,
     description:
-      "For early flights, Late arrivals, Missed flights or last minute flight cancellations.",
+      "Suitable for transiting within KLIA2 International Departure area.",
     link: "/klia-2/airside",
     features: [
       featuresEnum.OneHourStay,
@@ -89,7 +89,7 @@ const terminal2Hotels = [
     title: "Capsule Transit Landside",
     location: "KLIA Terminal 2, Public Area",
     description:
-      "Suitable for transiting within KLIA2 International Departure area.",
+      "For early flights, Late arrivals, Missed flights or last minute flight cancellations.",
     backgroundUrl: LandSideImage,
     logo: PublicAreaIcon,
     link: "/klia-2/landside",

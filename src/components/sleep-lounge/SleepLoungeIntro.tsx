@@ -1,5 +1,5 @@
 import SleepLoungeDisplay1 from "./images/sleeplounge-display-1@2x.jpg";
-import SleepLoungeDisplay2 from "./images/sleeplounge-display-2@2x.jpg";
+import SleepLoungeDisplay2 from "./images/room-single-mixed@2x.jpg";
 import SleepLoungeDisplay3 from "./images/sleeplounge-display-3@2x.jpg";
 import HotelIntro from "../global/hotel/HotelIntro";
 
