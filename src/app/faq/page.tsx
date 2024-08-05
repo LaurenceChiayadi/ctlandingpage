@@ -16,4 +16,4 @@ const FAQPage = () => {
     </>
   );
 };
-export default UnderMaintenance;
+export default FAQPage;

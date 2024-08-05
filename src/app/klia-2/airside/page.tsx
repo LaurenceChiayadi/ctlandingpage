@@ -28,4 +28,4 @@ const Airside = () => {
   );
 };
 
-export default UnderMaintenance;
+export default Airside;

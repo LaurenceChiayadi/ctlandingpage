@@ -15,4 +15,4 @@ const Commitment = () => {
   );
 };
 
-export default UnderMaintenance;
+export default Commitment;
