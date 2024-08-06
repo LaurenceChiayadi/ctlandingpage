@@ -1,9 +1,11 @@
 import { IBookingLocation, IBookingSchedule } from "@/models/Booking";
 import {
+  Alert,
   Box,
   Button,
   MenuItem,
   Select,
+  Snackbar,
   Stack,
   Typography,
   useMediaQuery,
@@ -20,6 +22,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 
 import IconArrowRight from "@/assets/icons/general/btn-icon-arrow-left.svg";
 import Image from "next/image";
+import { useState } from "react";
 
 const title = "When would you like to check in?";
 
@@ -35,6 +38,16 @@ const ScheduleSection = (props: {
   const theme = useTheme();
   const isHandheldDevice = useMediaQuery("(max-width:1050px)");
 
+  const [openErrorAlert, setOpenErrorAlert] = useState<string>("");
+
+  const handleOpenAlert = (text: string) => {
+    setOpenErrorAlert(text);
+  };
+
+  const handleCloseAlert = () => {
+    setOpenErrorAlert("");
+  };
+
   const currentDateTime = new Date();
 
   const handleDateOnChange = (date: Date): void => {
@@ -47,6 +60,35 @@ const ScheduleSection = (props: {
     props.handleChangeDatePromotion(newValue);
     props.handleEmptyRoomBooking();
   };
+
+  const isSameDay = (date1: Date, date2?: Date) =>
+    date2 && date1.toDateString() === date2.toDateString();
+
+  const getMinTime = () => {
+    if (isSameDay(currentDateTime, props.bookingSchedule.date)) {
+      return currentDateTime; // Minimum time is current time if the selected date is today
+    } else if (props.bookingSchedule.date) {
+      return new Date(props.bookingSchedule.date.setHours(0, 0, 0, 0)); // Start of the day (00:00)
+    }
+    return null;
+  };
+
+  const handleNextButtonClick = () => {
+    if (!props.bookingSchedule.date) {
+      handleOpenAlert(
+        "It seems like you haven't picked a date yet. Please select a date to continue"
+      );
+    } else if (props.bookingSchedule.date < currentDateTime) {
+      handleOpenAlert(
+        "Oops! It looks like you've selected a past date. Please pick a date in the future."
+      );
+    } else if (!props.bookingSchedule.duration) {
+      handleOpenAlert("Please select a duration to proceed with your booking.");
+    } else {
+      props.handleChangeStepper(3);
+    }
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Box
@@ -106,12 +148,23 @@ const ScheduleSection = (props: {
               slots={{
                 openPickerIcon: ArrowDropDownIcon,
               }}
-              minTime={currentDateTime}
+              minTime={getMinTime() ?? undefined}
               slotProps={{
                 layout: {
                   sx: {
                     [`.${multiSectionDigitalClockSectionClasses.root}:after`]: {
                       display: "none",
+                    },
+                    "& .MuiList-root": {
+                      width: "70px",
+                    },
+                    "& .MuiClockNumber-root": {
+                      padding: "4px",
+                      fontSize: "1.15rem",
+                    },
+                    "& .MuiClockPointer-thumb": {
+                      width: "4px",
+                      height: "4px",
                     },
                   },
                 },
@@ -176,7 +229,7 @@ const ScheduleSection = (props: {
               Back
             </Typography>
           </Button>
-          <Button onClick={() => props.handleChangeStepper(3)}>
+          <Button onClick={handleNextButtonClick}>
             <Typography variant="h4" marginRight={3}>
               Next
             </Typography>
@@ -184,6 +237,21 @@ const ScheduleSection = (props: {
           </Button>
         </Box>
       </Box>
+      <Snackbar
+        open={Boolean(openErrorAlert)}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        autoHideDuration={6000}
+        onClose={handleCloseAlert}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%", fontSize: "1rem" }}
+        >
+          {openErrorAlert}
+        </Alert>
+      </Snackbar>
     </LocalizationProvider>
   );
 };
