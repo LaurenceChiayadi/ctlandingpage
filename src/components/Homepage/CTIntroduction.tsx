@@ -25,12 +25,30 @@ const textContents = [
 ];
 
 const gridContents = [
-  { title: "Best Locations", description: "Lorem Ipsum" },
-  { title: "Flexible Check-in Time", description: "Lorem Ipsum" },
-  { title: "Book by the Hours", description: "Lorem Ipsum" },
-  { title: "Luggage Storage Service", description: "Lorem Ipsum" },
-  { title: "Refreshing Shower Service", description: "Lorem Ipsum" },
-  { title: "Gender-Specific Zones", description: "Lorem Ipsum" },
+  {
+    title: "Best Locations",
+    description: "Only few minutes’ walk away from terminals.",
+  },
+  {
+    title: "Flexible Check-in Time",
+    description: "Check-in anytime, 24/7 flexibility.",
+  },
+  {
+    title: "Book by the Hours",
+    description: "Stay only for the hours you need.",
+  },
+  {
+    title: "Luggage Storage Service",
+    description: "Secure storage for your bags.*",
+  },
+  {
+    title: "Refreshing Shower Service",
+    description: "Rejuvenate with our convenient and clean shower facilities.*",
+  },
+  {
+    title: "Gender-Specific Zones",
+    description: "Separated areas for men and women for more privacy.*",
+  },
 ];
 
 const CTIntroduction = () => {
@@ -130,11 +148,16 @@ const DesktopView = (props: { handleHighlightButtonPress: VoidFunction }) => {
               marginRight={index % 2 === 0 ? 5 : 0}
             >
               <Typography variant="h4">{content.title}</Typography>
-              {/* <Typography variant="h6">{content.description}</Typography> */}
+              <Typography variant="h6">{content.description}</Typography>
             </Box>
           </Grid>
         ))}
       </Grid>
+      <Box display={"flex"} justifyContent={"flex-end"}>
+        <Typography variant="caption">
+          *Note: Availability of services may vary by location.
+        </Typography>
+      </Box>
       <Box marginY={10}>
         <CTButton
           onClick={props.handleHighlightButtonPress}
@@ -196,6 +219,11 @@ const HandheldView = (props: { handleHighlightButtonPress: VoidFunction }) => {
           </Grid>
         ))}
       </Grid>
+      <Box display={"flex"} justifyContent={"flex-end"}>
+        <Typography variant="caption">
+          *Note: Availability of services may vary by location.
+        </Typography>
+      </Box>
       <Box marginY={10}>
         <CTButton
           onClick={props.handleHighlightButtonPress}
