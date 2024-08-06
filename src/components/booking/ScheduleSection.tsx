@@ -68,7 +68,8 @@ const ScheduleSection = (props: {
     if (isSameDay(currentDateTime, props.bookingSchedule.date)) {
       return currentDateTime; // Minimum time is current time if the selected date is today
     } else if (props.bookingSchedule.date) {
-      return new Date(props.bookingSchedule.date.setHours(0, 0, 0, 0)); // Start of the day (00:00)
+      const minDate = new Date();
+      return new Date(minDate.setHours(0, 0, 0, 0)); // Start of the day (00:00)
     }
     return null;
   };
