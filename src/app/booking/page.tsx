@@ -52,7 +52,6 @@ import axios from "axios";
 import CTLogo from "../../assets/icons/general/Logo-CT.svg";
 import CTLogoOnly from "@/assets/icons/general/LogoPrimary.svg";
 import CloseIcon from "@/assets/icons/general/icon-menu-close.svg";
-import Link from "next/link";
 import { useBookingData } from "@/context/BookingContext";
 
 const BookingPage = () => {
@@ -387,10 +386,23 @@ const BookingPage = () => {
 
           setBookingData(tempBookingData);
 
+          const formatter = new Intl.DateTimeFormat("en-US", {
+            timeZone: "Asia/Singapore",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false, // Use 24-hour format
+          });
+
+          const singaporeTime = formatter.format(bookingSchedule.date);
+
           const iPay88Data = {
             amount: paymentInfo.debitAmount,
             refNo: tempBookingData.bookingId,
-            bookingNo: tempBookingData.bookingNo,
+            bookingNo: `${tempBookingData.bookingNo} -> Check In Date: ${singaporeTime}`,
             userContact: formik.values.phone,
             userEmail: formik.values.email,
             userName: formik.values.firstName + " " + formik.values.lastName,
